@@ -1,0 +1,8 @@
+POST http://localhost:5256/CreateAccount
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "Password":"123qwe"
+}
+
