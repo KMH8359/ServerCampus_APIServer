@@ -12,6 +12,6 @@
     apigameserver ->> apiserver: 로그인 정보 검증 요청
     apiserver ->>+ apigameserver: 검증 완료
     apigameserver -->> apigameserver: redis에 클라이언트의 토큰 저장 및 신규 유저일 경우 gamedata 생성
-    client ->>+ apigameserver: 이후 진행되는 요청은 redis를 이용하여 유효성을 검증함
+    apigameserver ->>+ client: 클라이언트에 검증된 토큰 발급
 
 ```
