@@ -5,13 +5,11 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
 app.UseRouting();
 
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-app.Run();
+IConfiguration configuration = app.Configuration;
+DBManager.Init(configuration);
+
+app.Run(configuration["ServerAddress"]);

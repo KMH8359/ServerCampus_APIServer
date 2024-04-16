@@ -19,7 +19,7 @@
     },
     "APISERVER": {
       "commandName": "Project",
-      "launchBrowser": false,
+      "launchBrowser": true,
       "launchUrl": "Login",
       "applicationUrl": "http://localhost:5256",
       "environmentVariables": {

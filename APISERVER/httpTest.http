@@ -2,6 +2,16 @@ POST http://localhost:5256/Login
 Content-Type: application/json
 
 {
-  "ID":"jacking",
-  "PW":"dsd"
+  "ID":"jacking751",
+  "Password":"123qwe"
 }
+
+###
+POST http://localhost:5256/CreateAccount
+Content-Type: application/json
+
+{
+  "Email":"jacking751",
+  "Password":"123qwe"
+}
+
