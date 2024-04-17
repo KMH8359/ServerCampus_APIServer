@@ -2,12 +2,13 @@ using MySqlConnector;
 using SqlKata.Execution;
 using Microsoft.AspNetCore.Mvc; 
 
-[ApiController]
-[Route("[controller]")]
+// [] 기호는 함수의 특성을 나타내는 애트리뷰트 기호
+[ApiController]                 // 유효성 검사 및 400 응답, 속성 라우팅, 바인딩된 소스 매개변수 추론 등의 기능을 수행하는 애트리뷰트. 하단의 route를 요구함
+[Route("[controller]")]         // 쿼리가 호출해야 하는 함수를 라우팅하는 애트리뷰트
 public class CreateAccount : Controller
 {
     [HttpPost]
-    public async Task<CreateAccountResponse> Post(CreateAccountRequest request)
+    public async Task<CreateAccountResponse> Signup(CreateAccountRequest request)
     {
         var response = new CreateAccountResponse {Result = ErrorCode.None};
         

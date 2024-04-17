@@ -7,25 +7,18 @@ using SqlKata.Execution;
 
 public class DBManager
 {
-    static string GameDBConnectString;
-    static string RedisAddress;
-
-    public static RedisConnection RedisConn { get; set; }
+    static string? HiveDBConnectString;
     
     
     public static void Init(IConfiguration configuration)
     {
-        GameDBConnectString = configuration.GetSection("DBConnection")["MySqlGame"];
-        RedisAddress = configuration.GetSection("DBConnection")["Redis"];
-        
-        var config = new RedisConfig("basic", RedisAddress);
-        RedisConn = new RedisConnection(config);
+        HiveDBConnectString = configuration.GetSection("DBConnection")["MySqlHive"];
     }
 
     
     public static async Task<QueryFactory> GetGameDBQuery()
     {
-        var connection = new MySqlConnection(GameDBConnectString);
+        var connection = new MySqlConnection(HiveDBConnectString);
         await connection.OpenAsync();
         
         var compiler = new SqlKata.Compilers.MySqlCompiler();

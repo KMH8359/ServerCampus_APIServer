@@ -8,7 +8,7 @@ using SqlKata.Execution;
 public class Authentication : ControllerBase
 {
     [HttpPost]
-    public async Task<AuthResponse> Post(AuthRequest request)
+    public async Task<AuthResponse> Authenticate(AuthRequest request)
     {
         var response = new AuthResponse();
         response.Result = ErrorCode.None;
@@ -25,7 +25,7 @@ public class Authentication : ControllerBase
                         
             var hashingPassword = Security.MakeHashingPassWord(userInfo.SaltValue, request.Password);
 
-            Console.WriteLine($"[Request Login] Email:{request.Email}, request.Password:{request.Password},  saltValue:{userInfo.SaltValue}, hashingPassword:{hashingPassword}");
+            Console.WriteLine($"[Request Authenticate] Email:{request.Email}, request.Password:{request.Password},  saltValue:{userInfo.SaltValue}, hashingPassword:{hashingPassword}");
             if (userInfo.HashedPassword != hashingPassword)
             {
                 response.Result = ErrorCode.Login_Fail_PW;
@@ -42,14 +42,14 @@ public class Authentication : ControllerBase
 
 public class AuthRequest
 {
-    public string? Email { get; set; }
-    public string? Authtoken { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
 }
 
 public class AuthResponse
 {
     public ErrorCode Result { get; set; }
-    public string? Authtoken { get; set; }
+
 }
 
 class DBUserInfo
