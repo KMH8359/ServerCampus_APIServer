@@ -32,6 +32,7 @@ public class Authentication : ControllerBase
                 return response;
             }
 
+            response.AccountId = userInfo.AccountId;
             db.Dispose();
         }
 
@@ -49,11 +50,12 @@ public class AuthRequest
 public class AuthResponse
 {
     public ErrorCode Result { get; set; }
-
+    public long AccountId { get; set; }
 }
 
 class DBUserInfo
 {
+    public long AccountId {get; set;}
     public string Email { get; set; }
     public string HashedPassword { get; set; }
     public string SaltValue { get; set; }

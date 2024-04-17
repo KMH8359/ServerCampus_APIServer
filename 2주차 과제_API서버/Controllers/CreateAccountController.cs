@@ -8,18 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 public class CreateAccount : Controller
 {
     [HttpPost]
-    public async Task<CreateAccountResponse> Signup(CreateAccountRequest request)
+    public async Task<CreateAccountResponse> Signup(CreateAccountRequest request)   // 비동기 함수 async Task<>
     {
         var response = new CreateAccountResponse {Result = ErrorCode.None};
         
-        var saltValue = Security.SaltString();
-        var hashingPassword = Security.MakeHashingPassWord(saltValue, request.Password);
+        var saltValue = Security.SaltString();  // 암호화 솔트값 생성. 솔트값은 비밀번호가 생성되거나 변경될 때마다 재생성된다
+        var hashingPassword = Security.MakeHashingPassWord(saltValue, request.Password); // 솔트값과 패스워드를 사용하여 암호화
         
-        using (var db = await DBManager.GetGameDBQuery())
+        using (var db = await DBManager.GetGameDBQuery())   // db 변수의 명시적인 자원 해제를 위한 대괄호 사용
         {
             try
             {
-                var count = await db.Query("account").InsertAsync(new
+                var count = await db.Query("account").InsertAsync(new   // 성공시 1, 실패시 0 리턴
                 {
                     Email = request.Email,
                     SaltValue = saltValue,
