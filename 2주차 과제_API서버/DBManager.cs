@@ -21,8 +21,8 @@ public class DBManager
         var connection = new MySqlConnection(HiveDBConnectString);
         await connection.OpenAsync();
         
-        var compiler = new SqlKata.Compilers.MySqlCompiler();
-        var queryFactory = new SqlKata.Execution.QueryFactory(connection, compiler);
+        var compiler = new MySqlCompiler();        // SQL 쿼리를 컴파일하는 컴파일러 생성
+        var queryFactory = new QueryFactory(connection, compiler);
         
         return queryFactory;
     }
