@@ -12,4 +12,4 @@ app.UseEndpoints(endpoints => { endpoints.MapControllers(); }); // 엔드포인�
 IConfiguration configuration = app.Configuration; // appsettings.json 파일에서 설정값 읽기
 DBManager.Init(configuration);
 
-app.Run(configuration["ServerAddress"]);
+     app.Run(configuration["ServerAddress"]);
