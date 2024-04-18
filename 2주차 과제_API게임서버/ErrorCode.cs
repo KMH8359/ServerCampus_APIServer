@@ -7,7 +7,8 @@ public enum ErrorCode : int
     
     Login_Fail_NotUser = 14,
     Login_Fail_PW = 15,
-    Login_Fail_Exception = 16,
+    Login_Fail_Token = 16,
+    Login_Fail_Exception = 17,
     
-    INSERT_GAMEDATA_FAIL = 21,
+    Authenticate_Fail_NotToken = 21,
 }

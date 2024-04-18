@@ -17,17 +17,17 @@ public class Login : ControllerBase
     {
         var response = new LoginResponse();
         response.Result = ErrorCode.None;
-        var authResponse = new AuthResponse();
+        var loginResponse = new LoginResponse();
         try
         {
             var httpResponse =
                 await _httpClient.PostAsJsonAsync(ApiServerURL,
                     request); // API 서버로 패킷을 보내기 위해 request 객체를 json으로 캐스팅하여 전달
 
-            authResponse =
+            loginResponse =
                 await httpResponse.Content
                     .ReadFromJsonAsync<
-                        AuthResponse>(); // API 서버가 반환한 httpResponse 객체 내부의 필드 Content를 AuthResponse으로 읽어오는 함수
+                        LoginResponse>(); // API 서버가 반환한 httpResponse 객체 내부의 필드 Content를 AuthResponse으로 읽어오는 함수
 
         }
         catch (Exception ex)
@@ -37,9 +37,9 @@ public class Login : ControllerBase
             return response;
         }
         
-        if (authResponse.Result != ErrorCode.None)
+        if (loginResponse.Result != ErrorCode.None)
         {
-            response.Result = authResponse.Result;
+            response.Result = loginResponse.Result;
             return response;
         }
         
@@ -47,12 +47,11 @@ public class Login : ControllerBase
         // 처음 로그인한 계정은 UserGameData에 본인의 데이터를 생성해야 한다.
         using (var db = await DBManager.GetGameDBQuery())
         {
-            var userGameData = await db.Query("UserGameData").Where("AccountId", authResponse.AccountId).FirstOrDefaultAsync<DBUserGameData>(); // 조건을 만족하는 컬럼이 있는지만 알면 되고 굳이 가져올 필요는 없는데 FirstOrDefaultAsync 말고 다른 함수는 없을까
+            var userGameData = await db.Query("UserGameData").Where("Email", request.Email).FirstOrDefaultAsync<DBUserGameData>(); 
             if (userGameData == null)
             {
                 var count = await db.Query("UserGameData").InsertAsync(new
                 {
-                    AccountId = authResponse.AccountId,
                     Level = 1,
                     EXP = 0,
                     Win = 0,
@@ -61,7 +60,7 @@ public class Login : ControllerBase
 
                 if (count != 1)
                 {
-                    response.Result = ErrorCode.INSERT_GAMEDATA_FAIL;
+                    response.Result = ErrorCode.Login_Fail_Exception;
                     return response;
                 }
             }
@@ -73,7 +72,7 @@ public class Login : ControllerBase
         var redisId = new RedisString<string>(DBManager.RedisConn, request.Email, idDefaultExpiry);
         await redisId.SetAsync(tokenValue);
 
-        response.Logintoken = tokenValue;
+        response.LoginToken = tokenValue;
         return response;
     }
 }
@@ -82,13 +81,13 @@ public class Login : ControllerBase
 public class LoginRequest
 {
     public string? Email { get; set; }
-    public string? Password { get; set; }
+    public string? LoginToken { get; set; }
 }
 
 public class LoginResponse
 {
     public ErrorCode Result { get; set; }
-    public string Logintoken { get; set; }
+    public string? LoginToken { get; set; }
 }
 
 public class AuthResponse
