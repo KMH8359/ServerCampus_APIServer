@@ -1,13 +1,10 @@
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using CloudStructures.Structures;
 using HIVESERVER.Repository;
-//using HIVESERVER.Services;
+using HIVESERVER.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using SqlKata.Execution;
 using Newtonsoft.Json;
 using ZLogger;
 
@@ -17,52 +14,41 @@ namespace HIVESERVER.Controllers;
 [Route("[controller]")]
 public class Login : ControllerBase
 {
-    private readonly ILogger Logger;
+    private readonly ILogger _logger;
+    private readonly IAccountDb _accountDb;
+    private readonly IMemoryDb _memoryDb;
 
-    public Login(ILogger<Login> logger)
+    public Login(ILogger<Login> logger, IAccountDb accountDb, IMemoryDb memoryDb)
     {
-        Logger = logger;
+        _logger = logger;
+        _accountDb = accountDb;
+        _memoryDb = memoryDb;
     }
+
     [HttpPost]
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         var response = new LoginResponse();
-        response.Result = ErrorCode.None;
-        string? tokenValue = null;
-
-        using (var db = await DBManager.GetGameDBQuery())
+        // ID, PW 검증
+        (ErrorCode errorCode, long accountId) = await _accountDb.HiveServerLoginAsync(request.Email, request.Password);
+        if (errorCode != ErrorCode.None)
         {
-            var userAccountInfo = await db.Query("account").Where("Email", request.Email).FirstOrDefaultAsync<DBUserInfo>();
-
-            if (userAccountInfo == null || string.IsNullOrEmpty(userAccountInfo.HashedPassword)) {
-                response.Result = ErrorCode.Login_Fail_NotUser;
-                return response;
-            }
-
-            var hashingPassword = Security.MakeHashingPassWord(userAccountInfo.SaltValue, request.Password);
-
-            if (userAccountInfo.HashedPassword != hashingPassword)
-            {
-                response.Result = ErrorCode.Login_Fail_PW;
-                return response;
-            }
-            
-            tokenValue = Security.CreateAuthToken();
-            var idDefaultExpiry = TimeSpan.FromDays(1);
-            var redisId = new RedisString<string>(DBManager.RedisConn, request.Email, idDefaultExpiry);
-            var setAuthTokenSucceed = await redisId.SetAsync(tokenValue);
-            
-            if (setAuthTokenSucceed == false) {
-                response.Result = ErrorCode.Login_Fail_Token;
-                return response;
-            }
-            
-            Logger.ZLogInformation($"[Request Login] Email:{request.Email}, request.Password:{request.Password},  saltValue:{userAccountInfo.SaltValue}, hashingPassword:{hashingPassword}");
-            
-            db.Dispose();
+            response.Result = errorCode;
+            return response;
         }
 
-        response.Logintoken = tokenValue;
+
+        string authToken = Security.CreateAuthToken();
+        errorCode = await _memoryDb.RegistUserAsync(request.Email, authToken, accountId);   // 인증 작업을 빠르게 하기 위해 인증 정보를 Redis에 저장함
+        if (errorCode != ErrorCode.None)
+        {
+            response.Result = errorCode;
+            return response;
+        }
+
+        _logger.ZLogInformation($"[Login] email:{request.Email}, AuthToken:{authToken}, AccountId:{accountId}");
+
+        response.AuthToken = authToken;
         return response;
     }
 }
@@ -70,14 +56,23 @@ public class Login : ControllerBase
 
 public class LoginRequest
 {
+    [Required]
+    [MinLength(1, ErrorMessage = "EMAIL CANNOT BE EMPTY")]
+    [StringLength(50, ErrorMessage = "EMAIL IS TOO LONG")]
+    [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
     public string? Email { get; set; }
+
+    [Required]
+    [MinLength(1, ErrorMessage = "PASSWORD CANNOT BE EMPTY")]
+    [StringLength(30, ErrorMessage = "PASSWORD IS TOO LONG")]
+    [DataType(DataType.Password)]
     public string? Password { get; set; }
 }
 
 public class LoginResponse
 {
     public ErrorCode Result { get; set; }
-    public string? Logintoken { get; set; }
+    public string? AuthToken { get; set; }
 }
 
 class DBUserInfo
