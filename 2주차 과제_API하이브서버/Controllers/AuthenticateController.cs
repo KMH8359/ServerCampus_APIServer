@@ -1,12 +1,19 @@
 using CloudStructures.Structures;
 using Microsoft.AspNetCore.Mvc;
 using SqlKata.Execution;
-
+using ZLogger;
 
 [ApiController]
 [Route("[controller]")]
 public class Authentication : ControllerBase
 {
+    private readonly ILogger Logger;
+
+    public CreateAccount(ILogger<CreateAccount> logger)
+    {
+        Logger = logger;
+    }
+
     [HttpPost]
     public async Task<AuthResponse> AuthenticateAsync(AuthRequest request)
     {

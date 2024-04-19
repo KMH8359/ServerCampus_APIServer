@@ -4,11 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using SqlKata.Execution;
 using Newtonsoft.Json;
+using ZLogger;
+
 
 [ApiController]
 [Route("[controller]")]
 public class Login : ControllerBase
 {
+    private readonly ILogger Logger;
+
+    public Login(ILogger<Login> logger)
+    {
+        Logger = logger;
+    }
     [HttpPost]
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
@@ -27,8 +35,6 @@ public class Login : ControllerBase
 
             var hashingPassword = Security.MakeHashingPassWord(userAccountInfo.SaltValue, request.Password);
 
-            Console.WriteLine($"[Request Login] Email:{request.Email}, request.Password:{request.Password},  saltValue:{userAccountInfo.SaltValue}, hashingPassword:{hashingPassword}");
-
             if (userAccountInfo.HashedPassword != hashingPassword)
             {
                 response.Result = ErrorCode.Login_Fail_PW;
@@ -44,6 +50,10 @@ public class Login : ControllerBase
                 response.Result = ErrorCode.Login_Fail_Token;
                 return response;
             }
+            
+            Logger.ZLogInformation($"[Request Login] Email:{request.Email}, request.Password:{request.Password},  saltValue:{userAccountInfo.SaltValue}, hashingPassword:{hashingPassword}");
+            
+            db.Dispose();
         }
 
         response.Logintoken = tokenValue;

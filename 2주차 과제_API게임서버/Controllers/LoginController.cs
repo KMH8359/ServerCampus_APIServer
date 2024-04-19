@@ -64,7 +64,7 @@ public class Login : ControllerBase
                     return response;
                 }
             }
-            
+            db.Dispose();
         }
 
         string tokenValue = Security.CreateAuthToken();

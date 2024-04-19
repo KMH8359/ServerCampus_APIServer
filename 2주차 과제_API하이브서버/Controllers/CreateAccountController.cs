@@ -1,12 +1,20 @@
 using MySqlConnector;
 using SqlKata.Execution;
 using Microsoft.AspNetCore.Mvc; 
+using ZLogger;
 
 // [] 기호는 함수의 특성을 나타내는 애트리뷰트 기호
 [ApiController]                 // 유효성 검사 및 400 응답, 속성 라우팅, 바인딩된 소스 매개변수 추론 등의 기능을 수행하는 애트리뷰트. 하단의 route를 요구함
 [Route("[controller]")]         // 쿼리가 호출해야 하는 함수를 라우팅하는 애트리뷰트
 public class CreateAccount : ControllerBase // Controller 클래스는 ControllerBase 클래스를 상속하는 자식 클래스. MVC의 View를 지원하는 기능을 갖고 있음
 {
+    private readonly ILogger Logger;
+
+    public CreateAccount(ILogger<CreateAccount> logger)
+    {
+        Logger = logger;
+    }
+    
     [HttpPost]
     public async Task<CreateAccountResponse> SignupAsync(CreateAccountRequest request)   // 비동기 함수는 async 키워드를 사용하고 Task<>나 Task값을 리턴함
     {
@@ -31,7 +39,7 @@ public class CreateAccount : ControllerBase // Controller 클래스는 Controlle
                     response.Result = ErrorCode.Create_Account_Fail_Duplicate;
                 }
 
-                Console.WriteLine($"[Request CreateAccount] Email:{request.Email}, saltValue:{saltValue}, hashingPassword:{hashingPassword}");
+                Logger.ZLogInformation($"[Request CreateAccount] Email:{request.Email}, saltValue:{saltValue}, hashingPassword:{hashingPassword}");
             }
             catch(Exception ex)
             {
