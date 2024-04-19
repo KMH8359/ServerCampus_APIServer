@@ -1,11 +1,17 @@
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using CloudStructures.Structures;
+using HIVESERVER.Repository;
+//using HIVESERVER.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using SqlKata.Execution;
 using Newtonsoft.Json;
 using ZLogger;
 
+namespace HIVESERVER.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -71,18 +77,18 @@ public class LoginRequest
 public class LoginResponse
 {
     public ErrorCode Result { get; set; }
-    public string Logintoken { get; set; }
+    public string? Logintoken { get; set; }
 }
 
 class DBUserInfo
 {
     public long AccountId { get; set; }
-    public string Email { get; set; }
-    public string HashedPassword { get; set; }
-    public string SaltValue { get; set; }
+    public string? Email { get; set; }
+    public string? HashedPassword { get; set; }
+    public string? SaltValue { get; set; }
 }
 
 class DBUserGameData
 {
-    public string AccountId { get; set; }
+    public string? AccountId { get; set; }
 }

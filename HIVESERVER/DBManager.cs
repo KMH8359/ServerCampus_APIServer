@@ -7,10 +7,10 @@ using SqlKata.Execution;
 
 public class DBManager
 {
-    static string HiveDBConnectString;
-    static string RedisAddress;
+    static string? HiveDBConnectString;
+    static string? RedisAddress;
 
-    public static RedisConnection RedisConn { get; set; }
+    public static RedisConnection? RedisConn { get; set; }
     
     
     public static void Init(IConfiguration configuration)

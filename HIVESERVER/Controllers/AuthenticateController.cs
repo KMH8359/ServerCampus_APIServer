@@ -1,7 +1,10 @@
 using CloudStructures.Structures;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SqlKata.Execution;
 using ZLogger;
+
+namespace HIVESERVER.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -9,7 +12,7 @@ public class Authentication : ControllerBase
 {
     private readonly ILogger Logger;
 
-    public CreateAccount(ILogger<CreateAccount> logger)
+    public Authentication(ILogger<Authentication> logger)
     {
         Logger = logger;
     }
@@ -27,6 +30,8 @@ public class Authentication : ControllerBase
         {
             response.Result = ErrorCode.Authenticate_Fail_NotToken;
         }
+
+        Logger.ZLogInformation($"[Request Authentication] Email:{request.Email}, Token:{request.LoginToken}");
         return response;
     }
 }
@@ -34,8 +39,8 @@ public class Authentication : ControllerBase
 
 public class AuthRequest
 {
-    public string Email { get; set; }
-    public string LoginToken { get; set; }
+    public string? Email { get; set; }
+    public string? LoginToken { get; set; }
 }
 
 public class AuthResponse

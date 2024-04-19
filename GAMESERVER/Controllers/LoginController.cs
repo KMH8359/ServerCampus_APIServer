@@ -52,6 +52,7 @@ public class Login : ControllerBase
             {
                 var count = await db.Query("UserGameData").InsertAsync(new
                 {
+                    Email = request.Email,
                     Level = 1,
                     EXP = 0,
                     Win = 0,

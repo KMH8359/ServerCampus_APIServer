@@ -1,7 +1,15 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using HIVESERVER.Repository;
+//using HIVESERVER.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using SqlKata.Execution;
-using Microsoft.AspNetCore.Mvc; 
 using ZLogger;
+
+namespace HIVESERVER.Controllers;
 
 // [] 기호는 함수의 특성을 나타내는 애트리뷰트 기호
 [ApiController]                 // 유효성 검사 및 400 응답, 속성 라우팅, 바인딩된 소스 매개변수 추론 등의 기능을 수행하는 애트리뷰트. 하단의 route를 요구함
@@ -62,8 +70,8 @@ public class CreateAccount : ControllerBase // Controller 클래스는 Controlle
 
 public class CreateAccountRequest
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string? Email { get; set; }
+    public string? Password { get; set; }
 }
 
 public class CreateAccountResponse
