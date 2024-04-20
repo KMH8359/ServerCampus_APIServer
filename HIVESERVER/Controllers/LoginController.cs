@@ -30,7 +30,7 @@ public class Login : ControllerBase
     {
         var response = new LoginResponse();
         // ID, PW 검증
-        (ErrorCode errorCode, long accountId) = await _accountDb.HiveServerLoginAsync(request.Email, request.Password);
+        (ErrorCode errorCode, long accountId) = await _accountDb.VerifyAccountAsync(request.Email, request.Password);
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
@@ -39,7 +39,7 @@ public class Login : ControllerBase
 
 
         string authToken = Security.CreateAuthToken();
-        errorCode = await _memoryDb.RegistUserAsync(request.Email, authToken, accountId);   // 인증 작업을 빠르게 하기 위해 인증 정보를 Redis에 저장함
+        errorCode = await _memoryDb.RegisterUserAsync(request.Email, authToken, accountId);   // 인증 정보를 Redis에 저장
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
@@ -50,6 +50,21 @@ public class Login : ControllerBase
 
         response.AuthToken = authToken;
         return response;
+    }
+
+    [HttpGet]
+    public async Task<ErrorCode> VerifyLoginTokenAsync(string Email, string AuthToken) 
+    {
+        (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(Email);   // redis에 로그인 정보가 존재하는지 확인
+        if (succeed == false)
+        {
+           return ErrorCode.RedisFailException;
+        }
+        else if (userAuthData == null || userAuthData.AuthToken != AuthToken)
+        {
+            return ErrorCode.AuthTokenNotFound;
+        }
+        return ErrorCode.None;      
     }
 }
 

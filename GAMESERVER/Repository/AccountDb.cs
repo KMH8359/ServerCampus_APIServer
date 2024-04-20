@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
-using HIVESERVER.Services;
+using GAMESERVER.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 using ZLogger;
 
-namespace HIVESERVER.Repository;
+namespace GAMESERVER.Repository;
 
 public class AccountDb : IAccountDb
 {
@@ -59,15 +59,15 @@ public class AccountDb : IAccountDb
         }
     }
 
-    public async Task<Tuple<ErrorCode, long>> VerifyAccountAsync(string email, string pw)
+    public async Task<Tuple<ErrorCode, long>> VerifyAuthTokenAsync(string email, string pw)
     {
         try
         {
-            UserAccountInfo userInfo = await _queryFactory.Query("account")
+            UserAccountInfo userInfo = await _queryFactory.Query("user")
                                     .Where("Email", email)
                                     .FirstOrDefaultAsync<UserAccountInfo>();
 
-            if (userInfo.AccountId == 0)
+            if (userInfo.UserId == 0)
             {
                 return new Tuple<ErrorCode, long>(ErrorCode.LoginFailUserNotExist, 0);
             }
@@ -79,7 +79,7 @@ public class AccountDb : IAccountDb
                 return new Tuple<ErrorCode, long>(ErrorCode.LoginFailPwNotMatch, 0);
             }
 
-            return new Tuple<ErrorCode, long>(ErrorCode.None, userInfo.AccountId);
+            return new Tuple<ErrorCode, long>(ErrorCode.None, userInfo.UserId);
         }
         catch (Exception e)
         {
@@ -90,7 +90,7 @@ public class AccountDb : IAccountDb
 
     private void Open()
     {
-        _dbConn = new MySqlConnection(_dbConfig.Value.MySqlHive);
+        _dbConn = new MySqlConnection(_dbConfig.Value.MySqlGame);
 
         _dbConn.Open();
     }
@@ -103,14 +103,14 @@ public class AccountDb : IAccountDb
 
 public class DbConfig
 {
-    public string? MySqlHive { get; set; }
+    public string? MySqlGame { get; set; }
     public string? Redis { get; set; }
 }
 
 
 public class UserAccountInfo
 {
-    public long AccountId { get; set; }
+    public long UserId { get; set; }
     public string? Email { get; set; }
     public string? HashedPassword { get; set; }
     public string? SaltValue { get; set; }

@@ -1,16 +1,32 @@
 using System.Text;
-using CloudStructures.Structures;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using GAMESERVER.Repository;
+using GAMESERVER.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using SqlKata.Execution;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using ZLogger;
+
+namespace GAMESERVER.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class Login : ControllerBase
 {
-    static HttpClient _httpClient = new HttpClient();   // API 서버와 통신하기 위한 HTTP 클라이언트 객체
-    static readonly string ApiServerURL = "http://localhost:5256/Authentication"; // 프로그램 수명 동안 계속 유지하기 위한 static 키워드 사용
+    private readonly ILogger _logger;
+    private readonly IAccountDb _accountDb;
+    private readonly IMemoryDb _memoryDb;
+    private readonly HttpClient _httpClient;   // API 서버와 통신하기 위한 HTTP 클라이언트 객체
+    static readonly string ApiServerURL = "http://localhost:5256/Login"; // 프로그램 수명 동안 계속 유지하기 위한 static 키워드 사용
+
+    public Login(ILogger<Login> logger, IAccountDb accountDb, IMemoryDb memoryDb, HttpClient httpClient)
+    {
+        _logger = logger;
+        _accountDb = accountDb;
+        _memoryDb = memoryDb;
+        _httpClient = httpClient;
+    }
 
     [HttpPost]
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
@@ -18,83 +34,78 @@ public class Login : ControllerBase
         var response = new LoginResponse();
         response.Result = ErrorCode.None;
         var loginResponse = new LoginResponse();
+
+
+        (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(request.Email);   // redis에 로그인 정보가 존재하는지 확인
+        if (succeed)
+        {
+            response.AuthToken = userAuthData.AuthToken;
+            _logger.ZLogInformation($"[Login] email:{request.Email}, AuthToken:{request.AuthToken}");
+            return response;
+        }
+
+        // 하이브 서버에 인증 토큰 검증 요청     
+        ErrorCode errorCode = await RequestVerifyAuthTokenAsync(request);
+        if (errorCode != ErrorCode.None)
+        {
+            response.Result = errorCode;
+            return response;
+        }
+        
+        errorCode = await _memoryDb.RegisterUserAsync(request.Email, request.AuthToken);   // 로그인 정보를 Redis에 저장
+        if (errorCode != ErrorCode.None)
+        {
+            response.Result = errorCode;
+            return response;
+        }
+
+        _logger.ZLogInformation($"[Login] email:{request.Email}, AuthToken:{request.AuthToken}");
+
+        response.AuthToken = request.AuthToken;
+        return response;
+    }
+
+    public async Task<ErrorCode> RequestVerifyAuthTokenAsync(LoginRequest request)
+    {
+        ErrorCode result = ErrorCode.None;
         try
         {
-            var httpResponse =
-                await _httpClient.PostAsJsonAsync(ApiServerURL,
-                    request); // API 서버로 패킷을 보내기 위해 request 객체를 json으로 캐스팅하여 전달
+            string queryString = ApiServerURL + $"?Email={request.Email}&AuthToken={request.AuthToken}"; 
+            var httpResponse = await _httpClient.GetAsync(queryString); 
 
-            loginResponse =
-                await httpResponse.Content
-                    .ReadFromJsonAsync<
-                        LoginResponse>(); // API 서버가 반환한 httpResponse 객체 내부의 필드 Content를 AuthResponse으로 읽어오는 함수
+            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            if (Enum.TryParse(responseString, out result) == false)
+            {
+                return ErrorCode.VerifyAuthTokenFail;
+            }
 
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-            response.Result = ErrorCode.Login_Fail_Exception;
-            return response;
-        }
-        
-        if (loginResponse.Result != ErrorCode.None)
-        {
-            response.Result = loginResponse.Result;
-            return response;
-        }
-        
-        
-        // 처음 로그인한 계정은 UserGameData에 본인의 데이터를 생성해야 한다.
-        using (var db = await DBManager.GetGameDBQuery())
-        {
-            var userGameData = await db.Query("UserGameData").Where("Email", request.Email).FirstOrDefaultAsync<DBUserGameData>(); 
-            if (userGameData == null)
-            {
-                var count = await db.Query("UserGameData").InsertAsync(new
-                {
-                    Email = request.Email,
-                    Level = 1,
-                    EXP = 0,
-                    Win = 0,
-                    Lose = 0
-                });
-
-                if (count != 1)
-                {
-                    response.Result = ErrorCode.Login_Fail_Exception;
-                    return response;
-                }
-            }
-            db.Dispose();
+            _logger.ZLogError($"[Login] {ex.Message}");
+            return ErrorCode.LoginFailException;
         }
 
-        string tokenValue = Security.CreateAuthToken();
-        var idDefaultExpiry = TimeSpan.FromDays(1);
-        var redisId = new RedisString<string>(DBManager.RedisConn, request.Email, idDefaultExpiry);
-        await redisId.SetAsync(tokenValue);
-
-        response.LoginToken = tokenValue;
-        return response;
+        return result;
     }
 }
 
 
 public class LoginRequest
 {
+    [Required]
+    [MinLength(1, ErrorMessage = "EMAIL CANNOT BE EMPTY")]
+    [StringLength(50, ErrorMessage = "EMAIL IS TOO LONG")]
+    [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
     public string? Email { get; set; }
-    public string? LoginToken { get; set; }
+
+    public string? AuthToken { get; set; }
 }
 
 public class LoginResponse
 {
     public ErrorCode Result { get; set; }
-    public string? LoginToken { get; set; }
-}
-
-public class AuthResponse
-{
-    public ErrorCode Result { get; set; }
-    public long AccountId { get; set; }
+    public string? AuthToken { get; set; }
 }
 
 class DBUserInfo

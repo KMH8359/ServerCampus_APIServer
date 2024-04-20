@@ -3,6 +3,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
+namespace GAMESERVER.Services;
+
 public class Security
 {
     private const String AllowableCharacters = "abcdefghijklmnopqrstuvwxyz0123456789";

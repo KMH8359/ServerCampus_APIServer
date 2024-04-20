@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace HIVESERVER.Repository;
+namespace GAMESERVER.Repository;
 
 public interface IMemoryDb : IDisposable
 {    
-    public Task<ErrorCode> RegisterUserAsync(string id, string authToken, long accountId);
+    public Task<ErrorCode> RegisterUserAsync(string id, string authToken);
 
     public Task<ErrorCode> CheckUserAuthAsync(string id, string authToken);
 

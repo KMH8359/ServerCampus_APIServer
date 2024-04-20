@@ -1,4 +1,4 @@
-﻿using HIVESERVER.Repository;
+﻿using GAMESERVER.Repository;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HIVESERVER.Middleware;
+namespace GAMESERVER.Middleware;
 
 public class CheckUserAuthAndLoadUserData
 {
@@ -19,15 +19,12 @@ public class CheckUserAuthAndLoadUserData
         _next = next;
     }
 
-    public async Task Invoke(HttpContext context) // HTTP 요청이 있을 때마다 자동으로 호출되는 미들웨어 함수
+    public async Task Invoke(HttpContext context)
     {
         string formString = context.Request.Path.Value;
-        if (string.Compare(formString, "/Login", StringComparison.OrdinalIgnoreCase) == 0 ||
-            string.Compare(formString, "/CreateAccount", StringComparison.OrdinalIgnoreCase) == 0)
+        if (string.Compare(formString, "/Login", StringComparison.OrdinalIgnoreCase) == 0)  
         {
-            // Call the next delegate/middleware in the pipeline
             await _next(context);
-
             return;
         }
 
@@ -70,6 +67,7 @@ public class CheckUserAuthAndLoadUserData
 
         context.Request.Body.Position = 0;
 
+        // Call the next delegate/middleware in the pipeline
         await _next(context);
     }
 

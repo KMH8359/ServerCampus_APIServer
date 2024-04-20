@@ -7,7 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HIVESERVER.Repository;
+namespace GAMESERVER.Repository;
 
 public class MemoryDb : IMemoryDb
 {
@@ -29,7 +29,7 @@ public class MemoryDb : IMemoryDb
         
     }
 
-    public async Task<ErrorCode> RegisterUserAsync(string email, string authToken, long accountId)
+    public async Task<ErrorCode> RegisterUserAsync(string email, string authToken)
     {
         string key = MemoryDbKeyMaker.MakeUIDKey(email);    
         ErrorCode result = ErrorCode.None;
@@ -38,7 +38,7 @@ public class MemoryDb : IMemoryDb
         {
             Email = email,
             AuthToken = authToken,
-            AccountId = accountId,
+            State = UserState.Default.ToString()
         };
 
         try
@@ -59,9 +59,9 @@ public class MemoryDb : IMemoryDb
         return result;
     }
 
-    public async Task<ErrorCode> CheckUserAuthAsync(string email, string authToken)
+    public async Task<ErrorCode> CheckUserAuthAsync(string id, string authToken)
     {
-        string key = MemoryDbKeyMaker.MakeUIDKey(email);
+        string key = MemoryDbKeyMaker.MakeUIDKey(id);
         ErrorCode result = ErrorCode.None;
 
         try
@@ -75,7 +75,7 @@ public class MemoryDb : IMemoryDb
                 return result;
             }
 
-            if (user.Value.Email != email || user.Value.AuthToken != authToken)
+            if (user.Value.Email != id || user.Value.AuthToken != authToken)
             {
                 result = ErrorCode.CheckAuthFailNotMatch;
                 return result;
@@ -92,9 +92,9 @@ public class MemoryDb : IMemoryDb
     }
 
    
-    public async Task<(bool, UserAuthData)> GetUserAsync(string email)
+    public async Task<(bool, UserAuthData)> GetUserAsync(string id)
     {
-        string uid = MemoryDbKeyMaker.MakeUIDKey(email);
+        string uid = MemoryDbKeyMaker.MakeUIDKey(id);
 
         try
         {
@@ -137,4 +137,5 @@ public class UserAuthData
     public string Email { get; set; } = "";
     public string AuthToken { get; set; } = "";
     public long AccountId { get; set; } = 0;
+    public string State { get; set; } = "";  
 }

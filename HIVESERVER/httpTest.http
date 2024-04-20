@@ -1,8 +1,18 @@
+POST http://localhost:5256/Login
+Content-Type: application/json
+
+{
+  "Email":"KMH1203@naver.com",
+  "Password":"123qwe"
+}
+
+###
 POST http://localhost:5256/CreateAccount
 Content-Type: application/json
 
 {
-  "ID":"jacking751",
+  "Email":"KMH1203@naver.com",
   "Password":"123qwe"
 }
+
 

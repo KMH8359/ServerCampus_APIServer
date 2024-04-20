@@ -28,6 +28,7 @@ public enum ErrorCode : UInt16
     CheckAuthFailNotExist = 2015,
     CheckAuthFailNotMatch = 2016,
     CheckAuthFailException = 2017,
+    VerifyAuthTokenFail = 2018,
 
     // Character 3000 ~
     CreateCharacterRollbackFail = 3001,
