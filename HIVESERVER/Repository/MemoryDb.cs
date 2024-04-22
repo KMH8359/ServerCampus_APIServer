@@ -29,14 +29,14 @@ public class MemoryDb : IMemoryDb
         
     }
 
-    public async Task<ErrorCode> RegisterUserAsync(string email, string authToken, long accountId)
+    public async Task<ErrorCode> RegisterUserAsync(string id, string authToken, long accountId)
     {
-        string key = MemoryDbKeyMaker.MakeUIDKey(email);    
+        string key = MemoryDbKeyMaker.MakeUIDKey(id);    
         ErrorCode result = ErrorCode.None;
 
         UserAuthData user = new()    // Redis에 저장할 유저 정보
         {
-            Email = email,
+            Id = id,
             AuthToken = authToken,
             AccountId = accountId,
         };
@@ -59,9 +59,9 @@ public class MemoryDb : IMemoryDb
         return result;
     }
 
-    public async Task<ErrorCode> CheckUserAuthAsync(string email, string authToken)
+    public async Task<ErrorCode> CheckUserAuthAsync(string id, string authToken)
     {
-        string key = MemoryDbKeyMaker.MakeUIDKey(email);
+        string key = MemoryDbKeyMaker.MakeUIDKey(id);
         ErrorCode result = ErrorCode.None;
 
         try
@@ -75,7 +75,7 @@ public class MemoryDb : IMemoryDb
                 return result;
             }
 
-            if (user.Value.Email != email || user.Value.AuthToken != authToken)
+            if (user.Value.Id != id || user.Value.AuthToken != authToken)
             {
                 result = ErrorCode.CheckAuthFailNotMatch;
                 return result;
@@ -94,11 +94,11 @@ public class MemoryDb : IMemoryDb
    
     public async Task<(bool, UserAuthData)> GetUserAsync(string email)
     {
-        string uid = MemoryDbKeyMaker.MakeUIDKey(email);
+        string key = MemoryDbKeyMaker.MakeUIDKey(email);
 
         try
         {
-            RedisString<UserAuthData> redis = new(_redisConn, uid, null);
+            RedisString<UserAuthData> redis = new(_redisConn, key, null);
             RedisResult<UserAuthData> user = await redis.GetAsync();
             if (!user.HasValue)
             {
@@ -134,7 +134,7 @@ public class MemoryDb : IMemoryDb
 
 public class UserAuthData
 {
-    public string Email { get; set; } = "";
+    public string Id { get; set; } = "";
     public string AuthToken { get; set; } = "";
     public long AccountId { get; set; } = 0;
 }

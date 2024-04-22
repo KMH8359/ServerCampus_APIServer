@@ -36,7 +36,7 @@ public class MemoryDb : IMemoryDb
 
         UserAuthData user = new()    // Redis에 저장할 유저 정보
         {
-            Email = email,
+            Id = email,
             AuthToken = authToken,
             State = UserState.Default.ToString()
         };
@@ -75,7 +75,7 @@ public class MemoryDb : IMemoryDb
                 return result;
             }
 
-            if (user.Value.Email != id || user.Value.AuthToken != authToken)
+            if (user.Value.Id != id || user.Value.AuthToken != authToken)
             {
                 result = ErrorCode.CheckAuthFailNotMatch;
                 return result;
@@ -134,7 +134,7 @@ public class MemoryDb : IMemoryDb
 
 public class UserAuthData
 {
-    public string Email { get; set; } = "";
+    public string Id { get; set; } = "";
     public string AuthToken { get; set; } = "";
     public long AccountId { get; set; } = 0;
     public string State { get; set; } = "";  

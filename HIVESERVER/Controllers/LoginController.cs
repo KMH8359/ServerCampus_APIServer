@@ -30,7 +30,7 @@ public class Login : ControllerBase
     {
         var response = new LoginResponse();
         // ID, PW 검증
-        (ErrorCode errorCode, long accountId) = await _accountDb.VerifyAccountAsync(request.Email, request.Password);
+        (ErrorCode errorCode, long accountId) = await _accountDb.VerifyAccountAsync(request.Id, request.Password);
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
@@ -39,23 +39,23 @@ public class Login : ControllerBase
 
 
         string authToken = Security.CreateAuthToken();
-        errorCode = await _memoryDb.RegisterUserAsync(request.Email, authToken, accountId);   // 인증 정보를 Redis에 저장
+        errorCode = await _memoryDb.RegisterUserAsync(request.Id, authToken, accountId);   // 인증 정보를 Redis에 저장
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
             return response;
         }
 
-        _logger.ZLogInformation($"[Login] email:{request.Email}, AuthToken:{authToken}, AccountId:{accountId}");
+        _logger.ZLogInformation($"[Login] id:{request.Id}, AuthToken:{authToken}, AccountId:{accountId}");
 
         response.AuthToken = authToken;
         return response;
     }
 
     [HttpGet]
-    public async Task<ErrorCode> VerifyLoginTokenAsync(string Email, string AuthToken) 
+    public async Task<ErrorCode> VerifyLoginTokenAsync(string Id, string AuthToken) 
     {
-        (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(Email);   // redis에 로그인 정보가 존재하는지 확인
+        (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(Id);   // redis에 로그인 정보가 존재하는지 확인
         if (succeed == false)
         {
            return ErrorCode.RedisFailException;
@@ -72,10 +72,9 @@ public class Login : ControllerBase
 public class LoginRequest
 {
     [Required]
-    [MinLength(1, ErrorMessage = "EMAIL CANNOT BE EMPTY")]
-    [StringLength(50, ErrorMessage = "EMAIL IS TOO LONG")]
-    [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
-    public string? Email { get; set; }
+    [MinLength(1, ErrorMessage = "ID CANNOT BE EMPTY")]
+    [StringLength(10, ErrorMessage = "ID IS TOO LONG")]
+    public string? Id { get; set; }
 
     [Required]
     [MinLength(1, ErrorMessage = "PASSWORD CANNOT BE EMPTY")]

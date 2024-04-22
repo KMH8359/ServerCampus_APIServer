@@ -36,11 +36,11 @@ public class Login : ControllerBase
         var loginResponse = new LoginResponse();
 
 
-        (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(request.Email);   // redis에 로그인 정보가 존재하는지 확인
-        if (succeed)
+        (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(request.Id);   // redis에 로그인 정보가 존재하는지 확인
+        if (succeed && userAuthData.AuthToken == request.AuthToken)
         {
             response.AuthToken = userAuthData.AuthToken;
-            _logger.ZLogInformation($"[Login] email:{request.Email}, AuthToken:{request.AuthToken}");
+            _logger.ZLogInformation($"[Login] email:{request.Id}, AuthToken:{request.AuthToken}");
             return response;
         }
 
@@ -52,14 +52,14 @@ public class Login : ControllerBase
             return response;
         }
         
-        errorCode = await _memoryDb.RegisterUserAsync(request.Email, request.AuthToken);   // 로그인 정보를 Redis에 저장
+        errorCode = await _memoryDb.RegisterUserAsync(request.Id, request.AuthToken);   // 로그인 정보를 Redis에 저장
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
             return response;
         }
 
-        _logger.ZLogInformation($"[Login] email:{request.Email}, AuthToken:{request.AuthToken}");
+        _logger.ZLogInformation($"[Login] email:{request.Id}, AuthToken:{request.AuthToken}");
 
         response.AuthToken = request.AuthToken;
         return response;
@@ -70,7 +70,7 @@ public class Login : ControllerBase
         ErrorCode result = ErrorCode.None;
         try
         {
-            string queryString = ApiServerURL + $"?Email={request.Email}&AuthToken={request.AuthToken}"; 
+            string queryString = ApiServerURL + $"?Id={request.Id}&AuthToken={request.AuthToken}"; 
             var httpResponse = await _httpClient.GetAsync(queryString); 
 
             var responseString = await httpResponse.Content.ReadAsStringAsync();
@@ -94,10 +94,9 @@ public class Login : ControllerBase
 public class LoginRequest
 {
     [Required]
-    [MinLength(1, ErrorMessage = "EMAIL CANNOT BE EMPTY")]
-    [StringLength(50, ErrorMessage = "EMAIL IS TOO LONG")]
-    [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
-    public string? Email { get; set; }
+    [MinLength(1, ErrorMessage = "ID CANNOT BE EMPTY")]
+    [StringLength(10, ErrorMessage = "ID IS TOO LONG")]
+    public string? Id { get; set; }
 
     public string? AuthToken { get; set; }
 }
@@ -106,17 +105,4 @@ public class LoginResponse
 {
     public ErrorCode Result { get; set; }
     public string? AuthToken { get; set; }
-}
-
-class DBUserInfo
-{
-    public long AccountId { get; set; }
-    public string Email { get; set; }
-    public string HashedPassword { get; set; }
-    public string SaltValue { get; set; }
-}
-
-class DBUserGameData
-{
-    public string AccountId { get; set; }
 }

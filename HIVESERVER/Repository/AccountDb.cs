@@ -38,6 +38,7 @@ public class AccountDb : IAccountDb
     {
         try
         {
+            string id = email.Split('@')[0];
             string saltValue = Security.SaltString();
             string hashingPassword = Security.MakeHashingPassWord(saltValue, pw);
             _logger.ZLogDebug( $"[CreateAccount] Email: {email}, SaltValue : {saltValue}, HashingPassword:{hashingPassword}"); // 디버깅 목적 로깅
@@ -45,6 +46,7 @@ public class AccountDb : IAccountDb
             int count = await _queryFactory.Query("account").InsertAsync(new
             {
                 Email = email,
+                Id = id,
                 SaltValue = saltValue,
                 HashedPassword = hashingPassword
             });
@@ -59,12 +61,12 @@ public class AccountDb : IAccountDb
         }
     }
 
-    public async Task<Tuple<ErrorCode, long>> VerifyAccountAsync(string email, string pw)
+    public async Task<Tuple<ErrorCode, long>> VerifyAccountAsync(string id, string pw)
     {
         try
         {
             UserAccountInfo userInfo = await _queryFactory.Query("account")
-                                    .Where("Email", email)
+                                    .Where("Id", id)
                                     .FirstOrDefaultAsync<UserAccountInfo>();
 
             if (userInfo.AccountId == 0)
@@ -75,7 +77,7 @@ public class AccountDb : IAccountDb
             string hashingPassword = Security.MakeHashingPassWord(userInfo.SaltValue, pw);
             if (userInfo.HashedPassword != hashingPassword)
             {
-                _logger.ZLogError($"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailPwNotMatch}, Email: {email}, Password: {pw}");
+                _logger.ZLogError($"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailPwNotMatch}, Id: {id}, Password: {pw}");
                 return new Tuple<ErrorCode, long>(ErrorCode.LoginFailPwNotMatch, 0);
             }
 
@@ -83,7 +85,7 @@ public class AccountDb : IAccountDb
         }
         catch (Exception e)
         {
-            _logger.ZLogError(e, $"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailException}, Email: {email}, Password: {pw}");
+            _logger.ZLogError(e, $"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailException}, Id: {id}, Password: {pw}");
             return new Tuple<ErrorCode, long>(ErrorCode.LoginFailException, 0);
         }
     }
