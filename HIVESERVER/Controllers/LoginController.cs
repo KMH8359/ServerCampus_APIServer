@@ -1,10 +1,7 @@
-using System.Text;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using HIVESERVER.Repository;
 using HIVESERVER.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using ZLogger;
 
@@ -30,10 +27,11 @@ public class Login : ControllerBase
     {
         var response = new LoginResponse();
         // ID, PW 검증
-        (ErrorCode errorCode, long accountId) = await _accountDb.VerifyAccountAsync(request.Id, request.Password);
+        (ErrorCode errorCode, long accountId) = await _accountDb.LoginAsync(request.Id, request.Password);
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
+            _logger.ZLogError($"[Login] ErrorCode:{ErrorCode.LoginFailPwNotMatch} id:{request.Id}, AccountId:{accountId}");
             return response;
         }
 
@@ -43,6 +41,7 @@ public class Login : ControllerBase
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
+            _logger.ZLogError($"[Login] ErrorCode:{ErrorCode.LoginFailAddRedis} id:{request.Id}, AuthToken:{authToken}, AccountId:{accountId}");
             return response;
         }
 

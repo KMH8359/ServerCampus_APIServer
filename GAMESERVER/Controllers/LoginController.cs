@@ -1,10 +1,7 @@
-using System.Text;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using GAMESERVER.Repository;
 using GAMESERVER.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using ZLogger;
 
@@ -40,7 +37,7 @@ public class Login : ControllerBase
         if (succeed && userAuthData.AuthToken == request.AuthToken)
         {
             response.AuthToken = userAuthData.AuthToken;
-            _logger.ZLogInformation($"[Login] email:{request.Id}, AuthToken:{request.AuthToken}");
+            _logger.ZLogInformation($"[Login] id:{request.Id}, AuthToken:{request.AuthToken}");
             return response;
         }
 
@@ -52,14 +49,26 @@ public class Login : ControllerBase
             return response;
         }
         
+        bool hasGameData = await _accountDb.GetUserAsync(request.Id);
+
+        if (hasGameData == false)
+        {
+            errorCode = await _accountDb.CreateUserGameDataAsync(request.Id);
+            if (errorCode != ErrorCode.None)
+            {
+                response.Result = errorCode;
+                return response;
+            }
+        }
         errorCode = await _memoryDb.RegisterUserAsync(request.Id, request.AuthToken);   // 로그인 정보를 Redis에 저장
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
+            _logger.ZLogError($"[Login] ErrorCode:{errorCode} id:{request.Id}, AuthToken:{request.AuthToken}");
             return response;
         }
 
-        _logger.ZLogInformation($"[Login] email:{request.Id}, AuthToken:{request.AuthToken}");
+        _logger.ZLogInformation($"[Login] id:{request.Id}, AuthToken:{request.AuthToken}");
 
         response.AuthToken = request.AuthToken;
         return response;

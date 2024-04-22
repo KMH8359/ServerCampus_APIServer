@@ -1,8 +1,5 @@
-﻿using System;
-using System.Data;
-using System.Threading.Tasks;
+﻿using System.Data;
 using GAMESERVER.Services;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
@@ -34,58 +31,47 @@ public class AccountDb : IAccountDb
         Close();
     }
 
-    public async Task<ErrorCode> CreateAccountAsync(string email, string pw)
+    public async Task<ErrorCode> CreateUserGameDataAsync(String id)
     {
         try
         {
-            string saltValue = Security.SaltString();
-            string hashingPassword = Security.MakeHashingPassWord(saltValue, pw);
-            _logger.ZLogDebug( $"[CreateAccount] Email: {email}, SaltValue : {saltValue}, HashingPassword:{hashingPassword}"); // 디버깅 목적 로깅
+            _logger.ZLogDebug( $"[CreateUserGameData] UserId: {id}");
 
-            int count = await _queryFactory.Query("account").InsertAsync(new
+            int count = await _queryFactory.Query("usergamedata").InsertAsync(new
             {
-                Email = email,
-                SaltValue = saltValue,
-                HashedPassword = hashingPassword
+                UserId = id,
+                LEVEL = 1,
+                EXP = 0,
+                WIN = 0,
+                LOSE = 0
             });
 
-            return count != 1 ? ErrorCode.CreateAccountFailInsert : ErrorCode.None;
+            if (count != 1) 
+            {
+                _logger.ZLogError(
+                    $"[CreateUserGameData] ErrorCode: {ErrorCode.CreateCharacterFailInsert}, UserId: {id}");
+                return ErrorCode.CreateCharacterFailInsert;
+            }
+            
+            return ErrorCode.None;
         }
         catch (Exception e)
         {
             _logger.ZLogError(e,
-                $"[CreateAccount] ErrorCode: {ErrorCode.CreateAccountFailException}, Email: {email}, Password: {pw}");
-            return ErrorCode.CreateAccountFailException;
+                $"[CreateUserGameData] ErrorCode: {ErrorCode.CreateCharacterFailException}, UserId: {id}");
+            return ErrorCode.CreateCharacterFailException;
         }
     }
-
-    public async Task<Tuple<ErrorCode, long>> VerifyAuthTokenAsync(string email, string pw)
+    public async Task<bool> GetUserAsync(string id)
     {
-        try
+        UserAccountInfo userInfo = await _queryFactory.Query("usergamedata")
+                                .Where("UserId", id)
+                                .FirstOrDefaultAsync<UserAccountInfo>();
+        if (userInfo == null)
         {
-            UserAccountInfo userInfo = await _queryFactory.Query("user")
-                                    .Where("Email", email)
-                                    .FirstOrDefaultAsync<UserAccountInfo>();
-
-            if (userInfo.UserId == 0)
-            {
-                return new Tuple<ErrorCode, long>(ErrorCode.LoginFailUserNotExist, 0);
-            }
-
-            string hashingPassword = Security.MakeHashingPassWord(userInfo.SaltValue, pw);
-            if (userInfo.HashedPassword != hashingPassword)
-            {
-                _logger.ZLogError($"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailPwNotMatch}, Email: {email}, Password: {pw}");
-                return new Tuple<ErrorCode, long>(ErrorCode.LoginFailPwNotMatch, 0);
-            }
-
-            return new Tuple<ErrorCode, long>(ErrorCode.None, userInfo.UserId);
+            return false;
         }
-        catch (Exception e)
-        {
-            _logger.ZLogError(e, $"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailException}, Email: {email}, Password: {pw}");
-            return new Tuple<ErrorCode, long>(ErrorCode.LoginFailException, 0);
-        }
+        return true;
     }
 
     private void Open()
@@ -110,7 +96,7 @@ public class DbConfig
 
 public class UserAccountInfo
 {
-    public long UserId { get; set; }
+    public long AccountId { get; set; }
     public string? Email { get; set; }
     public string? HashedPassword { get; set; }
     public string? SaltValue { get; set; }

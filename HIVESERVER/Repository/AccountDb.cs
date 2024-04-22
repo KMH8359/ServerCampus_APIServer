@@ -1,8 +1,5 @@
-﻿using System;
-using System.Data;
-using System.Threading.Tasks;
+﻿using System.Data;
 using HIVESERVER.Services;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
@@ -41,17 +38,24 @@ public class AccountDb : IAccountDb
             string id = email.Split('@')[0];
             string saltValue = Security.SaltString();
             string hashingPassword = Security.MakeHashingPassWord(saltValue, pw);
-            _logger.ZLogDebug( $"[CreateAccount] Email: {email}, SaltValue : {saltValue}, HashingPassword:{hashingPassword}"); // 디버깅 목적 로깅
+            _logger.ZLogDebug( $"[CreateAccount] Email: {email}, UserId: {id}, SaltValue : {saltValue}, HashingPassword:{hashingPassword}"); // 디버깅 목적 로깅
 
             int count = await _queryFactory.Query("account").InsertAsync(new
             {
                 Email = email,
-                Id = id,
+                UserId = id,
                 SaltValue = saltValue,
                 HashedPassword = hashingPassword
             });
 
-            return count != 1 ? ErrorCode.CreateAccountFailInsert : ErrorCode.None;
+            if (count != 1) 
+            {
+                _logger.ZLogError(
+                    $"[CreateAccount] ErrorCode: {ErrorCode.CreateAccountFailInsert}, Email: {email}, Password: {pw}");
+                return ErrorCode.CreateAccountFailInsert;
+            }
+            
+            return ErrorCode.None;
         }
         catch (Exception e)
         {
@@ -61,14 +65,14 @@ public class AccountDb : IAccountDb
         }
     }
 
-    public async Task<Tuple<ErrorCode, long>> VerifyAccountAsync(string id, string pw)
+    public async Task<Tuple<ErrorCode, long>> LoginAsync(string id, string pw)
     {
         try
         {
             UserAccountInfo userInfo = await _queryFactory.Query("account")
-                                    .Where("Id", id)
+                                    .Where("UserId", id)
                                     .FirstOrDefaultAsync<UserAccountInfo>();
-
+            _logger.ZLogDebug( $"[Login] Id: {id}, Password: {pw}"); 
             if (userInfo.AccountId == 0)
             {
                 return new Tuple<ErrorCode, long>(ErrorCode.LoginFailUserNotExist, 0);
@@ -77,7 +81,7 @@ public class AccountDb : IAccountDb
             string hashingPassword = Security.MakeHashingPassWord(userInfo.SaltValue, pw);
             if (userInfo.HashedPassword != hashingPassword)
             {
-                _logger.ZLogError($"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailPwNotMatch}, Id: {id}, Password: {pw}");
+                _logger.ZLogError($"[Login] ErrorCode: {ErrorCode.LoginFailPwNotMatch}, Id: {id}, Password: {pw}");
                 return new Tuple<ErrorCode, long>(ErrorCode.LoginFailPwNotMatch, 0);
             }
 
@@ -85,7 +89,7 @@ public class AccountDb : IAccountDb
         }
         catch (Exception e)
         {
-            _logger.ZLogError(e, $"[AccountDb.HiveServerLogin] ErrorCode: {ErrorCode.LoginFailException}, Id: {id}, Password: {pw}");
+            _logger.ZLogError(e, $"[Login] ErrorCode: {ErrorCode.LoginFailException}, Id: {id}, Password: {pw}");
             return new Tuple<ErrorCode, long>(ErrorCode.LoginFailException, 0);
         }
     }

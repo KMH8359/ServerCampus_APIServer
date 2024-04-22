@@ -32,7 +32,7 @@ public enum ErrorCode : UInt16
 
     // Character 3000 ~
     CreateCharacterRollbackFail = 3001,
-    CreateCharacterFailNoSlot = 3002,
+    CreateCharacterFailInsert = 3002,
     CreateCharacterFailException = 3003,
     CharacterNotExist = 3004,
     CountCharactersFail = 3005,

@@ -1,11 +1,6 @@
 ﻿using CloudStructures;
 using CloudStructures.Structures;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using ZLogger;
 
 namespace GAMESERVER.Repository;
 
@@ -29,14 +24,14 @@ public class MemoryDb : IMemoryDb
         
     }
 
-    public async Task<ErrorCode> RegisterUserAsync(string email, string authToken)
+    public async Task<ErrorCode> RegisterUserAsync(string id, string authToken)
     {
-        string key = MemoryDbKeyMaker.MakeUIDKey(email);    
+        string key = MemoryDbKeyMaker.MakeUIDKey(id);    
         ErrorCode result = ErrorCode.None;
 
         UserAuthData user = new()    // Redis에 저장할 유저 정보
         {
-            Id = email,
+            UserId = id,
             AuthToken = authToken,
             State = UserState.Default.ToString()
         };
@@ -75,7 +70,7 @@ public class MemoryDb : IMemoryDb
                 return result;
             }
 
-            if (user.Value.Id != id || user.Value.AuthToken != authToken)
+            if (user.Value.UserId != id || user.Value.AuthToken != authToken)
             {
                 result = ErrorCode.CheckAuthFailNotMatch;
                 return result;
@@ -134,7 +129,7 @@ public class MemoryDb : IMemoryDb
 
 public class UserAuthData
 {
-    public string Id { get; set; } = "";
+    public string UserId { get; set; } = "";
     public string AuthToken { get; set; } = "";
     public long AccountId { get; set; } = 0;
     public string State { get; set; } = "";  

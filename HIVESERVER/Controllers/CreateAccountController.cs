@@ -1,12 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using HIVESERVER.Repository;
+﻿using System.ComponentModel.DataAnnotations;
 using HIVESERVER.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MySqlConnector;
-using SqlKata.Execution;
 using ZLogger;
 
 namespace HIVESERVER.Controllers;
@@ -34,10 +28,11 @@ public class CreateAccount : ControllerBase // Controller 클래스는 Controlle
         if (errorCode != ErrorCode.None)
         {
             response.Result = errorCode;
+            _logger.ZLogError($"[CreateAccount] ErrorCode: {errorCode},Email: {request.Email}, Password: {request.Password}");
             return response;
         }
 
-        _logger.ZLogInformation($"[CreateAccount] Email:{request.Email}, Password:{request.Password}");
+        _logger.ZLogInformation($"[CreateAccount] Email: {request.Email}, Password: {request.Password}");
 
         return response;
     }
