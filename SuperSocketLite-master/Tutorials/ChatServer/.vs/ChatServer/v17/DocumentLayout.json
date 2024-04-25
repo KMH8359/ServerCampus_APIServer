@@ -1,0 +1,185 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|c:\\users\\gnslg\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\servercampus_apiserver\\supersocketlite-master\\tutorials\\chatserver\\serverpacketdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:serverpacketdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|c:\\users\\gnslg\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\servercampus_apiserver\\supersocketlite-master\\tutorials\\chatserver\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\pkhroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:pkhroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\receivefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:receivefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\chatserveroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:chatserveroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\nloglog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:nloglog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\nloglogfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:nloglogfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\roommanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:roommanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C5CBB1-2EDD-4788-9B42-BC7C9DFAFE11}|ChatServer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ServerPacketData.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\ServerPacketData.cs",
+              "RelativeDocumentMoniker": "ServerPacketData.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\ServerPacketData.cs*",
+              "RelativeToolTip": "ServerPacketData.cs*",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB8AAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T00:47:21.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "NLogLogFactory.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\NLogLogFactory.cs",
+              "RelativeDocumentMoniker": "NLogLogFactory.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\NLogLogFactory.cs",
+              "RelativeToolTip": "NLogLogFactory.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAApwA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T14:52:04.049Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChatServerOption.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\ChatServerOption.cs",
+              "RelativeDocumentMoniker": "ChatServerOption.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\ChatServerOption.cs",
+              "RelativeToolTip": "ChatServerOption.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAawCYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T13:17:14.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserManager.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\UserManager.cs",
+              "RelativeDocumentMoniker": "UserManager.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\UserManager.cs",
+              "RelativeToolTip": "UserManager.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAowCAAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:30:48.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RoomManager.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\RoomManager.cs",
+              "RelativeDocumentMoniker": "RoomManager.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\RoomManager.cs",
+              "RelativeToolTip": "RoomManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:30:47.4Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Room.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\Room.cs",
+              "RelativeDocumentMoniker": "Room.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\Room.cs",
+              "RelativeToolTip": "Room.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAmwDsAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:27:51.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReceiveFilter.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\ReceiveFilter.cs",
+              "RelativeDocumentMoniker": "ReceiveFilter.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\ReceiveFilter.cs",
+              "RelativeToolTip": "ReceiveFilter.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:30:40.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PKHRoom.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\PKHRoom.cs",
+              "RelativeDocumentMoniker": "PKHRoom.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\PKHRoom.cs",
+              "RelativeToolTip": "PKHRoom.cs",
+              "ViewState": "AQIAANoAAAAAAAAAAAAAwO4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:09:58.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NLogLog.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\NLogLog.cs",
+              "RelativeDocumentMoniker": "NLogLog.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\NLogLog.cs",
+              "RelativeToolTip": "NLogLog.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T14:52:34.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatServer\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:30:37.906Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

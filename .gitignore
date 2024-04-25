@@ -1,0 +1,6 @@
+.mono/
+.vscode/
+obj/
+bin/
+.idea/
+log/

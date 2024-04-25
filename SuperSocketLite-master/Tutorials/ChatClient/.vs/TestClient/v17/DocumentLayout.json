@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatClient\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8BD9B461-8A1C-4692-A1CE-4678648783CB}|TestClient.csproj|c:\\users\\gnslg\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\servercampus_apiserver\\supersocketlite-master\\tutorials\\chatclient\\packetbuffermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BD9B461-8A1C-4692-A1CE-4678648783CB}|TestClient.csproj|solutionrelative:packetbuffermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BD9B461-8A1C-4692-A1CE-4678648783CB}|TestClient.csproj|c:\\users\\gnslg\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\servercampus_apiserver\\supersocketlite-master\\tutorials\\chatclient\\packetdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BD9B461-8A1C-4692-A1CE-4678648783CB}|TestClient.csproj|solutionrelative:packetdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PacketBufferManager.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatClient\\PacketBufferManager.cs",
+              "RelativeDocumentMoniker": "PacketBufferManager.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatClient\\PacketBufferManager.cs",
+              "RelativeToolTip": "PacketBufferManager.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAIwBoAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T15:10:51.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PacketData.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatClient\\PacketData.cs",
+              "RelativeDocumentMoniker": "PacketData.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\ChatClient\\PacketData.cs",
+              "RelativeToolTip": "PacketData.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T15:10:45.849Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

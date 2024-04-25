@@ -26,7 +26,9 @@ namespace ChatServer
         {
             packetHandlerMap.Add((int)PACKETID.REQ_ROOM_ENTER, RequestRoomEnter);
             packetHandlerMap.Add((int)PACKETID.REQ_ROOM_LEAVE, RequestLeave);
-            packetHandlerMap.Add((int)PACKETID.NTF_IN_ROOM_LEAVE, NotifyLeaveInternal); // 방에서 나가지 않았는데 접속을 끊으면 방에서 내보내줘야함. 그러나 직접적으론 안되고 NTF_IN_ROOM_LEAVE라는 별도의 패킷을 줘서 패킷 처리로 내보내는 것
+            // NTF_IN_ROOM_LEAVE의 용도 : 방에서 나가지 않았는데 접속을 끊으면 방에서 내보내줘야함. 서버에서 이를 감지한다.
+            // 네트워크 처리 로직과 패킷 처리 로직을 두 개의 스레드로 분리하기 위해 NTF_IN_ROOM_LEAVE라는 별도의 패킷을 줘서 패킷 처리로 내보내는 것
+            packetHandlerMap.Add((int)PACKETID.NTF_IN_ROOM_LEAVE, NotifyLeaveInternal); 
             packetHandlerMap.Add((int)PACKETID.REQ_ROOM_CHAT, RequestChat);
         }
 
@@ -43,7 +45,7 @@ namespace ChatServer
             return RoomList[index];
         }
                 
-        (bool, Room, RoomUser) CheckRoomAndRoomUser(string userNetSessionID)    // 방을 찾았는지 여부, 방 객체, 그 방에 속한 유저의 ID 총 3개를 튜플로 반환한다. 이들은 item1, item2, item3 필드로 접근할 수 있음
+        (bool, Room, RoomUser) CheckRoomAndRoomUser(string userNetSessionID)    // 방을 찾았는지 여부, 방 객체, 그 방에 속한 유저 총 3개를 튜플로 반환한다. 이들은 item1, item2, item3 필드로 접근할 수 있음
         {
             var user = UserMgr.GetUser(userNetSessionID);
             if (user == null)

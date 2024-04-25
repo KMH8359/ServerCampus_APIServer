@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WY+sq/8VD5Z9ePL1YA73GQOITXof4OuUDnWSuzD/ELf6mEWUmB244qiy2lFC6/1ljJiNdcu0dZcFgRwoJdZv5Q==",
+  "dgSpecHash": "BOF9oeInNLwxK9f5MG9gtu934vzZ2u9+W3MGuPIwkEWTPDlTrgn6ciOfAB8UZ+7S2XzfDl1FzxSEqbqShfQZ8g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\csharp_test_client.csproj",
+  "projectFilePath": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite학습\\EchoClient\\csharp_test_client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gnslg\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\gnslg\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

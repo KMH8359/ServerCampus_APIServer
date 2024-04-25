@@ -1,12 +1,169 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|c:\\users\\gnslg\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\servercampus_apiserver\\supersocketlite\uD559\uC2B5\\echoclient\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\devlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:devlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|c:\\users\\gnslg\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\servercampus_apiserver\\supersocketlite\uD559\uC2B5\\echoclient\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\packetbuffermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:packetbuffermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\packetprocessform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:packetprocessform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\clientsimpletcp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:clientsimpletcp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E4B5E72-4E76-4E22-90B0-E53275A99018}|csharp_test_client.csproj|solutionrelative:mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\mainForm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "mainForm.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainForm.cs",
+              "RelativeDocumentMoniker": "mainForm.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainForm.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "mainForm.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T15:25:05.741Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PacketBufferManager.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\PacketBufferManager.cs",
+              "RelativeDocumentMoniker": "PacketBufferManager.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\PacketBufferManager.cs",
+              "RelativeToolTip": "PacketBufferManager.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAiwFcAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:00:01.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PacketProcessForm.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\PacketProcessForm.cs",
+              "RelativeDocumentMoniker": "PacketProcessForm.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\PacketProcessForm.cs",
+              "RelativeToolTip": "PacketProcessForm.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAYwFEAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T11:54:36.813Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "mainForm.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainForm.cs",
+              "RelativeDocumentMoniker": "mainForm.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainForm.cs",
+              "RelativeToolTip": "mainForm.cs",
+              "ViewState": "AQIAACYBAAAAAAAAAAAUwD4BAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T11:08:43.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T11:07:57.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClientSimpleTcp.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\ClientSimpleTcp.cs",
+              "RelativeDocumentMoniker": "ClientSimpleTcp.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\ClientSimpleTcp.cs",
+              "RelativeToolTip": "ClientSimpleTcp.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAACUAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T10:45:00.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DevLog.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\DevLog.cs",
+              "RelativeDocumentMoniker": "DevLog.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\DevLog.cs",
+              "RelativeToolTip": "DevLog.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAtwCMAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T10:44:58.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "mainForm.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\mainForm.cs",
+              "RelativeDocumentMoniker": "..\\..\\SuperSocketLite-master\\Tutorials\\EchoClient\\mainForm.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\mainForm.cs",
+              "RelativeToolTip": "..\\..\\SuperSocketLite-master\\Tutorials\\EchoClient\\mainForm.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T11:07:39.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "mainForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainForm.Designer.cs",
+              "RelativeDocumentMoniker": "mainForm.Designer.cs",
+              "ToolTip": "C:\\Users\\gnslg\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\ServerCampus_APIServer\\SuperSocketLite\uD559\uC2B5\\EchoClient\\mainForm.Designer.cs",
+              "RelativeToolTip": "mainForm.Designer.cs",
+              "ViewState": "AQIAAJkBAAAAAAAAAAApwLEBAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T10:44:44.91Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

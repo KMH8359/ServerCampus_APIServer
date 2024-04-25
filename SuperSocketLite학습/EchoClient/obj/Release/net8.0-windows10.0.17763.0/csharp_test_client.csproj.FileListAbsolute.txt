@@ -99,3 +99,7 @@ C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite-mas
 C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite-master\Tutorials\EchoClient\obj\Release\net8.0-windows10.0.17763.0\csharp_test_client.pdb
 C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite-master\Tutorials\EchoClient\obj\Release\net8.0-windows10.0.17763.0\csharp_test_client.genruntimeconfig.cache
 C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite-master\Tutorials\EchoClient\obj\Release\net8.0-windows10.0.17763.0\ref\csharp_test_client.dll
+C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite학습\EchoClient\obj\Release\net8.0-windows10.0.17763.0\csharp_test_client.csproj.AssemblyReference.cache
+C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite학습\EchoClient\obj\Release\net8.0-windows10.0.17763.0\csharp_test_client.dll
+C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite학습\EchoClient\obj\Release\net8.0-windows10.0.17763.0\refint\csharp_test_client.dll
+C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\SuperSocketLite학습\EchoClient\obj\Release\net8.0-windows10.0.17763.0\csharp_test_client.pdb

@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace csharp_test_client
 {
     [SupportedOSPlatform("windows10.0.177630")]
-    public partial class mainForm : Form
+    public partial class mainForm : Form        // WinForm을 상속하는 임의의 Form 클래스
     {
         ClientSimpleTcp Network = new ClientSimpleTcp();
 
@@ -20,7 +16,7 @@ namespace csharp_test_client
         bool IsBackGroundProcessRunning = false;
 
         System.Threading.Thread NetworkReadThread = null;
-        System.Threading.Thread NetworkSendThread = null;
+        System.Threading.Thread NetworkSendThread = null;   // 읽는 스레드 쓰는 스레드 하나씩 할당
 
         PacketBufferManager PacketBuffer = new PacketBufferManager();
         Queue<PacketData> RecvPacketQueue = new Queue<PacketData>();
@@ -136,7 +132,7 @@ namespace csharp_test_client
                     while (true)
                     {
                         var data = PacketBuffer.Read();
-                        if (data.Count < 1)
+                        if (data.Count < 1) // ArraySegment의 크기를 나타내는 필드 Count
                         {
                             break;
                         }
@@ -174,7 +170,7 @@ namespace csharp_test_client
                     continue;
                 }
 
-                lock (((System.Collections.ICollection)SendPacketQueue).SyncRoot)
+                lock (((System.Collections.ICollection)SendPacketQueue).SyncRoot)   // Send 스레드와 WinForm 메인 스레드에서 동시 접근하는 SendPacketQueue의 동시성 보장을 위한 락
                 {
                     if (SendPacketQueue.Count > 0)
                     {
@@ -284,12 +280,12 @@ namespace csharp_test_client
             dataSource.AddRange(BitConverter.GetBytes((Int16)packetSize));
             dataSource.AddRange(BitConverter.GetBytes((Int16)packetID));
             dataSource.AddRange(new byte[] { (byte)0 });
-            
+
             if (bodyData != null)
             {
                 dataSource.AddRange(bodyData);
             }
-           
+
             SendPacketQueue.Enqueue(dataSource.ToArray());
         }
 
@@ -303,10 +299,10 @@ namespace csharp_test_client
         {
             object removeItem = null;
 
-            foreach( var user in listBoxRoomUserList.Items)
+            foreach (var user in listBoxRoomUserList.Items)
             {
                 var items = user.ToString().Split(":");
-                if( items[0].ToInt64() == userUniqueId)
+                if (items[0].ToInt64() == userUniqueId)
                 {
                     removeItem = user;
                     return;
@@ -325,8 +321,8 @@ namespace csharp_test_client
         {
             var loginReq = new LoginReqPacket();
             loginReq.SetValue(textBoxUserID.Text, textBoxUserPW.Text);
-                    
-            PostSendPacket(PACKET_ID.PACKET_ID_LOGIN_REQ, loginReq.ToBytes());            
+
+            PostSendPacket(PACKET_ID.PACKET_ID_LOGIN_REQ, loginReq.ToBytes());
             DevLog.Write($"로그인 요청:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
         }
 
@@ -341,13 +337,13 @@ namespace csharp_test_client
 
         private void btn_RoomLeave_Click(object sender, EventArgs e)
         {
-            PostSendPacket(PACKET_ID.PACKET_ID_ROOM_LEAVE_REQ,  null);
+            PostSendPacket(PACKET_ID.PACKET_ID_ROOM_LEAVE_REQ, null);
             DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
         }
 
         private void btnRoomChat_Click(object sender, EventArgs e)
         {
-            if(textBoxRoomSendMsg.Text.IsEmpty())
+            if (textBoxRoomSendMsg.Text.IsEmpty())
             {
                 MessageBox.Show("채팅 메시지를 입력하세요");
                 return;
@@ -362,15 +358,25 @@ namespace csharp_test_client
 
         private void btnRoomRelay_Click(object sender, EventArgs e)
         {
-            if( textBoxRelay.Text.IsEmpty())
+            if (textBoxRelay.Text.IsEmpty())
             {
                 MessageBox.Show("릴레이 할 데이터가 없습니다");
                 return;
             }
-            
+
             var bodyData = Encoding.UTF8.GetBytes(textBoxRelay.Text);
             PostSendPacket(PACKET_ID.PACKET_ID_ROOM_RELAY_REQ, bodyData);
             DevLog.Write($"방 릴레이 요청");
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textSendText_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

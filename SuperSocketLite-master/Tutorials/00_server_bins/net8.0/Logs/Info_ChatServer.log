@@ -58,3 +58,29 @@
 [2024/04/23 17:01:56.036] [TID:10] [PacketProcessor.Process => PKHRoom.RequestChat => NLogLog.Debug]: Room RequestChat
 [2024/04/23 17:01:59.324] [TID:5] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 51768297-c451-4417-875d-994538cd0d7b 접속해제: SocketError
 [2024/04/23 17:01:59.324] [TID:10] [PacketProcessor.Process => PKHCommon.NotifyInDisConnectClient => NLogLog.Debug]: Current Connected Session Count: 0
+[2024/04/24 22:47:20.818] [TID:1] [Program.Main => MainServer.CreateStartServer => NLogLog.Info]: 서버 초기화 성공
+[2024/04/24 22:47:20.831] [TID:1] [MainServer.CreateStartServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/04/24 22:47:20.851] [TID:1] [AsyncSocketServer.Start => SocketServerBase.Start => NLogLog.Debug]: Listener (0.0.0.0:32452) was started
+[2024/04/24 22:47:20.851] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance ChatServer has been started!
+[2024/04/24 22:47:20.851] [TID:1] [Program.Main => MainServer.CreateStartServer => NLogLog.Info]: 서버 생성 성공
+[2024/04/24 22:47:20.851] [TID:1] [Program.Main => NLogLog.Info]: Press q to shut down the server
+[2024/04/25 00:06:26.083] [TID:1] [Program.Main => MainServer.CreateStartServer => NLogLog.Info]: 서버 초기화 성공
+[2024/04/25 00:06:26.096] [TID:1] [MainServer.CreateStartServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/04/25 00:06:26.110] [TID:1] [AsyncSocketServer.Start => SocketServerBase.Start => NLogLog.Debug]: Listener (0.0.0.0:32452) was started
+[2024/04/25 00:06:26.110] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance ChatServer has been started!
+[2024/04/25 00:06:26.110] [TID:1] [Program.Main => MainServer.CreateStartServer => NLogLog.Info]: 서버 생성 성공
+[2024/04/25 00:06:26.110] [TID:1] [Program.Main => NLogLog.Info]: Press q to shut down the server
+[2024/04/25 00:08:13.998] [TID:12] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 접속
+[2024/04/25 00:08:13.998] [TID:10] [PacketProcessor.Process => PKHCommon.NotifyInConnectClient => NLogLog.Debug]: Current Connected Session Count: 1
+[2024/04/25 00:08:27.313] [TID:13] [AppServerBase`2.ExecuteCommand => MainServer.OnPacketReceived => NLogLog.Debug]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 받은 데이터 크기: 2, ThreadId: 13
+[2024/04/25 00:08:27.313] [TID:10] [PacketProcessor.Process => PKHRoom.RequestRoomEnter => NLogLog.Debug]: RequestRoomEnter
+[2024/04/25 00:08:27.380] [TID:5] [AppServerBase`2.ExecuteCommand => MainServer.OnPacketReceived => NLogLog.Debug]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 받은 데이터 크기: 2, ThreadId: 5
+[2024/04/25 00:08:27.380] [TID:10] [PacketProcessor.Process => PKHRoom.RequestRoomEnter => NLogLog.Debug]: RequestRoomEnter
+[2024/04/25 00:08:31.547] [TID:5] [AppServerBase`2.ExecuteCommand => MainServer.OnPacketReceived => NLogLog.Debug]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 받은 데이터 크기: 6, ThreadId: 5
+[2024/04/25 00:08:31.547] [TID:10] [PacketProcessor.Process => PKHRoom.RequestChat => NLogLog.Debug]: Room RequestChat
+[2024/04/25 00:08:32.609] [TID:12] [AppServerBase`2.ExecuteCommand => MainServer.OnPacketReceived => NLogLog.Debug]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 받은 데이터 크기: 6, ThreadId: 12
+[2024/04/25 00:08:32.609] [TID:10] [PacketProcessor.Process => PKHRoom.RequestChat => NLogLog.Debug]: Room RequestChat
+[2024/04/25 00:08:33.533] [TID:5] [AppServerBase`2.ExecuteCommand => MainServer.OnPacketReceived => NLogLog.Debug]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 받은 데이터 크기: 6, ThreadId: 5
+[2024/04/25 00:08:33.533] [TID:10] [PacketProcessor.Process => PKHRoom.RequestChat => NLogLog.Debug]: Room RequestChat
+[2024/04/25 00:08:39.386] [TID:5] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 3243cb7f-a2ff-4cdd-9db4-ce5520201354 접속해제: SocketError
+[2024/04/25 00:08:39.386] [TID:10] [PacketProcessor.Process => PKHCommon.NotifyInDisConnectClient => NLogLog.Debug]: Current Connected Session Count: 0

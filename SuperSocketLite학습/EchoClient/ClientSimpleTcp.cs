@@ -18,7 +18,7 @@ namespace csharp_test_client
                 IPAddress serverIP = IPAddress.Parse(ip);
                 int serverPort = port;
 
-                Sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); // TCP 소켓
                 Sock.Connect(new IPEndPoint(serverIP, serverPort));
 
                 if (Sock == null || Sock.Connected == false)
@@ -43,7 +43,7 @@ namespace csharp_test_client
                 byte[] ReadBuffer = new byte[2048];
                 var nRecv = Sock.Receive(ReadBuffer, 0, ReadBuffer.Length, SocketFlags.None);
 
-                if (nRecv == 0)
+                if (nRecv == 0) // 읽은 데이터의 길이
                 {
                     return null;
                 }

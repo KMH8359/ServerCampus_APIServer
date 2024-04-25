@@ -3236,11 +3236,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\csharp_test_client.csproj",
+      "projectUniqueName": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite학습\\EchoClient\\csharp_test_client.csproj",
       "projectName": "csharp_test_client",
-      "projectPath": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\csharp_test_client.csproj",
+      "projectPath": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite학습\\EchoClient\\csharp_test_client.csproj",
       "packagesPath": "C:\\Users\\gnslg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite-master\\Tutorials\\EchoClient\\obj\\",
+      "outputPath": "C:\\Users\\gnslg\\OneDrive\\바탕 화면\\ServerCampus_APIServer\\SuperSocketLite학습\\EchoClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

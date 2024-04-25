@@ -100,6 +100,7 @@
             groupBox5.TabIndex = 27;
             groupBox5.TabStop = false;
             groupBox5.Text = "Socket 더미 클라이언트 설정";
+            groupBox5.Enter += groupBox5_Enter;
             // 
             // textBoxPort
             // 
@@ -176,6 +177,7 @@
             textSendText.TabIndex = 38;
             textSendText.Text = "test1";
             textSendText.WordWrap = false;
+            textSendText.TextChanged += textSendText_TextChanged;
             // 
             // labelStatus
             // 
