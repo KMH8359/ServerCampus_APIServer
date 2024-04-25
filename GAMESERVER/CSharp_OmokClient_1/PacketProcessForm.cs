@@ -1,5 +1,5 @@
 ﻿using CSCommon;
-using MessagePack;
+using MemoryPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,19 +112,19 @@ namespace csharp_test_client
 
         void PacketProcess_LoginResponse(byte[] packetData)
         {
-            var responsePkt = MessagePackSerializer.Deserialize<PKTResLogin>(packetData);
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResLogin>(packetData);
             DevLog.Write($"로그인 결과: {(ErrorCode)responsePkt.Result}");
         }
 
         void PacketProcess_RoomEnterResponse(byte[] packetData)
         {
-            var responsePkt = MessagePackSerializer.Deserialize<PKTResRoomEnter>(packetData);
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomEnter>(packetData);
             DevLog.Write($"방 입장 결과:  {(ErrorCode)responsePkt.Result}");
         }
 
         void PacketProcess_RoomUserListNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfRoomUserList>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfRoomUserList>(packetData);
 
             for (int i = 0; i < notifyPkt.UserIDList.Count; ++i)
             {
@@ -136,7 +136,7 @@ namespace csharp_test_client
 
         void PacketProcess_RoomNewUserNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfRoomNewUser>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfRoomNewUser>(packetData);
 
             AddRoomUserList(notifyPkt.UserID);
 
@@ -146,14 +146,14 @@ namespace csharp_test_client
 
         void PacketProcess_RoomLeaveResponse(byte[] packetData)
         {
-            var responsePkt = MessagePackSerializer.Deserialize<PKTResRoomLeave>(packetData);
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomLeave>(packetData);
 
             DevLog.Write($"방 나가기 결과:  {(ErrorCode)responsePkt.Result}");
         }
 
         void PacketProcess_RoomLeaveUserNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfRoomLeaveUser>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfRoomLeaveUser>(packetData);
 
             RemoveRoomUserList(notifyPkt.UserID);
 
@@ -163,7 +163,7 @@ namespace csharp_test_client
 
         void PacketProcess_RoomChatResponse(byte[] packetData)
         {
-            var responsePkt = MessagePackSerializer.Deserialize<PKTResRoomChat>(packetData);
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomChat>(packetData);
 
             DevLog.Write($"방 채팅 결과:  {(ErrorCode)responsePkt.Result}");
         }
@@ -171,7 +171,7 @@ namespace csharp_test_client
 
         void PacketProcess_RoomChatNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfRoomChat>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfRoomChat>(packetData);
 
             AddRoomChatMessageList(notifyPkt.UserID, notifyPkt.ChatMessage);
         }
@@ -189,14 +189,14 @@ namespace csharp_test_client
 
         void PacketProcess_ReadyOmokResponse(byte[] packetData)
         {
-            var responsePkt = MessagePackSerializer.Deserialize<PKTResReadyOmok>(packetData);
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResReadyOmok>(packetData);
 
             DevLog.Write($"게임 준비 완료 요청 결과:  {(ErrorCode)responsePkt.Result}");
         }
 
         void PacketProcess_ReadyOmokNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfReadyOmok>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfReadyOmok>(packetData);
 
             if (notifyPkt.IsReady)
             {
@@ -213,7 +213,7 @@ namespace csharp_test_client
         {
             var isMyTurn = false;
 
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfStartOmok>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfStartOmok>(packetData);
             
             if(notifyPkt.FirstUserID == textBoxUserID.Text)
             {
@@ -228,7 +228,7 @@ namespace csharp_test_client
 
         void PacketProcess_PutMokResponse(byte[] packetData)
         {
-            var responsePkt = MessagePackSerializer.Deserialize<PKTResPutMok>(packetData);
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResPutMok>(packetData);
 
             DevLog.Write($"오목 놓기 실패: {(ErrorCode)responsePkt.Result}");
 
@@ -238,7 +238,7 @@ namespace csharp_test_client
 
         void PacketProcess_PutMokNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfPutMok>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfPutMok>(packetData);
 
             플레이어_돌두기(true, notifyPkt.PosX, notifyPkt.PosY);
 
@@ -248,7 +248,7 @@ namespace csharp_test_client
 
         void PacketProcess_EndOmokNotify(byte[] packetData)
         {
-            var notifyPkt = MessagePackSerializer.Deserialize<PKTNtfEndOmok>(packetData);
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfEndOmok>(packetData);
 
             EndGame();
 
