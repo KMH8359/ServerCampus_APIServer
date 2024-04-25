@@ -34,3 +34,11 @@
 [2024/04/25 18:13:08.055] [TID:12] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 91dca2e6-e651-4c5c-ae88-7c61c159c102 접속해제: SocketError
 [2024/04/25 18:13:12.151] [TID:12] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 b99ac2de-2a09-472f-b99b-8942913a844c 접속
 [2024/04/25 18:13:32.526] [TID:13] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 b99ac2de-2a09-472f-b99b-8942913a844c 접속해제: SocketError
+[2024/04/25 18:38:21.092] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/04/25 18:38:21.104] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/04/25 18:38:21.117] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/04/25 18:38:32.224] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 9174b721-1954-4e54-984d-155ccf360588 접속
+[2024/04/25 18:38:51.113] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 9174b721-1954-4e54-984d-155ccf360588 접속해제: SocketError
+[2024/04/25 22:24:43.433] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/04/25 22:24:43.455] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/04/25 22:24:43.475] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!

@@ -4,5 +4,4 @@ obj/
 bin/
 .idea/
 log/
-*.dll
 .vs/

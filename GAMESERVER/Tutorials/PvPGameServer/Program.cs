@@ -10,7 +10,7 @@ namespace PvPGameServer;
 
 class Program
 { 
-    static async Task Main(string[] args)
+    static async Task Main(string[] args) 
     {
         var host = new HostBuilder()
             .ConfigureAppConfiguration((hostingContext, config) =>
