@@ -7,11 +7,11 @@ namespace CSCommon
 {
     public struct MemoryPackPacketHeaderInfo
     {
-        const int PacketHeaderMemoryPackStartPos = 3;
-        public const int HeadSize = 8;
+        const int PacketHeaderMemoryPackStartPos = 1;
+        public const int HeadSize = 6;
 
         public UInt16 TotalSize;
-        public UInt16 ID;
+        public UInt16 Id;
         public byte Type;
 
         public static UInt16 GetTotalSize(byte[] data, int startPos)
@@ -33,7 +33,7 @@ namespace CSCommon
             TotalSize = FastBinaryRead.UInt16(headerData, pos);
             pos += 2;
 
-            ID = FastBinaryRead.UInt16(headerData, pos);
+            Id = FastBinaryRead.UInt16(headerData, pos);
             pos += 2;
 
             Type = headerData[pos];
@@ -47,7 +47,7 @@ namespace CSCommon
             FastBinaryWrite.UInt16(packetData, pos, TotalSize);
             pos += 2;
 
-            FastBinaryWrite.UInt16(packetData, pos, ID);
+            FastBinaryWrite.UInt16(packetData, pos, Id);
             pos += 2;
 
             packetData[pos] = Type;
@@ -62,7 +62,7 @@ namespace CSCommon
             FastBinaryWrite.UInt16(packetData, pos, TotalSize);
             pos += 2;
 
-            FastBinaryWrite.UInt16(packetData, pos, ID);
+            FastBinaryWrite.UInt16(packetData, pos, Id);
             pos += 2;
 
             packetData[pos] = Type;

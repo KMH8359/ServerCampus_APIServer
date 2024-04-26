@@ -202,7 +202,7 @@
             this.textBoxUserID.Name = "textBoxUserID";
             this.textBoxUserID.Size = new System.Drawing.Size(99, 22);
             this.textBoxUserID.TabIndex = 43;
-            this.textBoxUserID.Text = "jacking75";
+            this.textBoxUserID.Text = "test1";
             this.textBoxUserID.WordWrap = false;
             // 
             // textBoxUserPW
@@ -212,7 +212,7 @@
             this.textBoxUserPW.Name = "textBoxUserPW";
             this.textBoxUserPW.Size = new System.Drawing.Size(99, 22);
             this.textBoxUserPW.TabIndex = 45;
-            this.textBoxUserPW.Text = "jacking75";
+            this.textBoxUserPW.Text = "123qwe";
             this.textBoxUserPW.WordWrap = false;
             // 
             // label2

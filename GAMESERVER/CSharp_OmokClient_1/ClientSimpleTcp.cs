@@ -58,12 +58,11 @@ namespace csharp_test_client
             return null;
         }
 
-        //스트림에 쓰기
         public void Send(byte[] sendData)
         {
             try
             {
-                if (Sock != null && Sock.Connected) //연결상태 유무 확인
+                if (Sock != null && Sock.Connected) 
                 {
                     Sock.Send(sendData, 0, sendData.Length, SocketFlags.None);
                 }
@@ -78,12 +77,10 @@ namespace csharp_test_client
             }
         }
 
-        //소켓과 스트림 닫기
         public void Close()
         {
             if (Sock != null && Sock.Connected)
             {
-                //Sock.Shutdown(SocketShutdown.Both);
                 Sock.Close();
             }
         }

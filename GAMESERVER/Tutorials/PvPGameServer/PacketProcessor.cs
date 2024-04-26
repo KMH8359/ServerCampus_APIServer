@@ -69,7 +69,7 @@ class PacketProcessor
         _commonPacketHandler.RegistPacketHandler(_packetHandlerMap);                
         
         _roomPacketHandler.Init(_userMgr);
-        _roomPacketHandler.SetRooomList(_roomList);
+        _roomPacketHandler.SetRoomList(_roomList);
         _roomPacketHandler.RegistPacketHandler(_packetHandlerMap);
     }
 

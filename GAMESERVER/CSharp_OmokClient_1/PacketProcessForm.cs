@@ -39,7 +39,7 @@ namespace csharp_test_client
             var header = new MemoryPackPacketHeaderInfo();
             header.Read(packet);
 
-            var packetID = header.ID;
+            var packetID = header.Id;
 
             if (PacketFuncDic.ContainsKey(packetID))
             {
@@ -148,6 +148,8 @@ namespace csharp_test_client
         {
             var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomLeave>(packetData);
 
+            ClearRoomUserList();
+
             DevLog.Write($"방 나가기 결과:  {(ErrorCode)responsePkt.Result}");
         }
 
@@ -178,6 +180,8 @@ namespace csharp_test_client
 
         void AddRoomChatMessageList(string userID, string message)
         {
+            var msg = $"{userID}:  {message}";
+
             if (listBoxRoomChatMsg.Items.Count > 512)
             {
                 listBoxRoomChatMsg.Items.Clear();

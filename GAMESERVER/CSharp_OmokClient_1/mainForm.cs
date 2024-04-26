@@ -248,7 +248,7 @@ namespace csharp_test_client
             }
 
             var header = new MemoryPackPacketHeaderInfo();
-            header.ID = packetID;
+            header.Id = packetID;
             header.Type = 0;
 
             if (packetData != null)
@@ -271,16 +271,21 @@ namespace csharp_test_client
             listBoxRoomUserList.Items.Add(userID);
         }
 
+        void ClearRoomUserList()
+        {
+            listBoxRoomUserList.Items.Clear();
+        }
+
         void RemoveRoomUserList(string userID)
         {
             object removeItem = null;
 
             foreach( var user in listBoxRoomUserList.Items)
             {
-                if((string)user == userID)
+                if ((string)user == userID)
                 {
                     removeItem = user;
-                    return;
+                    break;
                 }
             }
 

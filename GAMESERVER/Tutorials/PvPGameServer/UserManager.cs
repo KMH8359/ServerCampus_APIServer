@@ -18,16 +18,16 @@ public class UserManager
         _maxUserCount = maxUserCount;
     }
 
-    public ERROR_CODE AddUser(string userID, string sessionID)
+    public ErrorCode AddUser(string userID, string sessionID)
     {
         if(IsFullUserCount())
         {
-            return ERROR_CODE.LOGIN_FULL_USER_COUNT;
+            return ErrorCode.LOGIN_FULL_USER_COUNT;
         }
 
         if (_userMap.ContainsKey(sessionID))
         {
-            return ERROR_CODE.ADD_USER_DUPLICATION;
+            return ErrorCode.ADD_USER_DUPLICATION;
         }
 
 
@@ -37,17 +37,17 @@ public class UserManager
         user.Set(_userSequenceNumber, sessionID, userID);
         _userMap.Add(sessionID, user);
 
-        return ERROR_CODE.NONE;
+        return ErrorCode.NONE;
     }
 
-    public ERROR_CODE RemoveUser(string sessionID)
+    public ErrorCode RemoveUser(string sessionID)
     {
         if(_userMap.Remove(sessionID) == false)
         {
-            return ERROR_CODE.REMOVE_USER_SEARCH_FAILURE_USER_ID;
+            return ErrorCode.REMOVE_USER_SEARCH_FAILURE_USER_ID;
         }
 
-        return ERROR_CODE.NONE;
+        return ErrorCode.NONE;
     }
 
     public User GetUser(string sessionID)

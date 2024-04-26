@@ -1,4 +1,4 @@
-﻿using MemoryPack;
+﻿ using MemoryPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ public class PKHRoom : PKHandler
     List<Room> _roomList = null;
     int _startRoomNumber;
     
-    public void SetRooomList(List<Room> roomList)
+    public void SetRoomList(List<Room> roomList)
     {
         _roomList = roomList;
         _startRoomNumber = roomList[0].Number;
@@ -77,13 +77,13 @@ public class PKHRoom : PKHandler
 
             if (user == null || user.IsConfirm(sessionID) == false)
             {
-                ResponseEnterRoomToClient(ERROR_CODE.ROOM_ENTER_INVALID_USER, sessionID);
+                ResponseEnterRoomToClient(ErrorCode.ROOM_ENTER_INVALID_USER, sessionID);
                 return;
             }
 
             if (user.IsStateRoom())
             {
-                ResponseEnterRoomToClient(ERROR_CODE.ROOM_ENTER_INVALID_STATE, sessionID);
+                ResponseEnterRoomToClient(ErrorCode.ROOM_ENTER_INVALID_STATE, sessionID);
                 return;
             }
 
@@ -93,13 +93,13 @@ public class PKHRoom : PKHandler
 
             if (room == null)
             {
-                ResponseEnterRoomToClient(ERROR_CODE.ROOM_ENTER_INVALID_ROOM_NUMBER, sessionID);
+                ResponseEnterRoomToClient(ErrorCode.ROOM_ENTER_INVALID_ROOM_NUMBER, sessionID);
                 return;
             }
 
             if (room.AddUser(user.ID(), sessionID) == false)
             {
-                ResponseEnterRoomToClient(ERROR_CODE.ROOM_ENTER_FAIL_ADD_USER, sessionID);
+                ResponseEnterRoomToClient(ErrorCode.ROOM_ENTER_FAIL_ADD_USER, sessionID);
                 return;
             }
 
@@ -109,7 +109,7 @@ public class PKHRoom : PKHandler
             room.NotifyPacketUserList(sessionID);
             room.NofifyPacketNewUser(sessionID, user.ID());
 
-            ResponseEnterRoomToClient(ERROR_CODE.NONE, sessionID);
+            ResponseEnterRoomToClient(ErrorCode.NONE, sessionID);
 
             MainServer.MainLogger.Debug("RequestEnterInternal - Success");
         }
@@ -119,7 +119,7 @@ public class PKHRoom : PKHandler
         }
     }
 
-    void ResponseEnterRoomToClient(ERROR_CODE errorCode, string sessionID)
+    void ResponseEnterRoomToClient(ErrorCode errorCode, string sessionID)
     {
         var resRoomEnter = new PKTResRoomEnter()
         {
@@ -189,7 +189,7 @@ public class PKHRoom : PKHandler
     {
         var resRoomLeave = new PKTResRoomLeave()
         {
-            Result = (short)ERROR_CODE.NONE
+            Result = (short)ErrorCode.NONE
         };
 
         var sendPacket = MemoryPackSerializer.Serialize(resRoomLeave);

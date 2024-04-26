@@ -140,7 +140,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         _packetProcessor.Destory();
     }
 
-    public ERROR_CODE CreateComponent(ServerOption serverOpt)
+    public ErrorCode CreateComponent(ServerOption serverOpt)
     {
         Room.NetSendFunc = this.SendData;
         _roomMgr.CreateRooms(serverOpt);
@@ -150,7 +150,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         _packetProcessor.CreateAndStart(_roomMgr.GetRoomsList(), serverOpt);
 
         MainLogger.Info("CreateComponent - Success");
-        return ERROR_CODE.NONE;
+        return ErrorCode.NONE;
     }
 
     public bool SendData(string sessionID, byte[] sendData)

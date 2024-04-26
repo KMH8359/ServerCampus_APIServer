@@ -178,7 +178,7 @@
             // textBoxUserID
             // 
             this.textBoxUserID.Location = new System.Drawing.Point(62, 67);
-            this.textBoxUserID.MaxLength = 6;
+            this.textBoxUserID.MaxLength = 15;
             this.textBoxUserID.Name = "textBoxUserID";
             this.textBoxUserID.Size = new System.Drawing.Size(87, 21);
             this.textBoxUserID.TabIndex = 43;
@@ -188,7 +188,7 @@
             // textBoxUserPW
             // 
             this.textBoxUserPW.Location = new System.Drawing.Point(220, 68);
-            this.textBoxUserPW.MaxLength = 6;
+            this.textBoxUserPW.MaxLength = 20;
             this.textBoxUserPW.Name = "textBoxUserPW";
             this.textBoxUserPW.Size = new System.Drawing.Size(87, 21);
             this.textBoxUserPW.TabIndex = 45;

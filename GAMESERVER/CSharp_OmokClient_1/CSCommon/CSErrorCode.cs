@@ -8,7 +8,6 @@ namespace CSCommon
     {
         None = 0, // 에러가 아니다
 
-        // 서버 초기화 에라
         REDIS_INIT_FAIL = 1,    // Redis 초기화 에러
 
         // 로그인 
@@ -28,11 +27,11 @@ namespace CSCommon
         DB_LOGIN_EMPTY_USER = 1013,
         DB_LOGIN_EXCEPTION = 1014,
 
-        ROOM_INVALID_STATE = 1021,
-        ROOM_INVALID_USER = 1022,
-        ROOM_ERROR_SYSTEM = 1023,
-        ROOM_INVALID_ROOM_NUMBER = 1024,
-        ROOM_FAIL_ADD_USER = 1025,
+        ROOM_ENTER_INVALID_STATE = 1021,
+        ROOM_ENTER_INVALID_USER = 1022,
+        ROOM_ENTER_ERROR_SYSTEM = 1023,
+        ROOM_ENTER_INVALID_ROOM_NUMBER = 1024,
+        ROOM_ENTER_FAIL_ADD_USER = 1025,
 
         OMOK_OVERFLOW = 1031,
         OMOK_ALREADY_EXIST = 1032,

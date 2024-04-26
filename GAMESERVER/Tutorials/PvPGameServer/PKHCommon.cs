@@ -50,19 +50,19 @@ public class PKHCommon : PKHandler
         {
             if(_userMgr.GetUser(sessionID) != null)
             {
-                ResponseLoginToClient(ERROR_CODE.LOGIN_ALREADY_WORKING, packetData.SessionID);
+                ResponseLoginToClient(ErrorCode.LOGIN_ALREADY_WORKING, packetData.SessionID);
                 return;
             }
                             
             var reqData = MemoryPackSerializer.Deserialize< PKTReqLogin>(packetData.Data);
             var errorCode = _userMgr.AddUser(reqData.UserID, sessionID);
-            if (errorCode != ERROR_CODE.NONE)
+            if (errorCode != ErrorCode.NONE)
             {
                 ResponseLoginToClient(errorCode, packetData.SessionID);
 
-                if (errorCode == ERROR_CODE.LOGIN_FULL_USER_COUNT)
+                if (errorCode == ErrorCode.LOGIN_FULL_USER_COUNT)
                 {
-                    NotifyMustCloseToClient(ERROR_CODE.LOGIN_FULL_USER_COUNT, packetData.SessionID);
+                    NotifyMustCloseToClient(ErrorCode.LOGIN_FULL_USER_COUNT, packetData.SessionID);
                 }
                 
                 return;
@@ -80,7 +80,7 @@ public class PKHCommon : PKHandler
         }
     }
             
-    public void ResponseLoginToClient(ERROR_CODE errorCode, string sessionID)
+    public void ResponseLoginToClient(ErrorCode errorCode, string sessionID)
     {
         var resLogin = new PKTResLogin()
         {
@@ -93,7 +93,7 @@ public class PKHCommon : PKHandler
         NetSendFunc(sessionID, sendData);
     }
 
-    public void NotifyMustCloseToClient(ERROR_CODE errorCode, string sessionID)
+    public void NotifyMustCloseToClient(ErrorCode errorCode, string sessionID)
     {
         var resLogin = new PKNtfMustClose()
         {
