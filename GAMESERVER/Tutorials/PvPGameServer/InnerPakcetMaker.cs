@@ -4,7 +4,7 @@ using System;
 
 namespace PvPGameServer;
 
-public class InnerPakcetMaker
+public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
 {
     public static MemoryPackBinaryRequestInfo MakeNTFInnerRoomLeavePacket(string sessionID, int roomNumber, string userID)
     {            

@@ -25,9 +25,13 @@ public class UserManager
             return ErrorCode.LOGIN_FULL_USER_COUNT;
         }
 
-        if (_userMap.ContainsKey(sessionID))
+
+        foreach (var userEntry in _userMap)
         {
-            return ErrorCode.ADD_USER_DUPLICATION;
+            if (userEntry.Value.ID() == userID)
+            {
+                return ErrorCode.ADD_USER_DUPLICATION;
+            }
         }
 
 
@@ -79,7 +83,7 @@ public class User
         UserID = userID;
     }                   
     
-    public bool IsConfirm(string netSessionID)
+    public bool IsSessionIDMatch(string netSessionID)
     {
         return SessionID == netSessionID;
     }
@@ -89,12 +93,12 @@ public class User
         return UserID;
     }
 
-    public void EnteredRoom(int roomNumber)
+    public void StoreRoomNumber(int roomNumber)
     {
         RoomNumber = roomNumber;
     }
 
-    public void LeaveRoom()
+    public void DiscardRoomNumber()
     {
         RoomNumber = -1;
     }

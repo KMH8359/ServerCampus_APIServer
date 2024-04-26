@@ -75,7 +75,7 @@ public class PKHRoom : PKHandler
         {
             var user = _userMgr.GetUser(sessionID);
 
-            if (user == null || user.IsConfirm(sessionID) == false)
+            if (user == null || user.IsSessionIDMatch(sessionID) == false)
             {
                 ResponseEnterRoomToClient(ErrorCode.ROOM_ENTER_INVALID_USER, sessionID);
                 return;
@@ -104,7 +104,7 @@ public class PKHRoom : PKHandler
             }
 
 
-            user.EnteredRoom(reqData.RoomNumber);
+            user.StoreRoomNumber(reqData.RoomNumber);
 
             room.NotifyPacketUserList(sessionID);
             room.NofifyPacketNewUser(sessionID, user.ID());
@@ -150,7 +150,7 @@ public class PKHRoom : PKHandler
                 return;
             }
 
-            user.LeaveRoom();
+            user.DiscardRoomNumber();
 
             ResponseLeaveRoomToClient(sessionID);
 

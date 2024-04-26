@@ -42,12 +42,6 @@ public class Room
         return true;
     }
 
-    public void RemoveUser(string netSessionID)
-    {
-        var index = _userList.FindIndex(x => x.NetSessionID == netSessionID);
-        _userList.RemoveAt(index);
-    }
-
     public bool RemoveUser(RoomUser user)
     {
         return _userList.Remove(user);

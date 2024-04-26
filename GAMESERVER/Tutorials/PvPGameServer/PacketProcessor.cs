@@ -14,8 +14,7 @@ class PacketProcessor
 
     public Func<string, byte[], bool> NetSendFunc;
     
-    //receive쪽에서 처리하지 않아도 Post에서 블럭킹 되지 않는다. 
-    //BufferBlock<T>(DataflowBlockOptions) 에서 DataflowBlockOptions의 BoundedCapacity로 버퍼 가능 수 지정. BoundedCapacity 보다 크게 쌓이면 블럭킹 된다
+    // BufferBlock is Thread Safe
     BufferBlock<MemoryPackBinaryRequestInfo> _msgBuffer = new BufferBlock<MemoryPackBinaryRequestInfo>();
 
     UserManager _userMgr = new UserManager();
@@ -39,11 +38,11 @@ class PacketProcessor
         RegistPacketHandler();
 
         _isThreadRunning = true;
-        _processThread = new System.Threading.Thread(this.Process);
+        _processThread = new System.Threading.Thread(this.Process); // 싱글스레드
         _processThread.Start();
     }
     
-    public void Destory()
+    public void Destroy()
     {
         MainServer.MainLogger.Info("PacketProcessor::Destory - begin");
 
@@ -77,7 +76,6 @@ class PacketProcessor
     {
         while (_isThreadRunning)
         {
-            //System.Threading.Thread.Sleep(64); //테스트 용
             try
             {
                 var packet = _msgBuffer.Receive();
@@ -89,10 +87,6 @@ class PacketProcessor
                 {
                     _packetHandlerMap[header.Id](packet);
                 }
-                /*else
-                {
-                    System.Diagnostics.Debug.WriteLine("세션 번호 {0}, PacketID {1}, 받은 데이터 크기: {2}", packet.SessionID, packet.PacketID, packet.BodyData.Length);
-                }*/
             }
             catch (Exception ex)
             {

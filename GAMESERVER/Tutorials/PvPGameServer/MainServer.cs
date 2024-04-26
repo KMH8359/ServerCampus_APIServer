@@ -80,7 +80,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
 
         base.Stop();
 
-        _packetProcessor.Destory();
+        _packetProcessor.Destroy();
 
         MainLogger.Info("OnStopped - end");
     }
@@ -92,6 +92,9 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
             Port = option.Port,
             Ip = "Any",
             MaxConnectionNumber = option.MaxConnectionNumber,
+            MaxRequestLength = option.MaxRequestLength,
+            ReceiveBufferSize = option.ReceiveBufferSize,
+            SendBufferSize = option.SendBufferSize,
             Mode = SocketMode.Tcp,
             Name = option.Name
         };
@@ -137,7 +140,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     {
         Stop();
 
-        _packetProcessor.Destory();
+        _packetProcessor.Destroy();
     }
 
     public ErrorCode CreateComponent(ServerOption serverOpt)
@@ -168,7 +171,6 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         }
         catch (Exception ex)
         {
-            // TimeoutException 예외가 발생할 수 있다
             MainLogger.Error($"{ex.ToString()},  {ex.StackTrace}");
 
             session.SendEndWhenSendingTimeOut();
@@ -184,19 +186,18 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
 
     void OnConnected(NetworkSession session)
     {
-        // 옵션의 최대 연결 수를 넘으면 SuperSocket이 바로 접속을 짤라버린다. 즉 이 OnConneted 함수가 호출되지 않는다
         MainLogger.Info($"세션 번호 {session.SessionID} 접속");
 
-        var packet = InnerPakcetMaker.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID);
-        Distribute(packet);
+        //var packet = InnerPakcetMaker.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID);
+        //Distribute(packet);
     }
 
     void OnClosed(NetworkSession session, CloseReason reason)
     {
         MainLogger.Info($"세션 번호 {session.SessionID} 접속해제: {reason.ToString()}");
 
-        var packet = InnerPakcetMaker.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID);
-        Distribute(packet);
+        //var packet = InnerPakcetMaker.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID);
+        //Distribute(packet);
     }
 
     void OnPacketReceived(NetworkSession session, MemoryPackBinaryRequestInfo reqInfo)

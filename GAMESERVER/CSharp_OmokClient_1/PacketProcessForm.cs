@@ -17,15 +17,15 @@ namespace csharp_test_client
         void SetPacketHandler()
         {
             //PacketFuncDic.Add(PACKET_ID.PACKET_ID_ERROR_NTF, PacketProcess_ErrorNotify);
-            PacketFuncDic.Add(PacketID.ResLogin, PacketProcess_LoginResponse);
+            PacketFuncDic.Add(PacketID.RES_LOGIN, PacketProcess_LoginResponse);
 
-            PacketFuncDic.Add(PacketID.ResRoomEnter, PacketProcess_RoomEnterResponse);
-            PacketFuncDic.Add(PacketID.NtfRoomUserList, PacketProcess_RoomUserListNotify);
-            PacketFuncDic.Add(PacketID.NtfRoomNewUser, PacketProcess_RoomNewUserNotify);
-            PacketFuncDic.Add(PacketID.ResRoomLeave, PacketProcess_RoomLeaveResponse);
-            PacketFuncDic.Add(PacketID.NtfRoomLeaveUser, PacketProcess_RoomLeaveUserNotify);
-            PacketFuncDic.Add(PacketID.ResRoomChat, PacketProcess_RoomChatResponse);
-            PacketFuncDic.Add(PacketID.NtfRoomChat, PacketProcess_RoomChatNotify);
+            PacketFuncDic.Add(PacketID.RES_ROOM_ENTER, PacketProcess_RoomEnterResponse);
+            PacketFuncDic.Add(PacketID.NTF_ROOM_USER_LIST, PacketProcess_RoomUserListNotify);
+            PacketFuncDic.Add(PacketID.NTF_ROOM_NEW_USER, PacketProcess_RoomNewUserNotify);
+            PacketFuncDic.Add(PacketID.RES_ROOM_LEAVE, PacketProcess_RoomLeaveResponse);
+            PacketFuncDic.Add(PacketID.NTF_ROOM_LEAVE_USER, PacketProcess_RoomLeaveUserNotify);
+            PacketFuncDic.Add(PacketID.RES_ROOM_CHAT, PacketProcess_RoomChatResponse);
+            PacketFuncDic.Add(PacketID.NTF_ROOM_CHAT, PacketProcess_RoomChatNotify);
             // PacketFuncDic.Add(PacketID.ResReadyOmok, PacketProcess_ReadyOmokResponse);
             // PacketFuncDic.Add(PacketID.NtfReadyOmok, PacketProcess_ReadyOmokNotify);
             // PacketFuncDic.Add(PacketID.NtfStartOmok, PacketProcess_StartOmokNotify);
@@ -149,6 +149,7 @@ namespace csharp_test_client
             var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomLeave>(packetData);
 
             ClearRoomUserList();
+            listBoxRoomChatMsg.Items.Clear();
 
             DevLog.Write($"방 나가기 결과:  {(ErrorCode)responsePkt.Result}");
         }

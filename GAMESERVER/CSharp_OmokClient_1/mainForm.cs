@@ -328,7 +328,7 @@ namespace csharp_test_client
 
             var packet = MemoryPackSerializer.Serialize(loginReq);
                         
-            PostSendPacket(PacketID.ReqLogin, packet);            
+            PostSendPacket(PacketID.REQ_LOGIN, packet);            
             DevLog.Write($"로그인 요청:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
             DevLog.Write($"로그인 요청: {ToReadableByteArray(packet)}");
         }
@@ -340,14 +340,14 @@ namespace csharp_test_client
 
             var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
-            PostSendPacket(PacketID.ReqRoomEnter, sendPacketData);
+            PostSendPacket(PacketID.REQ_ROOM_ENTER, sendPacketData);
             DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
         }
 
         private void btn_RoomLeave_Click(object sender, EventArgs e)
         {
-            PostSendPacket(PacketID.ReqRoomLeave, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
-            DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
+            PostSendPacket(PacketID.REQ_ROOM_LEAVE, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
+            DevLog.Write($"방 퇴장 요청:  {textBoxRoomNumber.Text} 번");
         }
 
         private void btnRoomChat_Click(object sender, EventArgs e)
@@ -363,7 +363,7 @@ namespace csharp_test_client
 
             var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
-            PostSendPacket(PacketID.ReqRoomChat, sendPacketData);
+            PostSendPacket(PacketID.REQ_ROOM_CHAT, sendPacketData);
             DevLog.Write($"방 채팅 요청");
         }
 
@@ -443,7 +443,7 @@ namespace csharp_test_client
         // 게임 시작 요청
         private void button3_Click(object sender, EventArgs e)
         {
-            PostSendPacket(PacketID.ReqReadyOmok, null);
+            PostSendPacket(PacketID.REQ_READY_OMOK, null);
             
             DevLog.Write($"게임 준비 완료 요청");
         }

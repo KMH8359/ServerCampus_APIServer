@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace PvPGameServer;
 
 // 0 ~ 9999
@@ -46,10 +48,11 @@ public enum PACKETID : int
     
            
     // 클라이언트
-    CS_BEGIN        = 1001,
+    BEGIN        = 1001,
 
     REQ_LOGIN       = 1002,
     RES_LOGIN       = 1003,
+
     NTF_MUST_CLOSE       = 1005,
 
     REQ_ROOM_ENTER = 1015,
@@ -63,15 +66,27 @@ public enum PACKETID : int
 
     REQ_ROOM_CHAT = 1026,
     NTF_ROOM_CHAT = 1027,
+    RES_ROOM_CHAT = 1028,
 
+    REQ_READY_OMOK = 1031,
+    RES_READY_OMOK = 1032,
+    NTF_READY_OMOK = 1033,
 
-    REQ_ROOM_DEV_ALL_ROOM_START_GAME = 1091,
+    NTF_START_OMOK = 1034,
+
+    REQ_PUT_MOK = 1035,
+    RES_PUT_MOK = 1036,
+    NTF_PUT_MOK = 1037,
+
+    NTF_END_MOK = 1038,
+
+REQ_ROOM_DEV_ALL_ROOM_START_GAME = 1091,
     RES_ROOM_DEV_ALL_ROOM_START_GAME = 1092,
 
     REQ_ROOM_DEV_ALL_ROOM_END_GAME = 1093,
     RES_ROOM_DEV_ALL_ROOM_END_GAME = 1094,
 
-    CS_END          = 1100,
+    END          = 1100,
 
 
     // 시스템, 서버 - 서버
