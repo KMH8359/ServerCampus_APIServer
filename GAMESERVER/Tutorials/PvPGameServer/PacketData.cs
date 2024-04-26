@@ -63,92 +63,157 @@ public struct MemoryPackPacketHeadInfo
 
 
 [MemoryPackable]
-public partial class PkHeader
+public partial class MemoryPackPacketHead
 {
     public UInt16 TotalSize { get; set; } = 0;
     public UInt16 Id { get; set; } = 0;
     public byte Type { get; set; } = 0;
 }
 
+[MemoryPackable]
+public partial class PKTResponse : MemoryPackPacketHead
+{
+    public short Result { get; set; }
+}
+
+
 
 // 로그인 요청
 [MemoryPackable]
-public partial class PKTReqLogin : PkHeader
+public partial class PKTReqLogin : MemoryPackPacketHead
 {
     public string UserID { get; set; }
     public string AuthToken { get; set; }
 }
 
 [MemoryPackable]
-public partial class PKTResLogin : PkHeader
+public partial class PKTResLogin : PKTResponse
 {
-    public short Result { get; set; }
 }
 
 
 
 [MemoryPackable]
-public partial class PKNtfMustClose : PkHeader
+public partial class PKNtfMustClose : PKTResponse
 {
-    public short Result { get; set; }
 }
 
 
 
 [MemoryPackable]
-public partial class PKTReqRoomEnter : PkHeader
+public partial class PKTReqRoomEnter : MemoryPackPacketHead
 {
     public int RoomNumber { get; set; }
 }
 
 [MemoryPackable]
-public partial class PKTResRoomEnter : PkHeader
+public partial class PKTResRoomEnter : PKTResponse
 {
-    public short Result { get; set; }
 }
 
 [MemoryPackable]
-public partial class PKTNtfRoomUserList : PkHeader
+public partial class PKTNtfRoomUserList : MemoryPackPacketHead
 {
     public List<string> UserIDList { get; set; } = new List<string>();
 }
 
 [MemoryPackable]
-public partial class PKTNtfRoomNewUser : PkHeader
+public partial class PKTNtfRoomNewUser : MemoryPackPacketHead
 {
     public string UserID { get; set; }
 }
 
 
 [MemoryPackable]
-public partial class PKTReqRoomLeave : PkHeader
+public partial class PKTReqRoomLeave : MemoryPackPacketHead
 {
 }
 
 [MemoryPackable]
-public partial class PKTResRoomLeave : PkHeader
+public partial class PKTResRoomLeave : PKTResponse
 {
-    public short Result { get; set; }
 }
 
 [MemoryPackable]
-public partial class PKTNtfRoomLeaveUser : PkHeader
+public partial class PKTNtfRoomLeaveUser : MemoryPackPacketHead
 {
     public string UserID { get; set; }
 }
 
 
 [MemoryPackable]
-public partial class PKTReqRoomChat : PkHeader
+public partial class PKTReqRoomChat : MemoryPackPacketHead
 {
     public string ChatMessage { get; set; }
 }
 
 
 [MemoryPackable]
-public partial class PKTNtfRoomChat : PkHeader
+public partial class PKTNtfRoomChat : MemoryPackPacketHead
 {
     public string UserID { get; set; }
 
     public string ChatMessage { get; set; }
+}
+
+[MemoryPackable]
+public partial class PKTInternalReqRoomEnter : MemoryPackPacketHead
+{
+    public int RoomNumber;
+
+    public string UserID;
+}
+
+
+
+// 오목 플레이 준비 완료 요청
+[MemoryPackable]
+public partial class PKTReqReadyOmok : MemoryPackPacketHead
+{
+}
+
+[MemoryPackable]
+public partial class PKTResReadyOmok : PKTResponse
+{
+}
+
+[MemoryPackable]
+public partial class PKTNtfReadyOmok : MemoryPackPacketHead
+{
+    public string UserID;
+    public bool IsReady;
+}
+
+[MemoryPackable]
+public partial class PKTNtfStartOmok : MemoryPackPacketHead
+{
+    public string FirstMoveUserID;
+}
+
+// 돌 두기
+[MemoryPackable]
+public partial class PKTReqPutMok : MemoryPackPacketHead
+{
+    public int PosX;
+    public int PosY;
+}
+
+[MemoryPackable]
+public partial class PKTResPutMok : PKTResponse
+{
+}
+
+[MemoryPackable]
+public partial class PKTNtfPutMok : MemoryPackPacketHead
+{
+    public int PosX;
+    public int PosY;
+    public int Mok;
+}
+
+// 오목 게임 종료 통보
+[MemoryPackable]
+public partial class PKTNtfEndOmok : MemoryPackPacketHead
+{
+    public string WinUserID;
 }

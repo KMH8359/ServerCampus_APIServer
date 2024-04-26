@@ -336,7 +336,7 @@ namespace csharp_test_client
         private void btn_RoomEnter_Click(object sender, EventArgs e)
         {
             var requestPkt = new PKTReqRoomEnter();
-            requestPkt.RoomNum = textBoxRoomNumber.Text.ToInt32();
+            requestPkt.RoomNumber = textBoxRoomNumber.Text.ToInt32();
 
             var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
@@ -441,9 +441,9 @@ namespace csharp_test_client
         // }
 
         // 게임 시작 요청
-        private void button3_Click(object sender, EventArgs e)
+        private void BtnReady_Click(object sender, EventArgs e)
         {
-            PostSendPacket(PacketID.REQ_READY_OMOK, null);
+            PostSendPacket(PacketID.REQ_READY_OMOK, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
             
             DevLog.Write($"게임 준비 완료 요청");
         }

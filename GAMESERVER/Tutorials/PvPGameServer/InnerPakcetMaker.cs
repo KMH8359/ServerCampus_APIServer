@@ -45,7 +45,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
    
 
 [MemoryPackable]
-public partial class PKTInternalNtfRoomLeave : PkHeader
+public partial class PKTInternalNtfRoomLeave : MemoryPackPacketHead
 {
     public int RoomNumber { get; set; }
     public string UserID { get; set; }

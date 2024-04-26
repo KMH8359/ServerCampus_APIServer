@@ -10,7 +10,7 @@ public class PKHRoom : PKHandler
 {
     List<Room> _roomList = null;
     int _startRoomNumber;
-    
+
     public void SetRoomList(List<Room> roomList)
     {
         _roomList = roomList;
@@ -23,6 +23,8 @@ public class PKHRoom : PKHandler
         packetHandlerMap.Add((int)PACKETID.REQ_ROOM_LEAVE, RequestLeave);
         packetHandlerMap.Add((int)PACKETID.NTF_IN_ROOM_LEAVE, NotifyLeaveInternal);
         packetHandlerMap.Add((int)PACKETID.REQ_ROOM_CHAT, RequestChat);
+        packetHandlerMap.Add((int)PACKETID.REQ_READY_OMOK, RequestGameReady);
+
     }
 
 
@@ -30,14 +32,14 @@ public class PKHRoom : PKHandler
     {
         var index = roomNumber - _startRoomNumber;
 
-        if( index < 0 || index >= _roomList.Count())
+        if (index < 0 || index >= _roomList.Count())
         {
             return null;
         }
 
         return _roomList[index];
     }
-            
+
     (bool, Room, RoomUser) CheckRoomAndRoomUser(string userNetSessionID)
     {
         var user = _userMgr.GetUser(userNetSessionID);
@@ -49,7 +51,7 @@ public class PKHRoom : PKHandler
         var roomNumber = user.RoomNumber;
         var room = GetRoom(roomNumber);
 
-        if(room == null)
+        if (room == null)
         {
             return (false, null, null);
         }
@@ -88,7 +90,7 @@ public class PKHRoom : PKHandler
             }
 
             var reqData = MemoryPackSerializer.Deserialize<PKTReqRoomEnter>(packetData.Data);
-            
+
             var room = GetRoom(reqData.RoomNumber);
 
             if (room == null)
@@ -128,7 +130,7 @@ public class PKHRoom : PKHandler
 
         var sendPacket = MemoryPackSerializer.Serialize(resRoomEnter);
         MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.RES_ROOM_ENTER);
-        
+
         NetSendFunc(sessionID, sendPacket);
     }
 
@@ -140,12 +142,12 @@ public class PKHRoom : PKHandler
         try
         {
             var user = _userMgr.GetUser(sessionID);
-            if(user == null)
+            if (user == null)
             {
                 return;
             }
 
-            if(LeaveRoomUser(sessionID, user.RoomNumber) == false)
+            if (LeaveRoomUser(sessionID, user.RoomNumber) == false)
             {
                 return;
             }
@@ -177,7 +179,7 @@ public class PKHRoom : PKHandler
         {
             return false;
         }
-                    
+
         var userID = roomUser.UserID;
         room.RemoveUser(roomUser);
 
@@ -194,7 +196,7 @@ public class PKHRoom : PKHandler
 
         var sendPacket = MemoryPackSerializer.Serialize(resRoomLeave);
         MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.RES_ROOM_LEAVE);
-   
+
         NetSendFunc(sessionID, sendPacket);
     }
 
@@ -203,10 +205,10 @@ public class PKHRoom : PKHandler
         var sessionID = packetData.SessionID;
         MainServer.MainLogger.Debug($"NotifyLeaveInternal. SessionID: {sessionID}");
 
-        var reqData = MemoryPackSerializer.Deserialize<PKTInternalNtfRoomLeave>(packetData.Data);            
+        var reqData = MemoryPackSerializer.Deserialize<PKTInternalNtfRoomLeave>(packetData.Data);
         LeaveRoomUser(sessionID, reqData.RoomNumber);
     }
-            
+
     public void RequestChat(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
@@ -216,7 +218,7 @@ public class PKHRoom : PKHandler
         {
             var roomObject = CheckRoomAndRoomUser(sessionID);
 
-            if(roomObject.Item1 == false)
+            if (roomObject.Item1 == false)
             {
                 return;
             }
@@ -232,7 +234,7 @@ public class PKHRoom : PKHandler
 
             var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
             MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_ROOM_CHAT);
-            
+
             roomObject.Item2.Broadcast("", sendPacket);
 
             MainServer.MainLogger.Debug("Room RequestChat - Success");
@@ -242,8 +244,61 @@ public class PKHRoom : PKHandler
             MainServer.MainLogger.Error(ex.ToString());
         }
     }
-   
 
-    
+    public void RequestGameReady(MemoryPackBinaryRequestInfo packetData)
+    {
+        var sessionID = packetData.SessionID;
+        MainServer.MainLogger.Debug("Request GameReady");
+
+        try
+        {
+            var roomObject = CheckRoomAndRoomUser(sessionID);
+
+            if (roomObject.Item1 == false)
+            {
+                return;
+            }
+
+            var room = roomObject.Item2;
+            var user = roomObject.Item3;
+            user.IsReady = !user.IsReady;
+            if (room.CheckAllUsersReady())
+            {
+                var notifyPacket = new PKTNtfStartOmok()
+                {
+                    FirstMoveUserID = room.GetRandomUserId()
+                };
+
+                var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+                MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
+
+                room.Broadcast("", sendPacket);
+
+                MainServer.MainLogger.Debug("Room RequestReady and GameStart - Success");
+            }
+            else
+            {
+                var notifyPacket = new PKTNtfReadyOmok()
+                {
+                    UserID = user.UserID,
+                    IsReady = user.IsReady
+                };
+
+                var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+                MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_READY_OMOK);
+
+                roomObject.Item2.Broadcast("", sendPacket);
+
+                MainServer.MainLogger.Debug("Room RequestReady - Success");
+            }
+        }
+        catch (Exception ex)
+        {
+            MainServer.MainLogger.Error(ex.ToString());
+        }
+    }
+
+
+
 
 }

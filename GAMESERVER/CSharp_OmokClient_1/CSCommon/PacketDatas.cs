@@ -39,7 +39,7 @@ namespace CSCommon
     [MemoryPackable]
     public partial class PKTReqRoomEnter : MemoryPackPacketHead
     {
-        public int RoomNum { get; set; }
+        public int RoomNumber { get; set; }
     }
      
     [MemoryPackable]
@@ -107,7 +107,7 @@ namespace CSCommon
 
     // 오목 플레이 준비 완료 요청
     [MemoryPackable]
-    public partial class PKTReqReadyOmok : PKTResponse
+    public partial class PKTReqReadyOmok : MemoryPackPacketHead
     {
     }
 

@@ -14,7 +14,7 @@ public class Room
     public int Index { get; private set; }
     public int Number { get; private set; }
 
-    int _maxUserCount = 0;
+    public int _maxUserCount { get; private set; } = 0;
 
     List<RoomUser> _userList = new List<RoomUser>();
 
@@ -61,6 +61,30 @@ public class Room
     {
         return _userList.Count();
     }
+
+
+    public bool CheckAllUsersReady()
+    {
+        if (CurrentUserCount() < _maxUserCount) return false;
+
+        foreach (var user in _userList)
+        {
+            if (user.IsReady == false)
+            {   
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public string GetRandomUserId()
+    {
+        Random rnd = new Random();
+        int rnd_index = rnd.Next(_maxUserCount);
+
+        return _userList[rnd_index].UserID;
+    }
+
 
     public void NotifyPacketUserList(string userNetSessionID)
     {
@@ -124,6 +148,8 @@ public class RoomUser
 {
     public string UserID { get; private set; }
     public string NetSessionID { get; private set; }
+
+    public bool IsReady { get; set; }
 
     public void Set(string userID, string netSessionID)
     {
