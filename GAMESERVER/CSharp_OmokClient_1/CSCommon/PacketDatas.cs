@@ -150,7 +150,6 @@ namespace CSCommon
     {
         public int PosX;
         public int PosY;
-        public int Mok;
     }
 
     // 오목 게임 종료 통보

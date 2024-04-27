@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 
 
 namespace PvPGameServer;
@@ -19,6 +20,19 @@ public class Room
     List<RoomUser> _userList = new List<RoomUser>();
 
     public static Func<string, byte[], bool> NetSendFunc;
+
+    public enum 돌종류 { 없음, 흑돌, 백돌 };
+
+    const int 바둑판크기 = 19;
+
+
+    int[,] 바둑판 = new int[바둑판크기, 바둑판크기];
+    public bool 게임종료 { get; private set; } = true;
+    public int CurTurnPlayerIndex { get; private set; } = 0;
+
+    public string _BlackMokUserID { get; private set; } = null;
+    public string _WhiteMokUserID { get; private set; } = null;
+
 
 
     public void Init(int index, int number, int maxUserCount)
@@ -77,13 +91,68 @@ public class Room
         return true;
     }
 
-    public string GetRandomUserId()
+    public (string, string) DetermineMokAssignment()
     {
         Random rnd = new Random();
-        int rnd_index = rnd.Next(_maxUserCount);
+        CurTurnPlayerIndex = rnd.Next(_maxUserCount);
 
-        return _userList[rnd_index].UserID;
+        return (_userList[CurTurnPlayerIndex].UserID, _userList[(CurTurnPlayerIndex + 1) % 2].UserID);
     }
+
+    public void EndGame()
+    {
+        게임종료 = true;
+    }
+
+    public void NotifyGameStart()
+    {
+        Array.Clear(바둑판, 0, 바둑판크기 * 바둑판크기);
+
+        게임종료 = false;
+        (_BlackMokUserID, _WhiteMokUserID) = DetermineMokAssignment();
+        var notifyPacket = new PKTNtfStartOmok()
+        {
+            BlackMokUserID = _BlackMokUserID
+        };
+
+        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
+
+        Broadcast("", sendPacket);
+
+    }
+
+    public void NotifyGameReady(RoomUser user)
+    {
+        var notifyPacket = new PKTNtfReadyOmok()
+        {
+            UserID = user.UserID,
+            IsReady = user.IsReady
+        };
+
+        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_READY_OMOK);
+
+        Broadcast("", sendPacket);
+    }
+
+    public ErrorCode ProcessPutMokRequest(int x, int y, string UserID)
+    {
+        if (바둑판[x, y] != 0) { return ErrorCode.OMOK_ALREADY_EXIST; }
+        if (_userList[CurTurnPlayerIndex].UserID != UserID) { return ErrorCode.OMOK_TURN_NOT_MATCH; }
+
+        if (UserID == _BlackMokUserID)
+        {   
+            바둑판[x, y] = (int)돌종류.흑돌;
+        }
+        else if (UserID == _WhiteMokUserID)
+        {
+            바둑판[x, y] = (int)돌종류.백돌;
+        }
+        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % 2; 
+        return ErrorCode.NONE;
+    }
+    
 
 
     public void NotifyPacketUserList(string userNetSessionID)

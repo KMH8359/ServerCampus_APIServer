@@ -245,9 +245,9 @@ namespace csharp_test_client
         {
             var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfPutMok>(packetData);
 
-            플레이어_돌두기(true, notifyPkt.PosX, notifyPkt.PosY);
+            플레이어_돌두기(notifyPkt.PosX, notifyPkt.PosY);
 
-            DevLog.Write($"오목 정보: X: {notifyPkt.PosX},  Y: {notifyPkt.PosY},   알:{notifyPkt.Mok}");
+            DevLog.Write($"오목 정보: X: {notifyPkt.PosX},  Y: {notifyPkt.PosY}");
         }
         
 

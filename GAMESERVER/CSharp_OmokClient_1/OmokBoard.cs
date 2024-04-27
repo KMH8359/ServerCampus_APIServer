@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
 using System.Runtime.Versioning;
+using CSCommon;
+using MemoryPack;
 
 #pragma warning disable CA1416
 
@@ -299,10 +301,8 @@ namespace csharp_test_client
                 return;
             }
 
-
             int x, y;
 
-            // 왼쪽클릭만 허용
             if (e.Button != MouseButtons.Left)
             {
                 return;
@@ -319,11 +319,11 @@ namespace csharp_test_client
             // 바둑판 해당 좌표에 아무것도 없고, 게임이 끝나지 않았으면
             else if (OmokLogic.바둑판알(x, y) == (int)CSCommon.OmokRule.돌종류.없음 && !OmokLogic.게임종료)             
             {
-                플레이어_돌두기(false, x, y);
+                SendPacketOmokPut(x, y);
             }
         }
 
-        void 플레이어_돌두기(bool isNotify, int x, int y)
+        void 플레이어_돌두기(int x, int y)
         {
             var ret = OmokLogic.돌두기(x, y);
             if (ret != CSCommon.돌두기_결과.Success)
@@ -336,18 +336,9 @@ namespace csharp_test_client
 
             돌그리기(x, y);
             현재돌표시();
-            OmokLogic.오목확인(x, y);
-                        
-            
-            if (isNotify == false)
-            {
-                IsMyTurn = false;
-                SendPacketOmokPut(x, y);
-            }
-            else
-            {
-                IsMyTurn = true;
-            }
+            //OmokLogic.오목확인(x, y);
+
+            IsMyTurn = !IsMyTurn;
 
             Rectangle r = new Rectangle(시작위치, 590, 시작위치 + 돌크기 + 350, 돌크기 + 10);
             panel1.Invalidate(r);
@@ -405,21 +396,21 @@ namespace csharp_test_client
 
 
 
-        void 컴퓨터두기()
-        {
-            int x = 0, y = 0;
-            CSCommon.돌두기_결과 ret;
+        //void 컴퓨터두기()
+        //{
+        //    int x = 0, y = 0;
+        //    CSCommon.돌두기_결과 ret;
 
-            do
-            {
-                OmokAI.AI_PutAIPlayer(ref x, ref y, false, 2);
-                ret = OmokLogic.돌두기(x, y);
-            } while (ret != CSCommon.돌두기_결과.Success);
+        //    do
+        //    {
+        //        OmokAI.AI_PutAIPlayer(ref x, ref y, false, 2);
+        //        ret = OmokLogic.돌두기(x, y);
+        //    } while (ret != CSCommon.돌두기_결과.Success);
 
-            돌그리기(x, y);
-            현재돌표시();
-            OmokLogic.오목확인(x, y);
-        }
+        //    돌그리기(x, y);
+        //    현재돌표시();
+        //    OmokLogic.오목확인(x, y);
+        //}
 
                
     }

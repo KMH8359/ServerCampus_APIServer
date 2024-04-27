@@ -19,7 +19,7 @@ namespace CSCommon
         //bool AI모드 = true;
         //돌종류 컴퓨터돌;
 
-        public int CurTuenCount { get; private set; } = 0;
+        public int CurTurnCount { get; private set; } = 0;
 
 
         public int 전돌x좌표 { get; private set; } = -1;
@@ -36,7 +36,7 @@ namespace CSCommon
             전돌x좌표 = 전돌y좌표 = -1;
             현재돌x좌표 = 현재돌y좌표 = -1;
             흑돌차례 = true;
-            CurTuenCount = 1;
+            CurTurnCount = 1;
             게임종료 = false;
             
             st.Clear();            
@@ -54,7 +54,7 @@ namespace CSCommon
 
         public bool Is흑돌차례()
         {
-            return ((CurTuenCount % 2) == 1);
+            return ((CurTurnCount % 2) == 1);
         }
 
         public 돌두기_결과 돌두기(int x, int y)
@@ -91,7 +91,7 @@ namespace CSCommon
                 //바둑돌소리.Play();
             }
 
-            ++CurTuenCount;
+            ++CurTurnCount;
             st.Push(new Point(x, y));
 
             return 돌두기_결과.Success;

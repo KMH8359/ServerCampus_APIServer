@@ -377,19 +377,27 @@ namespace csharp_test_client
         {
 
         }
-       
+
+        // 게임 시작 요청
+        private void BtnReady_Click(object sender, EventArgs e)
+        {
+            PostSendPacket(PacketID.REQ_READY_OMOK, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
+
+            DevLog.Write($"게임 준비 완료 요청");
+        }
+
         void SendPacketOmokPut(int x, int y)
         {
-            // var requestPkt = new PKTReqPutMok
-            // {
-            //     PosX = x,
-            //     PosY = y
-            // };
+            var requestPkt = new PKTReqPutMok
+            {
+                PosX = x,
+                PosY = y
+            };
 
-            // var packet = MessagePackSerializer.Serialize(requestPkt);
-            // PostSendPacket(PacketID.ReqPutMok, packet);
+            var packet = MemoryPackSerializer.Serialize(requestPkt);
+            PostSendPacket(PacketID.REQ_PUT_MOK, packet);
 
-            //DevLog.Write($"put stone 요청 : x  [ {x} ], y: [ {y} ] ");
+            DevLog.Write($"put stone 요청 : x  [ {x} ], y: [ {y} ] ");
         }
 
         private void btn_GameStartClick(object sender, EventArgs e)
@@ -439,13 +447,5 @@ namespace csharp_test_client
         //     [Key(4)]
         //     public string Token;
         // }
-
-        // 게임 시작 요청
-        private void BtnReady_Click(object sender, EventArgs e)
-        {
-            PostSendPacket(PacketID.REQ_READY_OMOK, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
-            
-            DevLog.Write($"게임 준비 완료 요청");
-        }
     }
 }

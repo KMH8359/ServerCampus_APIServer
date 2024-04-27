@@ -187,7 +187,7 @@ public partial class PKTNtfReadyOmok : MemoryPackPacketHead
 [MemoryPackable]
 public partial class PKTNtfStartOmok : MemoryPackPacketHead
 {
-    public string FirstMoveUserID;
+    public string BlackMokUserID;
 }
 
 // 돌 두기
@@ -208,7 +208,6 @@ public partial class PKTNtfPutMok : MemoryPackPacketHead
 {
     public int PosX;
     public int PosY;
-    public int Mok;
 }
 
 // 오목 게임 종료 통보

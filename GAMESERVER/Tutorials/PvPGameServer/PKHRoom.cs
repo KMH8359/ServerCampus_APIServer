@@ -24,6 +24,7 @@ public class PKHRoom : PKHandler
         packetHandlerMap.Add((int)PACKETID.NTF_IN_ROOM_LEAVE, NotifyLeaveInternal);
         packetHandlerMap.Add((int)PACKETID.REQ_ROOM_CHAT, RequestChat);
         packetHandlerMap.Add((int)PACKETID.REQ_READY_OMOK, RequestGameReady);
+        packetHandlerMap.Add((int)PACKETID.REQ_PUT_MOK, RequestPutMok);
 
     }
 
@@ -68,7 +69,7 @@ public class PKHRoom : PKHandler
 
 
 
-    public void RequestRoomEnter(MemoryPackBinaryRequestInfo packetData)
+    void RequestRoomEnter(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
         MainServer.MainLogger.Debug("RequestRoomEnter");
@@ -134,7 +135,7 @@ public class PKHRoom : PKHandler
         NetSendFunc(sessionID, sendPacket);
     }
 
-    public void RequestLeave(MemoryPackBinaryRequestInfo packetData)
+    void RequestLeave(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
         MainServer.MainLogger.Debug("방나가기 요청 받음");
@@ -200,7 +201,7 @@ public class PKHRoom : PKHandler
         NetSendFunc(sessionID, sendPacket);
     }
 
-    public void NotifyLeaveInternal(MemoryPackBinaryRequestInfo packetData)
+    void NotifyLeaveInternal(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
         MainServer.MainLogger.Debug($"NotifyLeaveInternal. SessionID: {sessionID}");
@@ -209,7 +210,7 @@ public class PKHRoom : PKHandler
         LeaveRoomUser(sessionID, reqData.RoomNumber);
     }
 
-    public void RequestChat(MemoryPackBinaryRequestInfo packetData)
+    void RequestChat(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
         MainServer.MainLogger.Debug("Room RequestChat");
@@ -245,7 +246,7 @@ public class PKHRoom : PKHandler
         }
     }
 
-    public void RequestGameReady(MemoryPackBinaryRequestInfo packetData)
+    void RequestGameReady(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
         MainServer.MainLogger.Debug("Request GameReady");
@@ -264,38 +265,72 @@ public class PKHRoom : PKHandler
             user.IsReady = !user.IsReady;
             if (room.CheckAllUsersReady())
             {
-                var notifyPacket = new PKTNtfStartOmok()
-                {
-                    FirstMoveUserID = room.GetRandomUserId()
-                };
+                room.NotifyGameStart();
 
-                var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-                MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
-
-                room.Broadcast("", sendPacket);
-
-                MainServer.MainLogger.Debug("Room RequestReady and GameStart - Success");
+                MainServer.MainLogger.Debug("Room RequestReady and GameStart");
             }
             else
             {
-                var notifyPacket = new PKTNtfReadyOmok()
-                {
-                    UserID = user.UserID,
-                    IsReady = user.IsReady
-                };
-
-                var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-                MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_READY_OMOK);
-
-                roomObject.Item2.Broadcast("", sendPacket);
-
-                MainServer.MainLogger.Debug("Room RequestReady - Success");
+                room.NotifyGameReady(user);
+                MainServer.MainLogger.Debug("Room RequestReady");
             }
         }
         catch (Exception ex)
         {
             MainServer.MainLogger.Error(ex.ToString());
         }
+    }
+
+    void RequestPutMok(MemoryPackBinaryRequestInfo packetData)
+    {
+        var sessionID = packetData.SessionID;
+        MainServer.MainLogger.Debug("Room RequestPutMok");
+
+        try
+        {
+            var roomObject = CheckRoomAndRoomUser(sessionID);
+
+            if (roomObject.Item1 == false)
+            {
+                return;
+            }
+
+            var reqData = MemoryPackSerializer.Deserialize<PKTReqPutMok>(packetData.Data);
+
+            if (roomObject.Item2.ProcessPutMokRequest(reqData.PosX, reqData.PosY, roomObject.Item3.UserID) != ErrorCode.NONE) { 
+                return; 
+            }
+
+            var notifyPacket = new PKTNtfPutMok()
+            {
+                PosX = reqData.PosX,
+                PosY = reqData.PosY
+            };
+
+            var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+            MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_PUT_MOK);
+
+            roomObject.Item2.Broadcast("", sendPacket);
+
+            MainServer.MainLogger.Debug("Room RequestPutMok - Success");
+        }
+        catch (Exception ex)
+        {
+            MainServer.MainLogger.Error(ex.ToString());
+        }
+    }
+
+    void ResponsePutMokFailToClient(string sessionID)
+    {
+        var resRoomLeave = new PKTResPutMok()
+        {
+            Result = (short)ErrorCode.NONE
+        };
+
+        var sendPacket = MemoryPackSerializer.Serialize(resRoomLeave);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.RES_ROOM_LEAVE);
+
+        NetSendFunc(sessionID, sendPacket);
     }
 
 
