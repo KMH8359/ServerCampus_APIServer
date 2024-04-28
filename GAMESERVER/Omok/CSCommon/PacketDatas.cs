@@ -141,7 +141,7 @@ namespace CSCommon
     }
 
     [MemoryPackable]
-    public partial class PKTResPutMok : PKTResponse
+    public partial class PKTResPutMok    : PKTResponse
     {
     }
 
@@ -150,6 +150,12 @@ namespace CSCommon
     {
         public int PosX;
         public int PosY;
+    }
+
+    [MemoryPackable]
+    public partial class PKTNtfTimeOver : MemoryPackPacketHead
+    {
+
     }
 
     // 오목 게임 종료 통보

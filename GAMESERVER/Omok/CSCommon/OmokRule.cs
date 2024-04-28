@@ -57,6 +57,13 @@ namespace CSCommon
             return ((CurTurnCount % 2) == 1);
         }
 
+        public void 시간초과()
+        {
+            흑돌차례 = !흑돌차례;
+            ++CurTurnCount;
+            st.Push(new Point(-1, -1));
+        }
+
         public 돌두기_결과 돌두기(int x, int y)
         {
             //TODO 서버로 부터 받은 결과가 실패인 경우 현재 둔 돌의 정보를 지워야 한다

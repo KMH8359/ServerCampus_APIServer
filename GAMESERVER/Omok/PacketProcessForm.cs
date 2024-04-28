@@ -31,6 +31,7 @@ namespace csharp_test_client
             PacketFuncDic.Add(PacketID.NTF_START_OMOK, PacketProcess_StartOmokNotify);
             PacketFuncDic.Add(PacketID.RES_PUT_MOK, PacketProcess_PutMokResponse);
             PacketFuncDic.Add(PacketID.NTF_PUT_MOK, PacketProcess_PutMokNotify);
+            PacketFuncDic.Add(PacketID.NTF_TIME_OVER, PacketProcess_TimeOverNotify);
             PacketFuncDic.Add(PacketID.NTF_END_MOK, PacketProcess_EndOmokNotify);
         }
 
@@ -249,7 +250,18 @@ namespace csharp_test_client
 
             DevLog.Write($"오목 정보: X: {notifyPkt.PosX},  Y: {notifyPkt.PosY}");
         }
-        
+
+        void PacketProcess_TimeOverNotify(byte[] packetData)
+        {
+            var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfTimeOver>(packetData);
+
+            IsMyTurn = !IsMyTurn;
+            OmokLogic.시간초과();
+          
+
+            DevLog.Write($"타임 오버");
+        }
+
 
         void PacketProcess_EndOmokNotify(byte[] packetData)
         {

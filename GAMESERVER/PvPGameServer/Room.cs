@@ -1,5 +1,6 @@
 ﻿using MemoryPack;
 using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.Marshalling;
@@ -32,6 +33,7 @@ public class Room
     public string _BlackMokUserID { get; private set; } = null;
     public string _WhiteMokUserID { get; private set; } = null;
 
+    public GameTimer _gameTimer { get; private set; } = null;
 
 
     public void Init(int index, int number, int maxUserCount)
@@ -39,6 +41,26 @@ public class Room
         Index = index;
         Number = number;
         _maxUserCount = maxUserCount;
+        _gameTimer = new GameTimer();
+        _gameTimer.TurnTimeOut += OnTurnTimeOut;
+    }
+
+    void OnTurnTimeOut(object sender, EventArgs e)
+    {
+        var notifyPacket = new PKTNtfTimeOver()
+        {
+
+        };
+
+        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_TIME_OVER);
+
+        Broadcast("", sendPacket);
+
+        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % 2;
+        _gameTimer.RestartTurnTimer();
+
+        MainServer.MainLogger.Debug("Room TurnTimeOver");
     }
 
     public bool AddUser(string userID, string netSessionID)
@@ -112,6 +134,7 @@ public class Room
         MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
 
         Broadcast("", sendPacket);
+        _gameTimer.StartTurnTimer();
 
     }
 
@@ -143,7 +166,9 @@ public class Room
             바둑판[x, y] = (int)돌종류.백돌;
         }
 
-        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % 2; 
+        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % 2;
+
+        _gameTimer.RestartTurnTimer();
         return ErrorCode.NONE;
     }
     public void CheckWinCondition(int PosX, int PosY, string CurTurnUserID)
@@ -159,7 +184,7 @@ public class Room
             MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_END_MOK);
 
             Broadcast("", sendPacket);
-
+            _gameTimer.StopTurnTimer();
             MainServer.MainLogger.Debug("Room RequestPutMok - Success");
         }
     }
@@ -370,3 +395,4 @@ public class RoomUser
         NetSessionID = netSessionID;
     }
 }
+

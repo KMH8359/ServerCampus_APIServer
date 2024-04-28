@@ -37,7 +37,9 @@ namespace CSCommon
         public const UInt16 RES_PUT_MOK = 1036;
         public const UInt16 NTF_PUT_MOK = 1037;
 
-        public const UInt16 NTF_END_MOK = 1038;
+        public const UInt16 NTF_TIME_OVER = 1038;
+
+        public const UInt16 NTF_END_MOK = 1041;
 
 
         public const UInt16 END = 1100;

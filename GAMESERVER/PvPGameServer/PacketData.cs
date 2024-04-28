@@ -210,6 +210,12 @@ public partial class PKTNtfPutMok : MemoryPackPacketHead
     public int PosY;
 }
 
+[MemoryPackable]
+public partial class PKTNtfTimeOver : MemoryPackPacketHead
+{
+   
+}
+
 // 오목 게임 종료 통보
 [MemoryPackable]
 public partial class PKTNtfEndOmok : MemoryPackPacketHead
