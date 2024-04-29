@@ -91,10 +91,13 @@ public partial class PKTResLogin : PKTResponse
 {
 }
 
-
+[MemoryPackable]
+public partial class PKTHeartBeat : MemoryPackPacketHead
+{
+}
 
 [MemoryPackable]
-public partial class PKNtfMustClose : PKTResponse
+public partial class PKTNtfMustClose : PKTResponse
 {
 }
 

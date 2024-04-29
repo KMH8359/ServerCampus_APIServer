@@ -18,6 +18,7 @@ namespace csharp_test_client
         {
             //PacketFuncDic.Add(PACKET_ID.PACKET_ID_ERROR_NTF, PacketProcess_ErrorNotify);
             PacketFuncDic.Add(PacketID.RES_LOGIN, PacketProcess_LoginResponse);
+            PacketFuncDic.Add(PacketID.HEART_BEAT, PacketProcess_HeartBeat);
 
             PacketFuncDic.Add(PacketID.RES_ROOM_ENTER, PacketProcess_RoomEnterResponse);
             PacketFuncDic.Add(PacketID.NTF_ROOM_USER_LIST, PacketProcess_RoomUserListNotify);
@@ -57,6 +58,12 @@ namespace csharp_test_client
         {
             var responsePkt = MemoryPackSerializer.Deserialize<PKTResLogin>(packetData);
             DevLog.Write($"로그인 결과: {(ErrorCode)responsePkt.Result}");
+        }
+
+        void PacketProcess_HeartBeat(byte[] packetData)
+        {
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTHeartBeat>(packetData);
+            RespondToHeartbeat();           
         }
 
         void PacketProcess_RoomEnterResponse(byte[] packetData)
@@ -209,8 +216,14 @@ namespace csharp_test_client
             var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfEndOmok>(packetData);
 
             EndGame();
-
-            DevLog.Write($"오목 GameOver: Win: {notifyPkt.WinUserID}");
+            if (notifyPkt.WinUserID == null)
+            {
+                DevLog.Write($"오목 GameOver: TimeOut");
+            }
+            else
+            {
+                DevLog.Write($"오목 GameOver: Win: {notifyPkt.WinUserID}");
+            }
         }
     }
 }

@@ -101,6 +101,14 @@ namespace csharp_test_client
             Network.Close();
         }
 
+        private void RespondToHeartbeat()
+        {
+            var responsePkt = new PKTResponse();
+
+            var sendPacketData = MemoryPackSerializer.Serialize(responsePkt);
+
+            PostSendPacket(PacketID.HEART_BEAT, sendPacketData);
+        }
         
 
         void NetworkReadProcess()

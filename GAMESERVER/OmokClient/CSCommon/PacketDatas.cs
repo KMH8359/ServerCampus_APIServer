@@ -28,6 +28,10 @@ namespace CSCommon
     }
 
 
+    [MemoryPackable]
+    public partial class PKTHeartBeat : MemoryPackPacketHead
+    {
+    }
 
     [MemoryPackable]
     public partial class PKTNtfMustClose : PKTResponse

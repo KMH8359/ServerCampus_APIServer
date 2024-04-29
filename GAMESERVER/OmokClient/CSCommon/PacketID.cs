@@ -12,6 +12,7 @@ namespace CSCommon
         public const UInt16 REQ_LOGIN = 1002;
         public const UInt16 RES_LOGIN = 1003;
 
+        public const UInt16 HEART_BEAT = 1004;
         public const UInt16 NFT_MUST_CLOSE = 1005;
 
         public const UInt16 REQ_ROOM_ENTER = 1015;

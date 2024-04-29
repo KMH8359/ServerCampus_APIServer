@@ -32,4 +32,9 @@ class RoomManager
     { 
         return _roomsList; 
     }
+
+    public Room GetRoombyRoomNumber(int roomNumber)
+    {
+        return _roomsList[roomNumber];
+    }
 }

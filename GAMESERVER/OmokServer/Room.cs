@@ -35,6 +35,8 @@ public class Room
 
     public RoomTimer _gameTimer { get; private set; } = null;
 
+    public int TimeOutCount { get; private set; } = 0;
+
 
     public void Init(int index, int number, int maxUserCount)
     {
@@ -58,6 +60,11 @@ public class Room
         _gameTimer.RestartTurnTimer();
 
         MainServer.MainLogger.Debug("Room TurnTimeOver");
+        TimeOutCount++;
+        if (TimeOutCount >= 6)
+        {
+            NotifyGameEnd(null);
+        }
     }
 
     public bool AddUser(string userID, string netSessionID)
@@ -122,6 +129,7 @@ public class Room
         Array.Clear(바둑판, 0, 바둑판크기 * 바둑판크기);
 
         (_BlackMokUserID, _WhiteMokUserID) = DetermineMokAssignment();
+        TimeOutCount = 0;
         var notifyPacket = new PKTNtfStartOmok()
         {
             BlackMokUserID = _BlackMokUserID
@@ -168,25 +176,26 @@ public class Room
         _gameTimer.RestartTurnTimer();
         return ErrorCode.NONE;
     }
-    public void CheckWinCondition(int PosX, int PosY, string CurTurnUserID)
+    public void NotifyGameEnd(string CurTurnUserID)
     {
-        if (오목확인(PosX, PosY))
+        var notifyPacket = new PKTNtfEndOmok()
         {
-            var notifyPacket = new PKTNtfEndOmok()
-            {
-                WinUserID = CurTurnUserID
-            };
+            WinUserID = CurTurnUserID
+        };
 
-            var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-            MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_END_MOK);
+        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_END_MOK);
 
-            Broadcast("", sendPacket);
-            _gameTimer.StopTurnTimer();
-            MainServer.MainLogger.Debug("Room RequestPutMok - Success");
+        Broadcast("", sendPacket);
+        _gameTimer.StopTurnTimer();
+        foreach (var user in _userList)
+        {
+            user.IsReady = false;
         }
+        MainServer.MainLogger.Debug("Game Over");
     }
 
-    public bool 오목확인(int x, int y)
+    public bool CheckWinCondition(int x, int y)
     {
         if (가로확인(x, y) == 5)    
         {

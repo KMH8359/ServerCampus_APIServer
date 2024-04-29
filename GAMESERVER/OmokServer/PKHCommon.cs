@@ -9,10 +9,11 @@ namespace PvPGameServer;
 public class PKHCommon : PKHandler
 {
     public void RegistPacketHandler(Dictionary<int, Action<MemoryPackBinaryRequestInfo>> packetHandlerMap)
-    {            
-        //packetHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, NotifyInConnectClient);
-        //packetHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, NotifyInDisConnectClient);
+    {
+        packetHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, NotifyInConnectClient);
+        packetHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, NotifyInDisConnectClient);
 
+        packetHandlerMap.Add((int)PACKETID.HEART_BEAT, HandleHeartbeatResponse);
         packetHandlerMap.Add((int)PACKETID.REQ_LOGIN, RequestLogin);
                                             
     }
@@ -40,6 +41,10 @@ public class PKHCommon : PKHandler
         }
     }
 
+    public void HandleHeartbeatResponse(MemoryPackBinaryRequestInfo packetData)
+    {
+        var sessionID = packetData.SessionID;
+    }
 
     public void RequestLogin(MemoryPackBinaryRequestInfo packetData)
     {
@@ -94,7 +99,7 @@ public class PKHCommon : PKHandler
 
     public void NotifyMustCloseToClient(ErrorCode errorCode, string sessionID)
     {
-        var resLogin = new PKNtfMustClose()
+        var resLogin = new PKTNtfMustClose()
         {
             Result = (short)errorCode
         };

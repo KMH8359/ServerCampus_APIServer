@@ -52,7 +52,7 @@ public enum PACKETID : int
 
     REQ_LOGIN       = 1002,
     RES_LOGIN       = 1003,
-
+    HEART_BEAT      = 1004,
     NTF_MUST_CLOSE       = 1005,
 
     REQ_ROOM_ENTER = 1015,

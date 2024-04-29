@@ -17,28 +17,28 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         var sendData = MemoryPackSerializer.Serialize(packet);
         MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_IN_ROOM_LEAVE);
         
-        var memoryPakcPacket = new MemoryPackBinaryRequestInfo(null);
-        memoryPakcPacket.Data = sendData;
-        memoryPakcPacket.SessionID = sessionID;
-        return memoryPakcPacket;
+        var roomLeavePacket = new MemoryPackBinaryRequestInfo(null);
+        roomLeavePacket.Data = sendData;
+        roomLeavePacket.SessionID = sessionID;
+        return roomLeavePacket;
     }
 
     public static MemoryPackBinaryRequestInfo MakeNTFInConnectOrDisConnectClientPacket(bool isConnect, string sessionID)
     {
-        var memoryPakcPacket = new MemoryPackBinaryRequestInfo(null);
-        memoryPakcPacket.Data = new byte[MemoryPackPacketHeadInfo.HeadSize];
+        var packet = new MemoryPackBinaryRequestInfo(null);
+        packet.Data = new byte[MemoryPackPacketHeadInfo.HeadSize];
         
         if (isConnect)
         {
-            MemoryPackPacketHeadInfo.WritePacketId(memoryPakcPacket.Data, (UInt16)PACKETID.NTF_IN_CONNECT_CLIENT);
+            MemoryPackPacketHeadInfo.WritePacketId(packet.Data, (UInt16)PACKETID.NTF_IN_CONNECT_CLIENT);
         }
         else
         {
-            MemoryPackPacketHeadInfo.WritePacketId(memoryPakcPacket.Data, (UInt16)PACKETID.NTF_IN_DISCONNECT_CLIENT);
+            MemoryPackPacketHeadInfo.WritePacketId(packet.Data, (UInt16)PACKETID.NTF_IN_DISCONNECT_CLIENT);
         }
 
-        memoryPakcPacket.SessionID = sessionID;
-        return memoryPakcPacket;
+        packet.SessionID = sessionID;
+        return packet;
     }
 
 }

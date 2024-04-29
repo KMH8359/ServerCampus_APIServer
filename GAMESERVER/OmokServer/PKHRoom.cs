@@ -318,7 +318,10 @@ public class PKHRoom : PKHandler
 
             MainServer.MainLogger.Debug("Room RequestPutMok - Success");
 
-            room.CheckWinCondition(reqData.PosX, reqData.PosY, user.UserID);
+            if (room.CheckWinCondition(reqData.PosX, reqData.PosY))
+            {
+                room.NotifyGameEnd(user.UserID);
+            }
 
         }
         catch (Exception ex)
