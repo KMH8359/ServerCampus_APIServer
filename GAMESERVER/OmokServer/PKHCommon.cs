@@ -75,7 +75,6 @@ public class PKHCommon : PKHandler
         }
         catch(Exception ex)
         {
-            // 패킷 해제에 의해서 로그가 남지 않도록 로그 수준을 Debug로 한다.
             MainServer.MainLogger.Error(ex.ToString());
         }
     }

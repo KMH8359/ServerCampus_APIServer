@@ -33,7 +33,7 @@ public class Room
     public string _BlackMokUserID { get; private set; } = null;
     public string _WhiteMokUserID { get; private set; } = null;
 
-    public GameTimer _gameTimer { get; private set; } = null;
+    public RoomTimer _gameTimer { get; private set; } = null;
 
 
     public void Init(int index, int number, int maxUserCount)
@@ -41,23 +41,20 @@ public class Room
         Index = index;
         Number = number;
         _maxUserCount = maxUserCount;
-        _gameTimer = new GameTimer();
+        _gameTimer = new RoomTimer();
         _gameTimer.TurnTimeOut += OnTurnTimeOut;
     }
 
     void OnTurnTimeOut(object sender, EventArgs e)
     {
-        var notifyPacket = new PKTNtfTimeOver()
-        {
-
-        };
+        var notifyPacket = new PKTNtfTimeOver();
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
         MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_TIME_OVER);
 
         Broadcast("", sendPacket);
 
-        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % 2;
+        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % _maxUserCount;
         _gameTimer.RestartTurnTimer();
 
         MainServer.MainLogger.Debug("Room TurnTimeOver");
@@ -117,7 +114,7 @@ public class Room
         Random rnd = new Random();
         CurTurnPlayerIndex = rnd.Next(_maxUserCount);
 
-        return (_userList[CurTurnPlayerIndex].UserID, _userList[(CurTurnPlayerIndex + 1) % 2].UserID);
+        return (_userList[CurTurnPlayerIndex].UserID, _userList[(CurTurnPlayerIndex + 1) % _maxUserCount].UserID);
     }
 
     public void NotifyGameStart()
@@ -166,7 +163,7 @@ public class Room
             바둑판[x, y] = (int)돌종류.백돌;
         }
 
-        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % 2;
+        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % _maxUserCount;
 
         _gameTimer.RestartTurnTimer();
         return ErrorCode.NONE;
@@ -191,38 +188,30 @@ public class Room
 
     public bool 오목확인(int x, int y)
     {
-        if (가로확인(x, y) == 5)        // 같은 돌 개수가 5개면 (6목이상이면 게임 계속) 
+        if (가로확인(x, y) == 5)    
         {
-            //승리효과음.Play();
-            //MessageBox.Show((돌종류)바둑판[x, y] + " 승");
             return true;
         }
 
         else if (세로확인(x, y) == 5)
         {
-            //승리효과음.Play();
-            //MessageBox.Show((돌종류)바둑판[x, y] + " 승");
             return true;
         }
 
         else if (사선확인(x, y) == 5)
         {
-            //승리효과음.Play();
-            //MessageBox.Show((돌종류)바둑판[x, y] + " 승");
             return true;
         }
 
         else if (역사선확인(x, y) == 5)
         {
-            //승리효과음.Play();
-            //MessageBox.Show((돌종류)바둑판[x, y] + " 승");
             return true;
         }
 
         return false;
     }
 
-    int 가로확인(int x, int y)      // ㅡ 확인
+    int 가로확인(int x, int y)     
     {
         int 같은돌개수 = 1;
 
@@ -247,7 +236,7 @@ public class Room
         return 같은돌개수;
     }
 
-    int 세로확인(int x, int y)      // | 확인
+    int 세로확인(int x, int y)      
     {
         int 같은돌개수 = 1;
 
@@ -272,7 +261,7 @@ public class Room
         return 같은돌개수;
     }
 
-    int 사선확인(int x, int y)      // / 확인
+    int 사선확인(int x, int y)    
     {
         int 같은돌개수 = 1;
 
@@ -297,7 +286,7 @@ public class Room
         return 같은돌개수;
     }
 
-    int 역사선확인(int x, int y)     // ＼ 확인
+    int 역사선확인(int x, int y)
     {
         int 같은돌개수 = 1;
 

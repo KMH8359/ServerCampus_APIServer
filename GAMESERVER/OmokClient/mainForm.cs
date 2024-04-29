@@ -126,10 +126,9 @@ namespace csharp_test_client
                         {
                             break;
                         }
-                        
+
                         RecvPacketQueue.Enqueue(data);
                     }
-                    //DevLog.Write($"받은 데이터: {recvData.Item2}", LOG_LEVEL.INFO);
                 }
                 else
                 {
@@ -320,7 +319,7 @@ namespace csharp_test_client
         }
 
         // 로그인 요청
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_Login_Click(object sender, EventArgs e)
         {
             var loginReq = new PKTReqLogin();
             loginReq.UserID = textBoxUserID.Text;
@@ -350,7 +349,7 @@ namespace csharp_test_client
             DevLog.Write($"방 퇴장 요청:  {textBoxRoomNumber.Text} 번");
         }
 
-        private void btnRoomChat_Click(object sender, EventArgs e)
+        private void btn_RoomChat_Click(object sender, EventArgs e)
         {
             if(textBoxRoomSendMsg.Text.IsEmpty())
             {
@@ -367,7 +366,7 @@ namespace csharp_test_client
             DevLog.Write($"방 채팅 요청");
         }
 
-        private void btnMatching_Click(object sender, EventArgs e)
+        private void btn_Matching_Click(object sender, EventArgs e)
         {
             DevLog.Write($"매칭 요청 - 미구현");
         }
@@ -379,7 +378,7 @@ namespace csharp_test_client
         }
 
         // 게임 시작 요청
-        private void BtnReady_Click(object sender, EventArgs e)
+        private void btn_Ready_Click(object sender, EventArgs e)
         {
             PostSendPacket(PacketID.REQ_READY_OMOK, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
 
@@ -400,13 +399,13 @@ namespace csharp_test_client
             DevLog.Write($"put stone 요청 : x  [ {x} ], y: [ {y} ] ");
         }
 
-        private void btn_GameStartClick(object sender, EventArgs e)
+        private void btn_GameStart_Click(object sender, EventArgs e)
         {
             //PostSendPacket(PACKET_ID.GAME_START_REQ, null);
             //StartGame(true, "My", "Other");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_AddUser_Click(object sender, EventArgs e)
         {
             // AddUser("test1");
             // AddUser("test2");

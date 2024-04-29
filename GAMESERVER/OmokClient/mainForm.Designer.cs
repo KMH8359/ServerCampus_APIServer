@@ -213,7 +213,7 @@
             this.button2.TabIndex = 46;
             this.button2.Text = "Login";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.btn_Login_Click);
             // 
             // Room
             // 
@@ -247,7 +247,7 @@
             this.ReadyButton.TabIndex = 57;
             this.ReadyButton.Text = "Game Ready";
             this.ReadyButton.UseVisualStyleBackColor = true;
-            this.ReadyButton.Click += new System.EventHandler(this.BtnReady_Click);
+            this.ReadyButton.Click += new System.EventHandler(this.btn_Ready_Click);
             // 
             // btnMatching
             // 
@@ -258,7 +258,7 @@
             this.btnMatching.TabIndex = 54;
             this.btnMatching.Text = "Matching";
             this.btnMatching.UseVisualStyleBackColor = true;
-            this.btnMatching.Click += new System.EventHandler(this.btnMatching_Click);
+            this.btnMatching.Click += new System.EventHandler(this.btn_Matching_Click);
             // 
             // GameStartBtn
             // 
@@ -269,7 +269,7 @@
             this.GameStartBtn.TabIndex = 55;
             this.GameStartBtn.Text = "dummy - GameStart";
             this.GameStartBtn.UseVisualStyleBackColor = true;
-            this.GameStartBtn.Click += new System.EventHandler(this.btn_GameStartClick);
+            this.GameStartBtn.Click += new System.EventHandler(this.btn_GameStart_Click);
             // 
             // btnRoomChat
             // 
@@ -280,7 +280,7 @@
             this.btnRoomChat.TabIndex = 53;
             this.btnRoomChat.Text = "chat";
             this.btnRoomChat.UseVisualStyleBackColor = true;
-            this.btnRoomChat.Click += new System.EventHandler(this.btnRoomChat_Click);
+            this.btnRoomChat.Click += new System.EventHandler(this.btn_RoomChat_Click);
             // 
             // textBoxRoomSendMsg
             // 
@@ -374,7 +374,7 @@
             this.button1.TabIndex = 58;
             this.button1.Text = "Dummy 유저 등록";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.btn_AddUser_Click);
             // 
             // mainForm
             // 

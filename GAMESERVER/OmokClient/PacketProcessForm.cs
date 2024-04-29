@@ -52,64 +52,6 @@ namespace csharp_test_client
             }
         }
 
-        void PacketProcess_PutStoneInfoNotifyResponse(byte[] bodyData)
-        {
-            /*var responsePkt = new PutStoneNtfPacket();
-            responsePkt.FromBytes(bodyData);
-
-            DevLog.Write($"'{responsePkt.userID}' Put Stone  : [{responsePkt.xPos}] , [{responsePkt.yPos}] ");*/
-
-        }
-
-        void PacketProcess_GameStartResultResponse(byte[] bodyData)
-        {
-            /*var responsePkt = new GameStartResPacket();
-            responsePkt.FromBytes(bodyData);
-
-            if ((ERROR_CODE)responsePkt.Result == ERROR_CODE.NOT_READY_EXIST)
-            {
-                DevLog.Write($"모두 레디상태여야 시작합니다.");
-            }
-            else
-            {
-                DevLog.Write($"게임시작 !!!! '{responsePkt.UserID}' turn  ");
-            }*/
-        }
-
-        void PacketProcess_GameEndResultResponse(byte[] bodyData)
-        {
-            /*var responsePkt = new GameResultResPacket();
-            responsePkt.FromBytes(bodyData);
-            
-            DevLog.Write($"'{responsePkt.UserID}' WIN , END GAME ");*/
-
-        }
-
-        void PacketProcess_PutStoneResponse(byte[] bodyData)
-        {
-            /*var responsePkt = new MatchUserResPacket();
-            responsePkt.FromBytes(bodyData);
-
-            if((ERROR_CODE)responsePkt.Result != ERROR_CODE.ERROR_NONE)
-            {
-                DevLog.Write($"Put Stone Error : {(ERROR_CODE)responsePkt.Result}");
-            }
-
-            DevLog.Write($"다음 턴 :  {(ERROR_CODE)responsePkt.Result}");*/
-
-        }
-
-
-
-
-        void PacketProcess_ErrorNotify(byte[] packetData)
-        {
-            /*var notifyPkt = new ErrorNtfPacket();
-            notifyPkt.FromBytes(bodyData);
-
-            DevLog.Write($"에러 통보 받음:  {notifyPkt.Error}");*/
-        }
-
 
         void PacketProcess_LoginResponse(byte[] packetData)
         {
@@ -165,12 +107,12 @@ namespace csharp_test_client
         }
 
 
-        //void PacketProcess_RoomChatResponse(byte[] packetData)
-        //{
-        //    var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomChat>(packetData);
+        void PacketProcess_RoomChatResponse(byte[] packetData)
+        {
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResRoomChat>(packetData);
 
-        //    DevLog.Write($"방 채팅 결과:  {(ErrorCode)responsePkt.Result}");
-        //}
+            DevLog.Write($"방 채팅 결과:  {(ErrorCode)responsePkt.Result}");
+        }
 
 
         void PacketProcess_RoomChatNotify(byte[] packetData)
@@ -193,12 +135,12 @@ namespace csharp_test_client
             listBoxRoomChatMsg.SelectedIndex = listBoxRoomChatMsg.Items.Count - 1;
         }
 
-        //void PacketProcess_ReadyOmokResponse(byte[] packetData)
-        //{
-        //    var responsePkt = MemoryPackSerializer.Deserialize<PKTResReadyOmok>(packetData);
+        void PacketProcess_ReadyOmokResponse(byte[] packetData)
+        {
+            var responsePkt = MemoryPackSerializer.Deserialize<PKTResReadyOmok>(packetData);
 
-        //    DevLog.Write($"게임 준비 완료 요청 결과:  {(ErrorCode)responsePkt.Result}");
-        //}
+            DevLog.Write($"게임 준비 완료 요청 결과:  {(ErrorCode)responsePkt.Result}");
+        }
 
         void PacketProcess_ReadyOmokNotify(byte[] packetData)
         {
@@ -238,7 +180,6 @@ namespace csharp_test_client
 
             DevLog.Write($"오목 놓기 실패: {(ErrorCode)responsePkt.Result}");
 
-            //TODO 방금 놓은 오목 정보를 취소 시켜야 한다
         }
         
 

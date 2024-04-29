@@ -7,14 +7,14 @@ using System.Timers;
 
 namespace PvPGameServer;
 
-public class GameTimer
+public class RoomTimer
 {
     const int TurnTimeoutSeconds = 90;
     Timer turnTimer;
 
     public event EventHandler TurnTimeOut;
 
-    public GameTimer()
+    public RoomTimer()
     {
         // 타이머 초기화
         turnTimer = new Timer(TurnTimeoutSeconds * 1000);

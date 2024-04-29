@@ -65,8 +65,6 @@ namespace csharp_test_client
             무르기요청 = new SoundPlayer($"{curDir}\\sound\\무르기.wav");
             오류효과음 = new SoundPlayer($"{curDir}\\sound\\오류.wav");
 
-            //ai = new AI(바둑판);
-            //컴퓨터돌 = 돌종류.백돌;
         }
 
         //오목 게임 시작
@@ -91,9 +89,7 @@ namespace csharp_test_client
             시작효과음.Play();
 
             OmokLogic.StartGame();
-            
-            //if (AI모드 == true && 컴퓨터돌 == 돌종류.흑돌)
-            //컴퓨터두기();
+        
 
             panel1.Invalidate();
         }
@@ -311,12 +307,10 @@ namespace csharp_test_client
             x = (e.X - 시작위치 + 10) / 눈금크기;
             y = (e.Y - 시작위치 + 10) / 눈금크기;
 
-            // 바둑판 크기를 벗어나는지 확인
             if (x < 0 || x >= 바둑판크기 || y < 0 || y >= 바둑판크기)
             {
                 return;
             }
-            // 바둑판 해당 좌표에 아무것도 없고, 게임이 끝나지 않았으면
             else if (OmokLogic.바둑판알(x, y) == (int)CSCommon.OmokRule.돌종류.없음 && !OmokLogic.게임종료)             
             {
                 SendPacketOmokPut(x, y);
@@ -390,24 +384,6 @@ namespace csharp_test_client
             }
         }
         #endregion
-
-
-
-        //void 컴퓨터두기()
-        //{
-        //    int x = 0, y = 0;
-        //    CSCommon.돌두기_결과 ret;
-
-        //    do
-        //    {
-        //        OmokAI.AI_PutAIPlayer(ref x, ref y, false, 2);
-        //        ret = OmokLogic.돌두기(x, y);
-        //    } while (ret != CSCommon.돌두기_결과.Success);
-
-        //    돌그리기(x, y);
-        //    현재돌표시();
-        //    OmokLogic.오목확인(x, y);
-        //}
 
                
     }

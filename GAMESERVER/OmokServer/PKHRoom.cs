@@ -219,25 +219,26 @@ public class PKHRoom : PKHandler
         try
         {
             var roomObject = CheckRoomAndRoomUser(sessionID);
-
+            
             if (roomObject.Item1 == false)
             {
                 return;
             }
 
-
+            var room = roomObject.Item2;
+            var user = roomObject.Item3;
             var reqData = MemoryPackSerializer.Deserialize<PKTReqRoomChat>(packetData.Data);
 
             var notifyPacket = new PKTNtfRoomChat()
             {
-                UserID = roomObject.Item3.UserID,
+                UserID = user.UserID,
                 ChatMessage = reqData.ChatMessage
             };
 
             var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
             MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_ROOM_CHAT);
 
-            roomObject.Item2.Broadcast("", sendPacket);
+            room.Broadcast("", sendPacket);
 
             MainServer.MainLogger.Debug("Room RequestChat - Success");
         }
@@ -297,11 +298,13 @@ public class PKHRoom : PKHandler
             }
 
             var reqData = MemoryPackSerializer.Deserialize<PKTReqPutMok>(packetData.Data);
-            var gameRoom = roomObject.Item2;
-            if (gameRoom.ProcessPutMokRequest(reqData.PosX, reqData.PosY, roomObject.Item3.UserID) != ErrorCode.NONE) { 
+            var room = roomObject.Item2;
+            var user = roomObject.Item3;
+            if (room.ProcessPutMokRequest(reqData.PosX, reqData.PosY, user.UserID) != ErrorCode.NONE) { 
                 return; 
             }
 
+            
             var notifyPacket = new PKTNtfPutMok()
             {
                 PosX = reqData.PosX,
@@ -311,11 +314,11 @@ public class PKHRoom : PKHandler
             var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
             MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_PUT_MOK);
 
-            gameRoom.Broadcast("", sendPacket);
+            room.Broadcast("", sendPacket);
 
             MainServer.MainLogger.Debug("Room RequestPutMok - Success");
 
-            gameRoom.CheckWinCondition(reqData.PosX, reqData.PosY, roomObject.Item3.UserID);
+            room.CheckWinCondition(reqData.PosX, reqData.PosY, user.UserID);
 
         }
         catch (Exception ex)
