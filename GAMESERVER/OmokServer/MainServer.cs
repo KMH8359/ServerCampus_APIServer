@@ -32,9 +32,11 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     private readonly ILogger<MainServer> _appLogger;
 
     private readonly int HeartbeatGroupCount = 4;
-    private readonly int HeartbeatInterval = 10000;
+    private readonly int HeartbeatInterval = 5000;
+    private readonly int HeartbeatGroupSize = 250;
 
     private System.Timers.Timer[] HeartbeatTimers;
+
 
 
     public MainServer(IHostApplicationLifetime appLifetime, IOptions<ServerOption> serverConfig, ILogger<MainServer> logger)
@@ -198,8 +200,6 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         MainLogger.Info($"세션 번호 {session.SessionID} 접속");
 
         session._lastResponseTime = DateTime.UtcNow;
-        //var packet = InnerPakcetMaker.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID);
-        //Distribute(packet);
     }
 
     void OnClosed(NetworkSession session, CloseReason reason)
@@ -226,18 +226,16 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         for (int i = 0; i < HeartbeatGroupCount; i++)
         {
             ScheduleTimer(i);
-            TurnOnTimer(i);
         }
     }
 
     void ScheduleTimer(int groupIndex)
     {
-        var delay = (groupIndex + 1) * HeartbeatInterval / HeartbeatGroupCount; // Timer Start Delay
-
         HeartbeatTimers[groupIndex] = new System.Timers.Timer(HeartbeatInterval);
         HeartbeatTimers[groupIndex].Elapsed += (sender, e) => SendHeartBeatMessage(sender, e, groupIndex);
         HeartbeatTimers[groupIndex].AutoReset = true;
-        HeartbeatTimers[groupIndex].Interval = delay;
+        HeartbeatTimers[groupIndex].Start();
+        Thread.Sleep(1000);
     }
 
     void TurnOffTimer(int groupIndex)
@@ -258,10 +256,9 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
 
     void SendHeartBeatMessage(object sender, ElapsedEventArgs e, int groupIndex)
     {
-        MainLogger.Info($"{groupIndex} {GetSessionsByGroup(groupIndex).Count()} 하트비트 패킷 전송");
-        foreach (var session in GetSessionsByGroup(groupIndex))
+        foreach (var session in GetSessionsByGroupIndex(groupIndex))
         {
-            if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds >= HeartbeatInterval)
+            if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds > HeartbeatInterval * 2)
             {
                 MainLogger.Debug($"세션 번호 {session.SessionID} 장시간 응답 없음으로 연결 종료");
                 session.Close();
@@ -276,16 +273,12 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         }
     }
 
-    IEnumerable<NetworkSession> GetSessionsByGroup(int groupIndex)
+    IEnumerable<NetworkSession> GetSessionsByGroupIndex(int groupIndex)
     {
         var sessions = GetAllSessions();
-        if (sessions.Count() < HeartbeatGroupCount)
-        {
-            return sessions;
-        }
-        var groupSize = sessions.Count() / HeartbeatGroupCount;
-        var startIndex = groupIndex * groupSize;
-        var endIndex = startIndex + groupSize;
+
+        var startIndex = groupIndex * HeartbeatGroupSize;
+        var endIndex = startIndex + HeartbeatGroupSize;
 
         return sessions.Skip(startIndex).Take(endIndex - startIndex);
     }
