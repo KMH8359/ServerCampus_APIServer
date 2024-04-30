@@ -338,7 +338,7 @@ namespace CSCommon
             return 0;
         }
 
-        private int 세로삼삼확인(int x, int y)    // 세로 (|) 확인
+        int 세로삼삼확인(int x, int y)    // 세로 (|) 확인
         {
             int 돌3개확인 = 1;
             int i, j;

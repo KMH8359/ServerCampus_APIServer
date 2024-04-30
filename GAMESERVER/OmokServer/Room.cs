@@ -22,18 +22,15 @@ public class Room
 
     public static Func<string, byte[], bool> NetSendFunc;
 
-    public enum 돌종류 { 없음, 흑돌, 백돌 };
 
-    const int 바둑판크기 = 19;
-
-
-    int[,] 바둑판 = new int[바둑판크기, 바둑판크기];
     public int CurTurnPlayerIndex { get; private set; } = 0;
 
     public string _BlackMokUserID { get; private set; } = null;
     public string _WhiteMokUserID { get; private set; } = null;
 
     public RoomTimer _gameTimer { get; private set; } = null;
+
+    public OmokGame _omokGame { get; private set; } = null;
 
     public int TimeOutCount { get; private set; } = 0;
 
@@ -126,7 +123,7 @@ public class Room
 
     public void NotifyGameStart()
     {
-        Array.Clear(바둑판, 0, 바둑판크기 * 바둑판크기);
+        _omokGame.BoardClear();
 
         (_BlackMokUserID, _WhiteMokUserID) = DetermineMokAssignment();
         TimeOutCount = 0;
@@ -159,16 +156,17 @@ public class Room
 
     public ErrorCode ProcessPutMokRequest(int x, int y, string UserID)
     {
-        if (바둑판[x, y] != 0) { return ErrorCode.OMOK_ALREADY_EXIST; }
+        if (_omokGame.CheckOmokBoardPosition(x, y) != 0) { return ErrorCode.OMOK_ALREADY_EXIST; }
         if (_userList[CurTurnPlayerIndex].UserID != UserID) { return ErrorCode.OMOK_TURN_NOT_MATCH; }
+        if (_omokGame.삼삼확인(x, y)) { return ErrorCode.OMOK_RENJURULE; }
 
         if (UserID == _BlackMokUserID)
-        {   
-            바둑판[x, y] = (int)돌종류.흑돌;
+        {
+            _omokGame.PutMok(x, y, OmokGame.돌종류.흑돌);
         }
         else if (UserID == _WhiteMokUserID)
         {
-            바둑판[x, y] = (int)돌종류.백돌;
+            _omokGame.PutMok(x, y, OmokGame.돌종류.백돌);
         }
 
         CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % _maxUserCount;
@@ -194,132 +192,6 @@ public class Room
         }
         MainServer.MainLogger.Debug("Game Over");
     }
-
-    public bool CheckWinCondition(int x, int y)
-    {
-        if (가로확인(x, y) == 5)    
-        {
-            return true;
-        }
-
-        else if (세로확인(x, y) == 5)
-        {
-            return true;
-        }
-
-        else if (사선확인(x, y) == 5)
-        {
-            return true;
-        }
-
-        else if (역사선확인(x, y) == 5)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    int 가로확인(int x, int y)     
-    {
-        int 같은돌개수 = 1;
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (x + i <= 18 && 바둑판[x + i, y] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (x - i >= 0 && 바둑판[x - i, y] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        return 같은돌개수;
-    }
-
-    int 세로확인(int x, int y)      
-    {
-        int 같은돌개수 = 1;
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (y + i <= 18 && 바둑판[x, y + i] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (y - i >= 0 && 바둑판[x, y - i] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        return 같은돌개수;
-    }
-
-    int 사선확인(int x, int y)    
-    {
-        int 같은돌개수 = 1;
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (x + i <= 18 && y - i >= 0 && 바둑판[x + i, y - i] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (x - i >= 0 && y + i <= 18 && 바둑판[x - i, y + i] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        return 같은돌개수;
-    }
-
-    int 역사선확인(int x, int y)
-    {
-        int 같은돌개수 = 1;
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (x + i <= 18 && y + i <= 18 && 바둑판[x + i, y + i] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        for (int i = 1; i <= 5; i++)
-        {
-            if (x - i >= 0 && y - i >= 0 && 바둑판[x - i, y - i] == 바둑판[x, y])
-                같은돌개수++;
-
-            else
-                break;
-        }
-
-        return 같은돌개수;
-    }
-
 
 
     public void NotifyPacketUserList(string userNetSessionID)
