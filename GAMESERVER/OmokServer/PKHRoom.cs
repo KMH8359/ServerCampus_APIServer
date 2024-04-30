@@ -218,15 +218,14 @@ public class PKHRoom : PKHandler
 
         try
         {
-            var roomObject = CheckRoomAndRoomUser(sessionID);
+
+            (bool check, Room room, RoomUser user) = CheckRoomAndRoomUser(sessionID);
             
-            if (roomObject.Item1 == false)
+            if (check == false)
             {
                 return;
             }
 
-            var room = roomObject.Item2;
-            var user = roomObject.Item3;
             var reqData = MemoryPackSerializer.Deserialize<PKTReqRoomChat>(packetData.Data);
 
             var notifyPacket = new PKTNtfRoomChat()
@@ -255,15 +254,13 @@ public class PKHRoom : PKHandler
 
         try
         {
-            var roomObject = CheckRoomAndRoomUser(sessionID);
+            (bool check, Room room, RoomUser user) = CheckRoomAndRoomUser(sessionID);
 
-            if (roomObject.Item1 == false)
+            if (check == false)
             {
                 return;
             }
 
-            var room = roomObject.Item2;
-            var user = roomObject.Item3;
             user.IsReady = !user.IsReady;
             if (room.CheckAllUsersReady())
             {
@@ -290,16 +287,14 @@ public class PKHRoom : PKHandler
 
         try
         {
-            var roomObject = CheckRoomAndRoomUser(sessionID);
+            (bool check, Room room, RoomUser user) = CheckRoomAndRoomUser(sessionID);
 
-            if (roomObject.Item1 == false)
+            if (check == false)
             {
                 return;
             }
 
             var reqData = MemoryPackSerializer.Deserialize<PKTReqPutMok>(packetData.Data);
-            var room = roomObject.Item2;
-            var user = roomObject.Item3;
             if (room.ProcessPutMokRequest(reqData.PosX, reqData.PosY, user.UserID) != ErrorCode.NONE) { 
                 return; 
             }
@@ -329,21 +324,6 @@ public class PKHRoom : PKHandler
             MainServer.MainLogger.Error(ex.ToString());
         }
     }
-
-
-    void ResponsePutMokFailToClient(string sessionID)
-    {
-        var resRoomLeave = new PKTResPutMok()
-        {
-            Result = (short)ErrorCode.NONE
-        };
-
-        var sendPacket = MemoryPackSerializer.Serialize(resRoomLeave);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.RES_ROOM_LEAVE);
-
-        NetSendFunc(sessionID, sendPacket);
-    }
-
 
 
 
