@@ -15,7 +15,8 @@ public class PKHCommon : PKHandler
 
         packetHandlerMap.Add((int)PACKETID.HEART_BEAT, HandleHeartbeatResponse);
         packetHandlerMap.Add((int)PACKETID.REQ_LOGIN, RequestLogin);
-                                            
+        packetHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, ResponseVerifyLogin);
+
     }
 
     public void NotifyInConnectClient(MemoryPackBinaryRequestInfo requestData)
@@ -58,8 +59,34 @@ public class PKHCommon : PKHandler
                 ResponseLoginToClient(ErrorCode.LOGIN_ALREADY_WORKING, packetData.SessionID);
                 return;
             }
-                            
-            var reqData = MemoryPackSerializer.Deserialize<PKTReqLogin>(packetData.Data);
+            
+            DistributeDBRequest(packetData);
+
+            MainServer.MainLogger.Debug($"로그인 인증 요청");
+
+        }
+        catch(Exception ex)
+        {
+            MainServer.MainLogger.Error(ex.ToString());
+        }
+    }
+
+    public void ResponseVerifyLogin(MemoryPackBinaryRequestInfo packetData)
+    {
+        var sessionID = packetData.SessionID;
+
+        try
+        {
+            var reqData = MemoryPackSerializer.Deserialize<PKTResDBLogin>(packetData.Data);
+
+            var verifyResult = (ErrorCode)reqData.Result;
+
+            if (verifyResult != ErrorCode.NONE)
+            {
+                ResponseLoginToClient(verifyResult, packetData.SessionID);
+                return;
+            }
+
             var errorCode = _userMgr.AddUser(reqData.UserID, sessionID);
             if (errorCode != ErrorCode.NONE)
             {
@@ -69,21 +96,22 @@ public class PKHCommon : PKHandler
                 {
                     NotifyMustCloseToClient(ErrorCode.LOGIN_FULL_USER_COUNT, packetData.SessionID);
                 }
-                
+
                 return;
             }
 
             ResponseLoginToClient(errorCode, packetData.SessionID);
 
-            MainServer.MainLogger.Debug($"로그인 결과. UserID:{reqData.UserID}, {errorCode}");
+            MainServer.MainLogger.Debug("로그인 인증 완료");
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             MainServer.MainLogger.Error(ex.ToString());
         }
     }
-            
+
+
     public void ResponseLoginToClient(ErrorCode errorCode, string sessionID)
     {
         var resLogin = new PKTResLogin()

@@ -41,6 +41,23 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         return packet;
     }
 
+    public static MemoryPackBinaryRequestInfo MakeResVerifyLoginRequest(string sessionID, string userID, ErrorCode errorCode)
+    {
+        var packet = new PKTResDBLogin()
+        {
+            UserID = userID,
+            Result = (short)errorCode
+        };
+
+        var sendData = MemoryPackSerializer.Serialize(packet);
+        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.RES_DB_LOGIN);
+
+        var verifyPacket = new MemoryPackBinaryRequestInfo(null);
+        verifyPacket.Data = sendData;
+        verifyPacket.SessionID = sessionID;
+        return verifyPacket;
+    }
+
 }
    
 

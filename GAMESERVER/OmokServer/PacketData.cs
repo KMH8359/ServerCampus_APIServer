@@ -92,6 +92,13 @@ public partial class PKTResLogin : PKTResponse
 }
 
 [MemoryPackable]
+public partial class PKTResDBLogin : PKTResponse
+{
+    public string UserID { get; set; }
+}
+
+
+[MemoryPackable]
 public partial class PKTHeartBeat : MemoryPackPacketHead
 {
 }
