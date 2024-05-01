@@ -231,3 +231,10 @@ public partial class PKTNtfEndOmok : MemoryPackPacketHead
 {
     public string WinUserID;
 }
+
+[MemoryPackable]
+public partial class PKTReqDBSaveResult : MemoryPackPacketHead
+{
+    public string WinUserID;
+    public string LoseUserID;
+}

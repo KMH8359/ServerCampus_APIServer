@@ -316,6 +316,12 @@ public class PKHRoom : PKHandler
             if (room._omokGame.CheckWinCondition(reqData.PosX, reqData.PosY))
             {
                 room.NotifyGameEnd(user.UserID);
+                var LoseUser = room.GetOtherRoomUser(user.UserID);
+                if (LoseUser == null) { return; }
+
+                var packet = InnerPakcetMaker.MakeReqSaveGameResult(sessionID, user.UserID, LoseUser.UserID);
+
+                DistributeDBRequest(packet);
             }
 
         }

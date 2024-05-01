@@ -58,6 +58,23 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         return verifyPacket;
     }
 
+    public static MemoryPackBinaryRequestInfo MakeReqSaveGameResult(string sessionID, string WinUserID, string LoseuserID)
+    {
+        var packet = new PKTReqDBSaveResult()
+        {
+            WinUserID = WinUserID,
+            LoseUserID = LoseuserID
+        };
+
+        var sendData = MemoryPackSerializer.Serialize(packet);
+        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.REQ_DB_SAVE_GAMERESULT);
+
+        var verifyPacket = new MemoryPackBinaryRequestInfo(null);
+        verifyPacket.Data = sendData;
+        verifyPacket.SessionID = sessionID;
+        return verifyPacket;
+    }
+
 }
    
 

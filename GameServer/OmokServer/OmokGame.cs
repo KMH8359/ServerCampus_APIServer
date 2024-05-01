@@ -16,7 +16,7 @@ public class OmokGame
 
     int[,] 바둑판 = new int[바둑판크기, 바둑판크기];
 
-    OmokGame()
+    public OmokGame()
     {
 
     }

@@ -42,6 +42,7 @@ public class Room
         _maxUserCount = maxUserCount;
         _gameTimer = new RoomTimer();
         _gameTimer.TurnTimeOut += OnTurnTimeOut;
+        _omokGame = new OmokGame();
     }
 
     void OnTurnTimeOut(object sender, EventArgs e)
@@ -111,6 +112,18 @@ public class Room
             }
         }
         return true;
+    }
+
+    public RoomUser GetOtherRoomUser(string userID)
+    {
+        foreach (var user in _userList)
+        {
+            if (user.UserID != userID)
+            {
+                return user;
+            }
+        }
+        return null;
     }
 
     public (string, string) DetermineMokAssignment()
@@ -184,6 +197,7 @@ public class Room
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
         MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_END_MOK);
 
+        
         Broadcast("", sendPacket);
         _gameTimer.StopTurnTimer();
         foreach (var user in _userList)
