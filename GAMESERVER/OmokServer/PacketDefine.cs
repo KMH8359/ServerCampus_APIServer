@@ -79,6 +79,7 @@ public enum PACKETID : int
     NTF_PUT_MOK = 1037,
 
     NTF_TIME_OVER = 1038,
+    NTF_IN_TIME_OVER = 1039,
 
     NTF_END_MOK = 1041,
 

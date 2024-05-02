@@ -75,6 +75,21 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         return verifyPacket;
     }
 
+    public static MemoryPackBinaryRequestInfo MakeNTFInTimeOutPacket(int roomNumber)
+    {
+        var packet = new PKTInternalNtfRoomTimeOut()
+        {
+            RoomNumber = roomNumber
+        };
+
+        var sendData = MemoryPackSerializer.Serialize(packet);
+        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_IN_TIME_OVER);
+
+        var notifyPacket = new MemoryPackBinaryRequestInfo(null);
+        notifyPacket.Data = sendData;
+        return notifyPacket;
+    }
+
 }
    
 
@@ -83,4 +98,10 @@ public partial class PKTInternalNtfRoomLeave : MemoryPackPacketHead
 {
     public int RoomNumber { get; set; }
     public string UserID { get; set; }
+}
+
+[MemoryPackable]
+public partial class PKTInternalNtfRoomTimeOut : MemoryPackPacketHead
+{
+    public int RoomNumber { get; set; }
 }

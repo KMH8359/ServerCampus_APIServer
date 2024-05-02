@@ -9,17 +9,19 @@ namespace PvPGameServer;
 
 public class RoomTimer
 {
-    const int TurnTimeoutSeconds = 90;
     Timer turnTimer;
 
     public event EventHandler TurnTimeOut;
 
-    public RoomTimer()
+    public int RoomGroupIndex;
+
+    public RoomTimer(double interval)
     {
         // 타이머 초기화
-        turnTimer = new Timer(TurnTimeoutSeconds * 1000);
+        turnTimer = new Timer(interval);
         turnTimer.Elapsed += TurnTimerElapsed;
-        turnTimer.AutoReset = false;
+        turnTimer.AutoReset = true;
+        RoomGroupIndex = 0;
     }
     public void StartTurnTimer()
     {
@@ -29,7 +31,6 @@ public class RoomTimer
     public void RestartTurnTimer() 
     {
         turnTimer.Stop();
-        turnTimer.Interval = TurnTimeoutSeconds * 1000;
         turnTimer.Start();
     }
 
@@ -40,7 +41,18 @@ public class RoomTimer
 
     public void TurnTimerElapsed(object sender, ElapsedEventArgs e)
     {
-        TurnTimeOut?.Invoke(this, EventArgs.Empty);
+        RoomGroupIndex = (RoomGroupIndex + 1) % 4;
+        TurnTimeOut?.Invoke(this, new GroupIndexEventArgs(RoomGroupIndex));
     }
 
+}
+
+public class GroupIndexEventArgs : EventArgs
+{
+    public int RoomGroupIndex { get; set; }
+
+    public GroupIndexEventArgs(int roomGroupIndex)
+    {
+        RoomGroupIndex = roomGroupIndex;
+    }
 }

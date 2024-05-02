@@ -31,10 +31,6 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     private readonly IHostApplicationLifetime _appLifetime;
     private readonly ILogger<MainServer> _appLogger;
 
-    private readonly int HeartbeatGroupCount = 4;
-    private readonly int HeartbeatInterval = 5000;
-    private readonly int HeartbeatGroupSize = 250;
-
     private System.Timers.Timer[] HeartbeatTimers;
 
 
@@ -163,6 +159,8 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         _packetProcessor.NetSendFunc = this.SendData;
         _packetProcessor.CreateAndStart(_roomMgr.GetRoomsList(), serverOpt);
 
+        _roomMgr.SetPacketProcessor(_packetProcessor);
+
         MainLogger.Info("CreateComponent - Success");
         return ErrorCode.NONE;
     }
@@ -221,9 +219,10 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
 
     void SetHeartbeatTimer()
     {
-        HeartbeatTimers = new System.Timers.Timer[HeartbeatGroupCount];
+        int count = _serverOpt.HeartbeatGroupCount;
+        HeartbeatTimers = new System.Timers.Timer[count];
 
-        for (int i = 0; i < HeartbeatGroupCount; i++)
+        for (int i = 0; i < count; i++)
         {
             ScheduleTimer(i);
         }
@@ -231,7 +230,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
 
     void ScheduleTimer(int groupIndex)
     {
-        HeartbeatTimers[groupIndex] = new System.Timers.Timer(HeartbeatInterval);
+        HeartbeatTimers[groupIndex] = new System.Timers.Timer(_serverOpt.HeartbeatInterval);
         HeartbeatTimers[groupIndex].Elapsed += (sender, e) => SendHeartBeatMessage(sender, e, groupIndex);
         HeartbeatTimers[groupIndex].AutoReset = true;
         HeartbeatTimers[groupIndex].Start();
@@ -258,7 +257,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     {
         foreach (var session in GetSessionsByGroupIndex(groupIndex))
         {
-            if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds > HeartbeatInterval * 2)
+            if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds > _serverOpt.HeartbeatInterval * 2)
             {
                 MainLogger.Debug($"세션 번호 {session.SessionID} 장시간 응답 없음으로 연결 종료");
                 session.Close();
@@ -277,8 +276,8 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     {
         var sessions = GetAllSessions();
 
-        var startIndex = groupIndex * HeartbeatGroupSize;
-        var endIndex = startIndex + HeartbeatGroupSize;
+        var startIndex = groupIndex * _serverOpt.HeartbeatGroupSize;
+        var endIndex = startIndex + _serverOpt.HeartbeatGroupSize;
 
         return sessions.Skip(startIndex).Take(endIndex - startIndex);
     }

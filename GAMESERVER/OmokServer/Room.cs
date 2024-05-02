@@ -23,46 +23,24 @@ public class Room
     public static Func<string, byte[], bool> NetSendFunc;
 
 
-    public int CurTurnPlayerIndex { get; private set; } = 0;
+    public int CurTurnPlayerIndex = 0;
 
     public string _BlackMokUserID { get; private set; } = null;
     public string _WhiteMokUserID { get; private set; } = null;
 
-    public RoomTimer _gameTimer { get; private set; } = null;
-
     public OmokGame _omokGame { get; private set; } = null;
 
-    public int TimeOutCount { get; private set; } = 0;
+    public int TimeOutCount = 0;
 
+    public DateTime RecentPutMokTime;
 
     public void Init(int index, int number, int maxUserCount)
     {
         Index = index;
         Number = number;
         _maxUserCount = maxUserCount;
-        _gameTimer = new RoomTimer();
-        _gameTimer.TurnTimeOut += OnTurnTimeOut;
         _omokGame = new OmokGame();
-    }
-
-    void OnTurnTimeOut(object sender, EventArgs e)
-    {
-        var notifyPacket = new PKTNtfTimeOver();
-
-        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_TIME_OVER);
-
-        Broadcast("", sendPacket);
-
-        CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % _maxUserCount;
-        _gameTimer.RestartTurnTimer();
-
-        MainServer.MainLogger.Debug("Room TurnTimeOver");
-        TimeOutCount++;
-        if (TimeOutCount >= 6)
-        {
-            NotifyGameEnd(null);
-        }
+        RecentPutMokTime = DateTime.MinValue;
     }
 
     public bool AddUser(string userID, string netSessionID)
@@ -149,8 +127,8 @@ public class Room
         MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
 
         Broadcast("", sendPacket);
-        _gameTimer.StartTurnTimer();
 
+        RecentPutMokTime = DateTime.UtcNow;
     }
 
     public void NotifyGameReady(RoomUser user)
@@ -184,7 +162,7 @@ public class Room
 
         CurTurnPlayerIndex = (CurTurnPlayerIndex + 1) % _maxUserCount;
 
-        _gameTimer.RestartTurnTimer();
+        RecentPutMokTime = DateTime.UtcNow;
         return ErrorCode.NONE;
     }
     public void NotifyGameEnd(string CurTurnUserID)
@@ -199,7 +177,7 @@ public class Room
 
         
         Broadcast("", sendPacket);
-        _gameTimer.StopTurnTimer();
+        RecentPutMokTime = DateTime.MinValue;
         foreach (var user in _userList)
         {
             user.IsReady = false;

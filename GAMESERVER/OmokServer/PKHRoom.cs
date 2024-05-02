@@ -26,6 +26,7 @@ public class PKHRoom : PKHandler
         packetHandlerMap.Add((int)PACKETID.REQ_ROOM_CHAT, RequestChat);
         packetHandlerMap.Add((int)PACKETID.REQ_READY_OMOK, RequestGameReady);
         packetHandlerMap.Add((int)PACKETID.REQ_PUT_MOK, RequestPutMok);
+        packetHandlerMap.Add((int)PACKETID.NTF_IN_TIME_OVER, OnTurnTimeOut);
 
     }
 
@@ -52,7 +53,7 @@ public class PKHRoom : PKHandler
 
         var roomNumber = user.RoomNumber;
         var room = GetRoom(roomNumber);
-
+        
         if (room == null)
         {
             return (false, null, null);
@@ -328,6 +329,30 @@ public class PKHRoom : PKHandler
         catch (Exception ex)
         {
             MainServer.MainLogger.Error(ex.ToString());
+        }
+    }
+
+    void OnTurnTimeOut(MemoryPackBinaryRequestInfo packetData)
+    {
+        var reqData = MemoryPackSerializer.Deserialize<PKTInternalNtfRoomTimeOut>(packetData.Data);
+
+        int roomNumber = reqData.RoomNumber;
+        var room = GetRoom(roomNumber);
+        var notifyPacket = new PKTNtfTimeOver();
+
+        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_TIME_OVER);
+
+        room.Broadcast("", sendPacket);
+
+        room.CurTurnPlayerIndex = (room.CurTurnPlayerIndex + 1) % room._maxUserCount;
+        room.RecentPutMokTime = DateTime.UtcNow;
+
+        MainServer.MainLogger.Debug("Room TurnTimeOver");
+        room.TimeOutCount++;
+        if (room.TimeOutCount >= 6)
+        {
+            room.NotifyGameEnd(null);
         }
     }
 
