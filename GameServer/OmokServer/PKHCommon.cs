@@ -48,7 +48,6 @@ public class PKHCommon : PKHandler
         var Data = MemoryPackSerializer.Deserialize<PKTInternalNtfHeartbeat>(packetData.Data);
 
         int groupIndex = Data.GroupIndex;
-        MainServer.MainLogger.Info($"{groupIndex} heartbeat broadcasting");
         var notifyPacket = new PKTHeartBeat();
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
@@ -57,7 +56,7 @@ public class PKHCommon : PKHandler
         {
             if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds > sessionTimeoutLimit)
             {
-                MainServer.MainLogger.Debug($"세션 번호 {session.SessionID} 장시간 응답 없음으로 연결 종료");
+                Logger.Debug($"세션 번호 {session.SessionID} 장시간 응답 없음으로 연결 종료");
                 session.Close();
                 continue;
             }
@@ -68,7 +67,7 @@ public class PKHCommon : PKHandler
     public void RequestLogin(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug("로그인 요청 받음");
+        Logger.Debug("로그인 요청 받음");
 
         try
         {
@@ -80,12 +79,12 @@ public class PKHCommon : PKHandler
             
             DistributeDBRequest(packetData);
 
-            MainServer.MainLogger.Debug($"로그인 인증 요청");
+            Logger.Debug($"로그인 인증 요청");
 
         }
         catch(Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
@@ -120,12 +119,12 @@ public class PKHCommon : PKHandler
 
             ResponseLoginToClient(errorCode, packetData.SessionID);
 
-            MainServer.MainLogger.Debug("로그인 인증 완료");
+            Logger.Debug("로그인 인증 완료");
 
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 

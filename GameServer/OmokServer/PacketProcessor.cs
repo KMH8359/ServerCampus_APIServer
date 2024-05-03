@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using SuperSocket.SocketBase.Logging;
 using System.Threading.Tasks.Dataflow;
 
 
@@ -29,9 +29,10 @@ class PacketProcessor
     PKHCommon _commonPacketHandler = new PKHCommon();
     PKHRoom _roomPacketHandler = new PKHRoom();
     PKHDataBase _databasePacketHandler = new PKHDataBase();
-            
 
-    public void CreateAndStart(List<Room> roomList, ServerOption serverOpt)
+    private ILog _logger;
+
+    public void CreateAndStart(List<Room> roomList, ServerOption serverOpt, ILog logger)
     {
         var maxUserCount = serverOpt.RoomMaxCount * serverOpt.RoomMaxUserCount;
         _userMgr.Init(maxUserCount);
@@ -39,7 +40,9 @@ class PacketProcessor
         _roomList = roomList;
         var minRoomNum = _roomList[0].Number;
         var maxRoomNum = _roomList[0].Number + _roomList.Count() - 1;
-        
+
+        _logger = logger;
+
         RegistPacketHandler();
         _commonPacketHandler.sessionTimeoutLimit = serverOpt.HeartbeatTimeOut;
 
@@ -53,14 +56,14 @@ class PacketProcessor
     
     public void Destroy()
     {
-        MainServer.MainLogger.Info("PacketProcessor::Destory - begin");
+        _logger.Info("PacketProcessor::Destory - begin");
 
         _isThreadRunning = false;
         _msgBuffer.Complete();
         _dbmsgBuffer.Complete();    
         _processThread.Join();
         _dbThread.Join();
-        MainServer.MainLogger.Info("PacketProcessor::Destory - end");
+        _logger.Info("PacketProcessor::Destory - end");
     }
           
     public void InsertPacket(MemoryPackBinaryRequestInfo data)
@@ -79,6 +82,7 @@ class PacketProcessor
         PKHandler.GetSessionGroupFunc = GetSessionGroupFunc;    
         PKHandler.DistributeInnerPacket = InsertPacket;
         PKHandler.DistributeDBRequest = InsertDBRequest;
+        PKHandler.Logger = _logger;
 
         _commonPacketHandler.Init(_userMgr);
         _commonPacketHandler.RegistPacketHandler(_packetHandlerMap);    
@@ -111,7 +115,7 @@ class PacketProcessor
             {
                 if (_isThreadRunning)
                 {
-                    MainServer.MainLogger.Error(ex.ToString());
+                    _logger.Error(ex.ToString());
                 }
             }
         }
@@ -137,7 +141,7 @@ class PacketProcessor
             {
                 if (_isThreadRunning)
                 {
-                    MainServer.MainLogger.Error(ex.ToString());
+                    _logger.Error(ex.ToString());
                 }
             }
         }

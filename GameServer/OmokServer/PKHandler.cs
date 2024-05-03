@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperSocket.SocketBase.Logging;
+using System;
 using System.Collections.Generic;
 
 
@@ -10,7 +11,7 @@ public class PKHandler
     public static Action<MemoryPackBinaryRequestInfo> DistributeInnerPacket;
     public static Action<MemoryPackBinaryRequestInfo> DistributeDBRequest;
     public static Func<int, IEnumerable<NetworkSession>> GetSessionGroupFunc;
-
+    public static ILog Logger;
     public int sessionTimeoutLimit = 0;
     protected UserManager _userMgr = null;
 

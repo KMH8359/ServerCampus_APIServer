@@ -74,7 +74,7 @@ public class PKHRoom : PKHandler
     void RequestRoomEnter(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug("RequestRoomEnter");
+        Logger.Debug("RequestRoomEnter");
 
         try
         {
@@ -116,11 +116,11 @@ public class PKHRoom : PKHandler
 
             ResponseEnterRoomToClient(ErrorCode.NONE, sessionID);
 
-            MainServer.MainLogger.Debug("RequestEnterInternal - Success");
+            Logger.Debug("RequestEnterInternal - Success");
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
@@ -140,7 +140,7 @@ public class PKHRoom : PKHandler
     void RequestLeave(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug("방나가기 요청 받음");
+        Logger.Debug("방나가기 요청 받음");
 
         try
         {
@@ -159,17 +159,17 @@ public class PKHRoom : PKHandler
 
             ResponseLeaveRoomToClient(sessionID);
 
-            MainServer.MainLogger.Debug("Room RequestLeave - Success");
+            Logger.Debug("Room RequestLeave - Success");
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
     bool LeaveRoomUser(string sessionID, int roomNumber)
     {
-        MainServer.MainLogger.Debug($"LeaveRoomUser. SessionID:{sessionID}");
+        Logger.Debug($"LeaveRoomUser. SessionID:{sessionID}");
 
         var room = GetRoom(roomNumber);
         if (room == null)
@@ -206,7 +206,7 @@ public class PKHRoom : PKHandler
     void NotifyLeaveInternal(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug($"NotifyLeaveInternal. SessionID: {sessionID}");
+        Logger.Debug($"NotifyLeaveInternal. SessionID: {sessionID}");
 
         var reqData = MemoryPackSerializer.Deserialize<PKTInternalNtfRoomLeave>(packetData.Data);
         LeaveRoomUser(sessionID, reqData.RoomNumber);
@@ -215,7 +215,7 @@ public class PKHRoom : PKHandler
     void RequestChat(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug("Room RequestChat");
+        Logger.Debug("Room RequestChat");
 
         try
         {
@@ -240,18 +240,18 @@ public class PKHRoom : PKHandler
 
             room.Broadcast("", sendPacket);
 
-            MainServer.MainLogger.Debug("Room RequestChat - Success");
+            Logger.Debug("Room RequestChat - Success");
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
     void RequestGameReady(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug("Request GameReady");
+        Logger.Debug("Request GameReady");
 
         try
         {
@@ -267,24 +267,24 @@ public class PKHRoom : PKHandler
             {
                 room.NotifyGameStart();
 
-                MainServer.MainLogger.Debug("Room RequestReady and GameStart");
+                Logger.Debug("Room RequestReady and GameStart");
             }
             else
             {
                 room.NotifyGameReady(user);
-                MainServer.MainLogger.Debug("Room RequestReady");
+                Logger.Debug("Room RequestReady");
             }
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
     void RequestPutMok(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
-        MainServer.MainLogger.Debug("Room RequestPutMok");
+        Logger.Debug("Room RequestPutMok");
 
         try
         {
@@ -312,7 +312,7 @@ public class PKHRoom : PKHandler
 
             room.Broadcast("", sendPacket);
 
-            MainServer.MainLogger.Debug("Room RequestPutMok - Success");
+            Logger.Debug("Room RequestPutMok - Success");
 
             if (room._omokGame.CheckWinCondition(reqData.PosX, reqData.PosY))
             {
@@ -323,12 +323,13 @@ public class PKHRoom : PKHandler
                 var packet = InnerPakcetMaker.MakeReqSaveGameResult(sessionID, user.UserID, LoseUser.UserID);
 
                 DistributeDBRequest(packet);
+                Logger.Debug("Game Over");
             }
 
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
@@ -348,7 +349,7 @@ public class PKHRoom : PKHandler
         room.CurTurnPlayerIndex = (room.CurTurnPlayerIndex + 1) % room._maxUserCount;
         room.RecentPutMokTime = DateTime.UtcNow;
 
-        MainServer.MainLogger.Debug("Room TurnTimeOver");
+        Logger.Debug("Room TurnTimeOver");
         room.TimeOutCount++;
         if (room.TimeOutCount >= 6)
         {

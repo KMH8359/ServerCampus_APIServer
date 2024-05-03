@@ -57,7 +57,7 @@ public class PKHDataBase : PKHandler, IDisposable
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 
@@ -81,7 +81,7 @@ public class PKHDataBase : PKHandler, IDisposable
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error("Error while verifying login: " + ex.ToString());
+            Logger.Error("Error while verifying login: " + ex.ToString());
             return ErrorCode.DB_LOGIN_EXCEPTION;
         }
 
@@ -115,7 +115,7 @@ public class PKHDataBase : PKHandler, IDisposable
         }
         catch (Exception ex)
         {
-            MainServer.MainLogger.Error(ex.ToString());
+            Logger.Error(ex.ToString());
         }
     }
 

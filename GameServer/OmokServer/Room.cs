@@ -182,7 +182,6 @@ public class Room
         {
             user.IsReady = false;
         }
-        MainServer.MainLogger.Debug("Game Over");
     }
 
 
