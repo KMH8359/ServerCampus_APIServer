@@ -13,7 +13,7 @@ public class PKHCommon : PKHandler
         packetHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, NotifyInConnectClient);
         packetHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, NotifyInDisConnectClient);
 
-        packetHandlerMap.Add((int)PACKETID.HEART_BEAT, HandleHeartbeatResponse);
+        packetHandlerMap.Add((int)PACKETID.NTF_HEART_BEAT, BroadcastHeartbeat);
         packetHandlerMap.Add((int)PACKETID.REQ_LOGIN, RequestLogin);
         packetHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, ResponseVerifyLogin);
 
@@ -42,9 +42,27 @@ public class PKHCommon : PKHandler
         }
     }
 
-    public void HandleHeartbeatResponse(MemoryPackBinaryRequestInfo packetData)
+    public void BroadcastHeartbeat(MemoryPackBinaryRequestInfo packetData)
     {
         var sessionID = packetData.SessionID;
+        var Data = MemoryPackSerializer.Deserialize<PKTInternalNtfHeartbeat>(packetData.Data);
+
+        int groupIndex = Data.GroupIndex;
+        MainServer.MainLogger.Info($"{groupIndex} heartbeat broadcasting");
+        var notifyPacket = new PKTHeartBeat();
+
+        var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
+        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.HEART_BEAT);
+        foreach (var session in GetSessionGroupFunc(groupIndex))
+        {
+            if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds > sessionTimeoutLimit)
+            {
+                MainServer.MainLogger.Debug($"세션 번호 {session.SessionID} 장시간 응답 없음으로 연결 종료");
+                session.Close();
+                continue;
+            }
+            NetSendFunc(session.SessionID, sendPacket);
+        }
     }
 
     public void RequestLogin(MemoryPackBinaryRequestInfo packetData)

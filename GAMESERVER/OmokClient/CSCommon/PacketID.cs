@@ -4,6 +4,8 @@ using System.Text;
 
 namespace CSCommon
 {
+
+
     // 1001 ~ 2000
     public class PacketID
     {
@@ -14,6 +16,7 @@ namespace CSCommon
 
         public const UInt16 HEART_BEAT = 1004;
         public const UInt16 NFT_MUST_CLOSE = 1005;
+        public const UInt16 NTF_HEART_BEAT = 1006;
 
         public const UInt16 REQ_ROOM_ENTER = 1015;
         public const UInt16 RES_ROOM_ENTER = 1016;
@@ -39,6 +42,7 @@ namespace CSCommon
         public const UInt16 NTF_PUT_MOK = 1037;
 
         public const UInt16 NTF_TIME_OVER = 1038;
+        public const UInt16 NTF_IN_TIME_OVER = 1039;
 
         public const UInt16 NTF_END_MOK = 1041;
 

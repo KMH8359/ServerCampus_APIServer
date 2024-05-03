@@ -14,6 +14,7 @@ class PacketProcessor
     System.Threading.Thread _dbThread = null;
 
     public Func<string, byte[], bool> NetSendFunc;
+    public Func<int, IEnumerable<NetworkSession>> GetSessionGroupFunc;
     
     // BufferBlock is Thread Safe
     BufferBlock<MemoryPackBinaryRequestInfo> _msgBuffer = new BufferBlock<MemoryPackBinaryRequestInfo>();
@@ -40,6 +41,7 @@ class PacketProcessor
         var maxRoomNum = _roomList[0].Number + _roomList.Count() - 1;
         
         RegistPacketHandler();
+        _commonPacketHandler.sessionTimeoutLimit = serverOpt.HeartbeatTimeOut;
 
         _isThreadRunning = true;
         _processThread = new System.Threading.Thread(this.Process); 
@@ -74,12 +76,13 @@ class PacketProcessor
     void RegistPacketHandler()
     {
         PKHandler.NetSendFunc = NetSendFunc;
+        PKHandler.GetSessionGroupFunc = GetSessionGroupFunc;    
         PKHandler.DistributeInnerPacket = InsertPacket;
         PKHandler.DistributeDBRequest = InsertDBRequest;
 
         _commonPacketHandler.Init(_userMgr);
-        _commonPacketHandler.RegistPacketHandler(_packetHandlerMap);                
-        
+        _commonPacketHandler.RegistPacketHandler(_packetHandlerMap);    
+
         _roomPacketHandler.Init(_userMgr);
         _roomPacketHandler.SetRoomList(_roomList);
         _roomPacketHandler.RegistPacketHandler(_packetHandlerMap);

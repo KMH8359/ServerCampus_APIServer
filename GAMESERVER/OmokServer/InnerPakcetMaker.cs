@@ -90,6 +90,21 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         return notifyPacket;
     }
 
+    public static MemoryPackBinaryRequestInfo MakeHeartbeatRequest(int groupIndex)
+    {
+        var packet = new PKTInternalNtfHeartbeat()
+        {
+            GroupIndex = groupIndex
+        };
+
+        var sendData = MemoryPackSerializer.Serialize(packet);
+        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_HEART_BEAT);
+
+        var notifyPacket = new MemoryPackBinaryRequestInfo(null);
+        notifyPacket.Data = sendData;
+        return notifyPacket;
+    }
+
 }
    
 
@@ -104,4 +119,10 @@ public partial class PKTInternalNtfRoomLeave : MemoryPackPacketHead
 public partial class PKTInternalNtfRoomTimeOut : MemoryPackPacketHead
 {
     public int RoomNumber { get; set; }
+}
+
+[MemoryPackable]
+public partial class PKTInternalNtfHeartbeat : MemoryPackPacketHead
+{
+    public int GroupIndex { get; set; }
 }

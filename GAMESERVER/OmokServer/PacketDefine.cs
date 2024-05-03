@@ -54,6 +54,7 @@ public enum PACKETID : int
     RES_LOGIN       = 1003,
     HEART_BEAT      = 1004,
     NTF_MUST_CLOSE       = 1005,
+    NTF_HEART_BEAT = 1006,
 
     REQ_ROOM_ENTER = 1015,
     RES_ROOM_ENTER = 1016,
