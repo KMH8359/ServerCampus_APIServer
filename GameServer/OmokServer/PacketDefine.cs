@@ -81,6 +81,7 @@ public enum PACKETID : int
 
     NTF_TIME_OVER = 1038,
     NTF_IN_TIME_OVER = 1039,
+    NTF_IN_TOO_LONG_GAME = 1040,
 
     NTF_END_MOK = 1041,
 

@@ -18,6 +18,7 @@ class RoomManager
     public int checkingGroupCount;  // 4
     public int groupSize;
     public int roomCheckInterval;
+    public int maxGameTimeMinute;
 
     private PacketProcessor _packetProcessor;
 
@@ -31,6 +32,7 @@ class RoomManager
         checkingGroupCount = serverOpt.RoomCheckGroupCount;
         groupSize = maxRoomCount / checkingGroupCount;
         roomCheckInterval = serverOpt.RoomCheckInterval;
+        maxGameTimeMinute = serverOpt.MaxGameTimeMinute;
         var startNumber = serverOpt.RoomStartNumber;
         var maxUserCount = serverOpt.RoomMaxUserCount;
 
@@ -60,9 +62,16 @@ class RoomManager
         {
             if (room.RecentPutMokTime == DateTime.MinValue) continue;
 
-            if ((DateTime.UtcNow - room.RecentPutMokTime).TotalMilliseconds > roomCheckInterval)
+            var nowTime = DateTime.UtcNow;
+            if ((nowTime - room.RecentPutMokTime).TotalMilliseconds > roomCheckInterval)
             {
                 var packet = InnerPakcetMaker.MakeNTFInTimeOutPacket(room.Index);
+                _packetProcessor.InsertPacket(packet);
+            }
+
+            if ((nowTime - room.GameStartTime).TotalMinutes > maxGameTimeMinute)
+            {
+                var packet = InnerPakcetMaker.MakeNTFInTooLongGameRoomPacket(room.Index);
                 _packetProcessor.InsertPacket(packet);
             }
         }

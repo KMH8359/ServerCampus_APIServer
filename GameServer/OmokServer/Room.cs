@@ -33,6 +33,7 @@ public class Room
     public int TimeOutCount = 0;
 
     public DateTime RecentPutMokTime;
+    public DateTime GameStartTime;
 
     public void Init(int index, int number, int maxUserCount)
     {
@@ -129,6 +130,7 @@ public class Room
         Broadcast("", sendPacket);
 
         RecentPutMokTime = DateTime.UtcNow;
+        GameStartTime = DateTime.UtcNow;
     }
 
     public void NotifyGameReady(RoomUser user)

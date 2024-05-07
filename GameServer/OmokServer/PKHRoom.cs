@@ -27,7 +27,7 @@ public class PKHRoom : PKHandler
         packetHandlerMap.Add((int)PACKETID.REQ_READY_OMOK, RequestGameReady);
         packetHandlerMap.Add((int)PACKETID.REQ_PUT_MOK, RequestPutMok);
         packetHandlerMap.Add((int)PACKETID.NTF_IN_TIME_OVER, OnTurnTimeOut);
-
+        packetHandlerMap.Add((int)PACKETID.NTF_IN_TOO_LONG_GAME, HandleTooLongGameRoom);
     }
 
 
@@ -357,6 +357,14 @@ public class PKHRoom : PKHandler
         }
     }
 
+    void HandleTooLongGameRoom(MemoryPackBinaryRequestInfo packetData)
+    {
+        var reqData = MemoryPackSerializer.Deserialize<PKTInternalNtfTooLongGameRoom>(packetData.Data);
+
+        int roomNumber = reqData.RoomNumber;
+        var room = GetRoom(roomNumber);
+        room.NotifyGameEnd(null);
+    }
 
 
 }

@@ -25,6 +25,7 @@ public class ServerOption
 
     public int RoomCheckGroupCount { get; set; } = 0;
     public int RoomCheckInterval { get; set; } = 0;
+    public int MaxGameTimeMinute { get; set; } = 0;
     public int HeartbeatGroupCount { get; set; } = 0;
     public int HeartbeatInterval { get; set; } = 0;
     public int HeartbeatGroupSize { get; set; } = 0;

@@ -43,6 +43,7 @@ namespace CSCommon
 
         public const UInt16 NTF_TIME_OVER = 1038;
         public const UInt16 NTF_IN_TIME_OVER = 1039;
+        public const UInt16 NTF_IN_TOO_LONG_GAME = 1040;
 
         public const UInt16 NTF_END_MOK = 1041;
 
