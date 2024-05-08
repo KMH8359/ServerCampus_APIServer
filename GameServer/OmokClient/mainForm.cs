@@ -240,8 +240,9 @@ namespace csharp_test_client
 
             listBoxRoomChatMsg.Items.Clear();
             listBoxRoomUserList.Items.Clear();
-
-            EndGame();
+            OmokLogic.ClearBoard();
+            승리플레이어Name = "";
+            EndGame("");
 
             labelStatus.Text = "서버 접속이 끊어짐";
         }

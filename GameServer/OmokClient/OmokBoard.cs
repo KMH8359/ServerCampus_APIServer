@@ -48,7 +48,7 @@ namespace csharp_test_client
         string MyPlayerName = "";        
         string 흑돌플레이어Name = "";
         string 백돌플레이어Name = "";
-
+        public string 승리플레이어Name = "";
 
 
         AI OmokAI = new AI();
@@ -71,7 +71,7 @@ namespace csharp_test_client
         void StartGame(bool isMyTurn, string myPlayerName, string otherPlayerName)
         {
             MyPlayerName = myPlayerName;
-
+            승리플레이어Name = "";
             if(isMyTurn)
             {
                 흑돌플레이어Name = myPlayerName;
@@ -94,13 +94,16 @@ namespace csharp_test_client
             panel1.Invalidate();
         }
 
-        void EndGame()
+        void EndGame(string 승리PlayerName)
         {
+            승리플레이어Name = 승리PlayerName;
             OmokLogic.EndGame();
 
             MyPlayerName = "";
             백돌플레이어Name = "";
             흑돌플레이어Name = "";
+
+            panel1.Invalidate();
         }
 
 
@@ -199,24 +202,29 @@ namespace csharp_test_client
                 }
             }
 
+            for (int i = 0; i < 바둑판크기; i++)
+            {
+                for (int j = 0; j < 바둑판크기; j++)
+                {
+                    돌그리기(i, j);
+                }
+            }
+
+            if (OmokLogic.현재돌x좌표 >= 0 && OmokLogic.현재돌y좌표 >= 0)
+            {
+                현재돌표시();
+            }
+
             if (OmokLogic.게임종료 == false)
             {
-                for (int i = 0; i < 바둑판크기; i++)
-                {
-                    for (int j = 0; j < 바둑판크기; j++)
-                    {
-                        돌그리기(i, j);
-                    }
-                }
-
-                if (OmokLogic.현재돌x좌표 >= 0 && OmokLogic.현재돌y좌표 >= 0)
-                {
-                    현재돌표시();
-                }
-
                 현재턴_플레이어_정보();
             }
+            else
+            {
+                게임종료정보();
+            }
         }
+
 
         void 돌그리기(int x, int y)
         {
@@ -287,6 +295,17 @@ namespace csharp_test_client
 
                 g.DrawString($"PlayerName: {백돌플레이어Name }", 글꼴, 검은색, (시작위치 + 120 + 돌크기), 600);
             }            
+        }
+
+        void 게임종료정보()
+        {
+            if (승리플레이어Name == "") return;
+
+            Graphics g = panel1.CreateGraphics();
+            Font 글꼴 = new Font("HY견고딕", 15);
+
+            g.DrawString($"게임 종료, {승리플레이어Name} 승리", 글꼴, 검은색, (시작위치 + 120 + 돌크기), 600);
+
         }
 
 

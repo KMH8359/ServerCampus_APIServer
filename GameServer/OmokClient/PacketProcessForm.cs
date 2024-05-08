@@ -100,6 +100,9 @@ namespace csharp_test_client
 
             ClearRoomUserList();
             listBoxRoomChatMsg.Items.Clear();
+            OmokLogic.ClearBoard();
+            승리플레이어Name = "";
+            EndGame("");
 
             DevLog.Write($"방 나가기 결과:  {(ErrorCode)responsePkt.Result}");
         }
@@ -215,7 +218,7 @@ namespace csharp_test_client
         {
             var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfEndOmok>(packetData);
 
-            EndGame();
+            EndGame(notifyPkt.WinUserID);
             if (notifyPkt.WinUserID == null)
             {
                 DevLog.Write($"오목 GameOver: TimeOut");

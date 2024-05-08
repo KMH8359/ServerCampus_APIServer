@@ -45,8 +45,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.Room = new System.Windows.Forms.GroupBox();
             this.ReadyButton = new System.Windows.Forms.Button();
-            this.btnMatching = new System.Windows.Forms.Button();
-            this.GameStartBtn = new System.Windows.Forms.Button();
+            // this.btnMatching = new System.Windows.Forms.Button();
+            // this.GameStartBtn = new System.Windows.Forms.Button();
             this.btnRoomChat = new System.Windows.Forms.Button();
             this.textBoxRoomSendMsg = new System.Windows.Forms.TextBox();
             this.listBoxRoomChatMsg = new System.Windows.Forms.ListBox();
@@ -56,7 +56,7 @@
             this.textBoxRoomNumber = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            //this.button1 = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
             this.Room.SuspendLayout();
             this.SuspendLayout();
@@ -217,10 +217,10 @@
             // 
             // Room
             // 
-            this.Room.Controls.Add(this.button1);
+           // this.Room.Controls.Add(this.button1);
             this.Room.Controls.Add(this.ReadyButton);
-            this.Room.Controls.Add(this.btnMatching);
-            this.Room.Controls.Add(this.GameStartBtn);
+            // this.Room.Controls.Add(this.btnMatching);
+            //this.Room.Controls.Add(this.GameStartBtn);
             this.Room.Controls.Add(this.btnRoomChat);
             this.Room.Controls.Add(this.textBoxRoomSendMsg);
             this.Room.Controls.Add(this.listBoxRoomChatMsg);
@@ -251,25 +251,25 @@
             // 
             // btnMatching
             // 
-            this.btnMatching.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnMatching.Location = new System.Drawing.Point(296, 18);
-            this.btnMatching.Name = "btnMatching";
-            this.btnMatching.Size = new System.Drawing.Size(78, 28);
-            this.btnMatching.TabIndex = 54;
-            this.btnMatching.Text = "Matching";
-            this.btnMatching.UseVisualStyleBackColor = true;
-            this.btnMatching.Click += new System.EventHandler(this.btn_Matching_Click);
+            //this.btnMatching.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.btnMatching.Location = new System.Drawing.Point(296, 18);
+            //this.btnMatching.Name = "btnMatching";
+            //this.btnMatching.Size = new System.Drawing.Size(78, 28);
+            //this.btnMatching.TabIndex = 54;
+            //this.btnMatching.Text = "Matching";
+            //this.btnMatching.UseVisualStyleBackColor = true;
+            //this.btnMatching.Click += new System.EventHandler(this.btn_Matching_Click);
             // 
             // GameStartBtn
             // 
-            this.GameStartBtn.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.GameStartBtn.Location = new System.Drawing.Point(341, 223);
-            this.GameStartBtn.Name = "GameStartBtn";
-            this.GameStartBtn.Size = new System.Drawing.Size(148, 28);
-            this.GameStartBtn.TabIndex = 55;
-            this.GameStartBtn.Text = "dummy - GameStart";
-            this.GameStartBtn.UseVisualStyleBackColor = true;
-            this.GameStartBtn.Click += new System.EventHandler(this.btn_GameStart_Click);
+            //this.GameStartBtn.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.GameStartBtn.Location = new System.Drawing.Point(341, 223);
+            //this.GameStartBtn.Name = "GameStartBtn";
+            //this.GameStartBtn.Size = new System.Drawing.Size(148, 28);
+            //this.GameStartBtn.TabIndex = 55;
+            //this.GameStartBtn.Text = "dummy - GameStart";
+            //this.GameStartBtn.UseVisualStyleBackColor = true;
+            //this.GameStartBtn.Click += new System.EventHandler(this.btn_GameStart_Click);
             // 
             // btnRoomChat
             // 
@@ -367,14 +367,14 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(183, 223);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 28);
-            this.button1.TabIndex = 58;
-            this.button1.Text = "Dummy 유저 등록";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btn_AddUser_Click);
+            //this.button1.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.button1.Location = new System.Drawing.Point(183, 223);
+            //this.button1.Name = "button1";
+            //this.button1.Size = new System.Drawing.Size(136, 28);
+            //this.button1.TabIndex = 58;
+            //this.button1.Text = "Dummy 유저 등록";
+            //this.button1.UseVisualStyleBackColor = true;
+            //this.button1.Click += new System.EventHandler(this.btn_AddUser_Click);
             // 
             // mainForm
             // 
@@ -433,10 +433,10 @@
         private System.Windows.Forms.TextBox textBoxRoomSendMsg;
         private System.Windows.Forms.ListBox listBoxRoomChatMsg;
         private System.Windows.Forms.ListBox listBoxRoomUserList;
-        private System.Windows.Forms.Button btnMatching;
-        private System.Windows.Forms.Button GameStartBtn;
+        // private System.Windows.Forms.Button btnMatching;
+        // private System.Windows.Forms.Button GameStartBtn;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        //private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ReadyButton;
     }
 }

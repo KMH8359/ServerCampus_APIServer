@@ -42,6 +42,7 @@ public class Room
         _maxUserCount = maxUserCount;
         _omokGame = new OmokGame();
         RecentPutMokTime = DateTime.MinValue;
+        GameStartTime = DateTime.MinValue;
     }
 
     public bool AddUser(string userID, string netSessionID)
@@ -180,6 +181,8 @@ public class Room
         
         Broadcast("", sendPacket);
         RecentPutMokTime = DateTime.MinValue;
+        GameStartTime = DateTime.MinValue;
+
         foreach (var user in _userList)
         {
             user.IsReady = false;

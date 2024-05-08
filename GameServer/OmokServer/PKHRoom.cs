@@ -187,6 +187,15 @@ public class PKHRoom : PKHandler
         room.RemoveUser(roomUser);
 
         room.NotifyPacketLeaveUser(userID);
+
+        if (room.GameStartTime != DateTime.MinValue)    // 게임 중에 나감
+        {
+            RoomUser aloneUser = room.GetOtherRoomUser(userID);
+            if (aloneUser != null)
+            {
+                room.NotifyGameEnd(aloneUser.UserID);
+            }
+        }
         return true;
     }
 

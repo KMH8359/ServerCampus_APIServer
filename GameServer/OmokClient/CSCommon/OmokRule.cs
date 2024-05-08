@@ -47,6 +47,13 @@ namespace CSCommon
             게임종료 = true;
         }
 
+        public void ClearBoard()
+        { 
+            전돌x좌표 = 전돌y좌표 = -1;
+            현재돌x좌표 = 현재돌y좌표 = -1;
+            Array.Clear(바둑판, 0, 바둑판크기 * 바둑판크기);          
+        }
+
         public int 바둑판알(int x, int y)
         {
             return 바둑판[x,y];
