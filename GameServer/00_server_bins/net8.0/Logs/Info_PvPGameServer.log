@@ -279,3 +279,179 @@
 [2024/04/28 11:52:06.486] [TID:13] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 1a1422eb-fb44-42ca-a5b9-a987f1a19fc2 접속
 [2024/04/28 11:52:55.241] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 d81b7b76-2df6-4f07-a9a1-c8a03b07f64f 접속해제: SocketError
 [2024/04/28 11:52:55.842] [TID:15] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 1a1422eb-fb44-42ca-a5b9-a987f1a19fc2 접속해제: SocketError
+[2024/05/03 20:42:23.675] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/03 20:42:23.704] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/03 20:42:23.704] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/03 20:42:25.187] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:26.206] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:27.467] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:28.713] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:29.964] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:31.216] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:32.465] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:33.707] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:34.966] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:36.216] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:37.462] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:38.712] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:39.963] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:41.216] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:42.455] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:43.711] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:44.965] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:46.218] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:47.457] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:48.032] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 23981742-90e0-4216-ac9e-a5e97ac0fcfc 접속
+[2024/05/03 20:42:48.717] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:49.958] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:51.205] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:52.462] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:53.705] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:54.968] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:42:56.211] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/03 20:42:57.463] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 2 heartbeat broadcasting
+[2024/05/03 20:42:58.718] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 3 heartbeat broadcasting
+[2024/05/03 20:42:59.966] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 0 heartbeat broadcasting
+[2024/05/03 20:43:00.028] [TID:9] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 23981742-90e0-4216-ac9e-a5e97ac0fcfc 접속해제: SocketError
+[2024/05/03 20:43:01.217] [TID:12] [PacketProcessor.Process => PKHCommon.BroadcastHeartbeat => NLogLog.Info]: 1 heartbeat broadcasting
+[2024/05/07 14:46:13.029] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 14:46:13.063] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 14:46:13.063] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 14:49:22.010] [TID:10] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 1e8b1a90-be26-492e-9dd8-223d60e013af 접속
+[2024/05/07 14:49:23.947] [TID:16] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 1e8b1a90-be26-492e-9dd8-223d60e013af 접속해제: SocketError
+[2024/05/07 14:49:27.841] [TID:15] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 2cdfd2fe-2ade-4bcb-8b32-08343c122b81 접속
+[2024/05/07 14:49:28.787] [TID:14] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 2cdfd2fe-2ade-4bcb-8b32-08343c122b81 접속해제: SocketError
+[2024/05/07 14:49:57.885] [TID:16] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 6f6bbd2d-7733-43ab-bb73-09e66730339c 접속
+[2024/05/07 14:49:58.646] [TID:14] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 6f6bbd2d-7733-43ab-bb73-09e66730339c 접속해제: SocketError
+[2024/05/07 14:51:06.092] [TID:17] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 4ab6bc71-e28f-4bc0-9772-27275716ef71 접속
+[2024/05/07 14:51:07.087] [TID:18] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 4ab6bc71-e28f-4bc0-9772-27275716ef71 접속해제: SocketError
+[2024/05/07 14:51:45.809] [TID:15] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 3e563e0d-4717-40eb-9621-e34cc1896803 접속
+[2024/05/07 14:51:46.608] [TID:19] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 3e563e0d-4717-40eb-9621-e34cc1896803 접속해제: SocketError
+[2024/05/07 14:54:21.428] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 14:54:21.440] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 14:54:21.440] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 14:54:31.329] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 668dfb0f-d109-4eb0-a74f-29ae9e074d28 접속
+[2024/05/07 14:54:32.157] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 668dfb0f-d109-4eb0-a74f-29ae9e074d28 접속해제: SocketError
+[2024/05/07 14:54:55.988] [TID:14] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 99ed10b8-da91-4430-b592-77048dc2f8ad 접속
+[2024/05/07 14:55:02.603] [TID:15] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 99ed10b8-da91-4430-b592-77048dc2f8ad 접속해제: SocketError
+[2024/05/07 14:55:48.513] [TID:11] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 82440979-c302-43bb-8ea9-3bb7554c0db5 접속
+[2024/05/07 14:55:59.681] [TID:15] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 82440979-c302-43bb-8ea9-3bb7554c0db5 접속해제: SocketError
+[2024/05/07 14:56:09.160] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 11ff8b6c-065f-4bee-9a05-ab0891314c67 접속
+[2024/05/07 14:56:19.553] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 93029f2c-ca42-43b8-bb7e-c8fe9645cea6 접속
+[2024/05/07 14:57:00.377] [TID:16] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 11ff8b6c-065f-4bee-9a05-ab0891314c67 접속해제: SocketError
+[2024/05/07 17:26:49.317] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 17:26:49.346] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 17:26:49.346] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 20:48:23.784] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 20:48:23.818] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 20:48:23.827] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 20:48:27.535] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 3c15219d-f813-4903-83f7-e71788b1eb0c 접속
+[2024/05/07 20:48:37.678] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 3c15219d-f813-4903-83f7-e71788b1eb0c 접속해제: SocketError
+[2024/05/07 20:48:43.246] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 a557ec64-ded9-4383-b332-fde408be56b0 접속
+[2024/05/07 20:48:44.791] [TID:9] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 a557ec64-ded9-4383-b332-fde408be56b0 접속해제: SocketError
+[2024/05/07 20:50:50.273] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 20:50:50.286] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 20:50:50.293] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 21:35:45.352] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 21:36:08.070] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 21:36:47.547] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 21:36:47.559] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 21:36:47.559] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 21:36:55.410] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 d3b866a2-6145-4262-af10-1d1bfe3a62f6 접속
+[2024/05/07 21:36:58.728] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 823d1700-6b6f-445b-a641-e70fa2e1bfef 접속
+[2024/05/07 21:37:30.580] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 d3b866a2-6145-4262-af10-1d1bfe3a62f6 접속해제: SocketError
+[2024/05/07 21:37:31.621] [TID:10] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 823d1700-6b6f-445b-a641-e70fa2e1bfef 접속해제: SocketError
+[2024/05/07 21:43:15.652] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/07 21:43:15.665] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/07 21:43:15.674] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/07 21:43:20.937] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 ccf36a39-4dc6-4b6f-b1c7-77ccd797a518 접속
+[2024/05/07 21:43:21.991] [TID:14] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 51462050-8a7c-4d96-8aed-64eefcface8d 접속
+[2024/05/07 21:43:46.218] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 ccf36a39-4dc6-4b6f-b1c7-77ccd797a518 접속해제: SocketError
+[2024/05/07 21:43:46.958] [TID:14] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 51462050-8a7c-4d96-8aed-64eefcface8d 접속해제: SocketError
+[2024/05/08 19:22:44.896] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/08 19:22:44.943] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/08 19:22:44.955] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/08 21:31:07.872] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/08 21:31:07.889] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/08 21:31:07.889] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/08 21:31:17.220] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 e2fa75ea-252c-4bdf-8142-ba522777e482 접속
+[2024/05/08 21:31:29.318] [TID:12] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 40cf910f-f2af-4e35-a9dc-984d276c962c 접속
+[2024/05/08 21:31:50.290] [TID:7] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 e2fa75ea-252c-4bdf-8142-ba522777e482 접속해제: SocketError
+[2024/05/08 21:31:51.482] [TID:12] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 40cf910f-f2af-4e35-a9dc-984d276c962c 접속해제: SocketError
+[2024/05/08 21:32:20.819] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/08 21:32:20.831] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/08 21:32:20.831] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/08 21:32:33.507] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 00d464a5-b08e-4283-bf36-095257875307 접속
+[2024/05/08 21:32:34.982] [TID:10] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 11d71c48-9871-4c2d-a116-953ac8966d82 접속
+[2024/05/08 21:33:12.821] [TID:14] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 11d71c48-9871-4c2d-a116-953ac8966d82 접속해제: SocketError
+[2024/05/08 21:33:24.743] [TID:7] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 00d464a5-b08e-4283-bf36-095257875307 접속해제: SocketError
+[2024/05/08 21:33:28.514] [TID:14] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 b076d1b2-5147-452a-8c67-7e1b1a237a6e 접속
+[2024/05/08 21:33:30.860] [TID:10] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 741a6c4f-0873-4824-8c92-f001dc30869e 접속
+[2024/05/08 21:33:37.056] [TID:9] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 741a6c4f-0873-4824-8c92-f001dc30869e 접속해제: SocketError
+[2024/05/08 21:33:38.701] [TID:7] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 b076d1b2-5147-452a-8c67-7e1b1a237a6e 접속해제: SocketError
+[2024/05/08 21:43:53.997] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/08 21:43:53.997] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/08 21:43:54.015] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/08 21:44:00.080] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 61f0ee42-74b9-4e6f-8177-5c356838814c 접속
+[2024/05/08 21:44:00.707] [TID:14] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 486099c0-6b3b-4341-9d96-9da55b47ab53 접속
+[2024/05/08 21:44:24.569] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 486099c0-6b3b-4341-9d96-9da55b47ab53 접속해제: SocketError
+[2024/05/08 21:44:28.086] [TID:15] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 61f0ee42-74b9-4e6f-8177-5c356838814c 접속해제: SocketError
+[2024/05/08 21:46:28.234] [TID:16] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 7bff3ffa-2172-4f25-b0fd-ba47f0b4b5fb 접속
+[2024/05/08 21:46:28.773] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 3dc37533-1233-4f42-bf9f-14b765987594 접속
+[2024/05/08 21:46:46.982] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 3dc37533-1233-4f42-bf9f-14b765987594 접속해제: SocketError
+[2024/05/08 21:46:48.248] [TID:16] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 7bff3ffa-2172-4f25-b0fd-ba47f0b4b5fb 접속해제: SocketError
+[2024/05/08 21:53:57.507] [TID:19] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 eb1ddd98-12bd-4b36-a30c-c14f1cdae605 접속
+[2024/05/08 21:53:59.231] [TID:11] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 0997b7ab-f68e-4b02-916d-24755c40dc96 접속
+[2024/05/08 21:54:16.574] [TID:16] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 0997b7ab-f68e-4b02-916d-24755c40dc96 접속해제: SocketError
+[2024/05/08 21:54:17.613] [TID:21] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 eb1ddd98-12bd-4b36-a30c-c14f1cdae605 접속해제: SocketError
+[2024/05/08 21:55:12.112] [TID:20] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 0133278d-c36b-4a97-ad38-c48e235e9d5b 접속
+[2024/05/08 21:55:13.312] [TID:23] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 ae9e2982-ddaf-4594-8aa3-439f3a5279a9 접속
+[2024/05/08 21:55:31.858] [TID:25] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 ae9e2982-ddaf-4594-8aa3-439f3a5279a9 접속해제: SocketError
+[2024/05/08 21:55:33.517] [TID:21] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 0133278d-c36b-4a97-ad38-c48e235e9d5b 접속해제: SocketError
+[2024/05/08 21:59:01.063] [TID:25] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 256da0d2-46d9-4a41-aab7-240c4993a300 접속
+[2024/05/08 21:59:03.825] [TID:26] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 b5407278-029d-4567-801c-8e32d82ba65c 접속
+[2024/05/08 21:59:18.892] [TID:25] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 256da0d2-46d9-4a41-aab7-240c4993a300 접속해제: SocketError
+[2024/05/08 21:59:19.582] [TID:28] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 b5407278-029d-4567-801c-8e32d82ba65c 접속해제: SocketError
+[2024/05/08 22:01:28.746] [TID:28] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 28c91f73-41c8-4fbc-9c51-e4306fc05828 접속
+[2024/05/08 22:01:30.263] [TID:26] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 f062c30a-4f2a-4984-b399-391a12872e20 접속
+[2024/05/08 22:01:48.863] [TID:25] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 f062c30a-4f2a-4984-b399-391a12872e20 접속해제: SocketError
+[2024/05/08 22:01:58.557] [TID:26] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 28c91f73-41c8-4fbc-9c51-e4306fc05828 접속해제: SocketError
+[2024/05/08 22:04:38.494] [TID:25] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 96344597-bd7f-4a8d-8d9e-22ab4c4c4469 접속
+[2024/05/08 22:04:42.254] [TID:24] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 96344597-bd7f-4a8d-8d9e-22ab4c4c4469 접속해제: SocketError
+[2024/05/08 22:09:19.153] [TID:20] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 6870de1d-f1b5-4c7c-b707-24a4b4d250e8 접속
+[2024/05/08 22:09:20.562] [TID:27] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 296f5710-776b-4534-a40e-c2f54fc7b400 접속
+[2024/05/08 22:09:45.941] [TID:19] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 296f5710-776b-4534-a40e-c2f54fc7b400 접속해제: SocketError
+[2024/05/08 22:09:47.780] [TID:3] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 6870de1d-f1b5-4c7c-b707-24a4b4d250e8 접속해제: SocketError
+[2024/05/08 22:15:07.421] [TID:19] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 d79c96c3-ca32-411b-a882-8195060d0ac9 접속
+[2024/05/08 22:15:09.122] [TID:24] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 7fd6b269-734d-4060-9318-4325b7f92296 접속
+[2024/05/08 22:15:31.588] [TID:24] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 7fd6b269-734d-4060-9318-4325b7f92296 접속해제: SocketError
+[2024/05/08 22:15:32.673] [TID:21] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 d79c96c3-ca32-411b-a882-8195060d0ac9 접속해제: SocketError
+[2024/05/08 22:24:21.267] [TID:1] [MainServer.CreateServer => MainServer.CreateComponent => NLogLog.Info]: CreateComponent - Success
+[2024/05/08 22:24:21.279] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Info]: 서버 생성 성공
+[2024/05/08 22:24:21.279] [TID:1] [AppServer`2.Start => AppServerBase`2.Start => NLogLog.Info]: The server instance PvPGameServer has been started!
+[2024/05/08 22:24:27.048] [TID:9] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 97ddd602-55e4-4058-98a9-d6bc701a36cf 접속
+[2024/05/08 22:24:28.165] [TID:14] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 d7dde871-21b7-4e85-84ec-c55cd956c90b 접속
+[2024/05/08 22:24:55.941] [TID:7] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 d7dde871-21b7-4e85-84ec-c55cd956c90b 접속해제: SocketError
+[2024/05/08 22:24:59.349] [TID:9] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 97ddd602-55e4-4058-98a9-d6bc701a36cf 접속해제: SocketError
+[2024/05/08 22:25:34.080] [TID:10] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 baf14152-1884-4bb0-b1ec-094ecaa805f2 접속
+[2024/05/08 22:25:34.943] [TID:15] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 db9fbf1a-e2d1-4ecd-94d2-a7f2738a2ce8 접속
+[2024/05/08 22:25:43.009] [TID:10] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 db9fbf1a-e2d1-4ecd-94d2-a7f2738a2ce8 접속해제: SocketError
+[2024/05/08 22:26:04.362] [TID:11] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 baf14152-1884-4bb0-b1ec-094ecaa805f2 접속해제: SocketError
+[2024/05/08 22:27:32.682] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 23db50eb-b508-42ca-b66d-16180a2dba27 접속
+[2024/05/08 22:27:34.927] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 c04f06b0-fa55-431f-a833-f7405a32f3fa 접속
+[2024/05/08 22:28:02.241] [TID:3] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 c04f06b0-fa55-431f-a833-f7405a32f3fa 접속해제: SocketError
+[2024/05/08 22:28:03.045] [TID:20] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 23db50eb-b508-42ca-b66d-16180a2dba27 접속해제: SocketError
+[2024/05/08 22:29:08.476] [TID:20] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 18e08803-0b84-462d-ae26-354a7bc7b583 접속
+[2024/05/08 22:29:13.528] [TID:21] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 2cbb7a14-9f7a-490f-b32f-88f9229a592b 접속
+[2024/05/08 22:29:20.601] [TID:21] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 18e08803-0b84-462d-ae26-354a7bc7b583 접속해제: SocketError
+[2024/05/08 22:29:26.412] [TID:22] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 2cbb7a14-9f7a-490f-b32f-88f9229a592b 접속해제: SocketError
+[2024/05/08 22:29:42.219] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 e6b35f62-487e-441b-8344-726f66a3d0ca 접속
+[2024/05/08 22:29:44.319] [TID:22] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 3f5949be-ed9c-4e9f-ba62-e34c938042e5 접속
+[2024/05/08 22:29:53.721] [TID:7] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 3f5949be-ed9c-4e9f-ba62-e34c938042e5 접속해제: SocketError
+[2024/05/08 22:29:55.941] [TID:7] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 8c15604b-76c3-4358-95b9-0cbdfd7784e0 접속
+[2024/05/08 22:30:20.795] [TID:19] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 e6b35f62-487e-441b-8344-726f66a3d0ca 접속해제: SocketError
+[2024/05/08 22:30:21.781] [TID:19] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 8c15604b-76c3-4358-95b9-0cbdfd7784e0 접속해제: SocketError
+[2024/05/08 22:32:31.260] [TID:24] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 9fe4140a-992f-499c-85ea-d87119c04458 접속
+[2024/05/08 22:32:32.135] [TID:24] [<>c__DisplayClass108_0.<OnNewSessionConnected>b__0 => MainServer.OnConnected => NLogLog.Info]: 세션 번호 17a85c8a-daf3-4bc4-8644-36d8af186162 접속
+[2024/05/08 22:32:49.774] [TID:24] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 17a85c8a-daf3-4bc4-8644-36d8af186162 접속해제: SocketError
+[2024/05/08 22:32:50.905] [TID:26] [<>c__DisplayClass116_0.<OnSessionClosed>b__0 => MainServer.OnClosed => NLogLog.Info]: 세션 번호 9fe4140a-992f-499c-85ea-d87119c04458 접속해제: SocketError

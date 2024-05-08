@@ -10,3 +10,19 @@
    at System.Collections.Generic.List`1.get_Item(Int32 index)
    at PvPGameServer.Room.GetRandomUserId() in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GAMESERVER\Tutorials\PvPGameServer\Room.cs:line 83
    at PvPGameServer.PKHRoom.RequestGameReady(MemoryPackBinaryRequestInfo packetData) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GAMESERVER\Tutorials\PvPGameServer\PKHRoom.cs:line 267
+[2024/05/07 21:35:45.326] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Error]: [ERROR] 서버 생성 실패: System.ArgumentException: An item with the same key has already been added. Key: 1039
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at PvPGameServer.PKHRoom.RegistPacketHandler(Dictionary`2 packetHandlerMap) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\PKHRoom.cs:line 30
+   at PvPGameServer.PacketProcessor.RegistPacketHandler() in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\PacketProcessor.cs:line 92
+   at PvPGameServer.PacketProcessor.CreateAndStart(List`1 roomList, ServerOption serverOpt, ILog logger) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\PacketProcessor.cs:line 46
+   at PvPGameServer.MainServer.CreateComponent(ServerOption serverOpt) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\MainServer.cs:line 162
+   at PvPGameServer.MainServer.CreateServer(ServerOption serverOpt) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\MainServer.cs:line 126
+[2024/05/07 21:36:08.052] [TID:1] [MainServer.AppOnStarted => MainServer.CreateServer => NLogLog.Error]: [ERROR] 서버 생성 실패: System.ArgumentException: An item with the same key has already been added. Key: 1039
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at PvPGameServer.PKHRoom.RegistPacketHandler(Dictionary`2 packetHandlerMap) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\PKHRoom.cs:line 30
+   at PvPGameServer.PacketProcessor.RegistPacketHandler() in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\PacketProcessor.cs:line 92
+   at PvPGameServer.PacketProcessor.CreateAndStart(List`1 roomList, ServerOption serverOpt, ILog logger) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\PacketProcessor.cs:line 46
+   at PvPGameServer.MainServer.CreateComponent(ServerOption serverOpt) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\MainServer.cs:line 162
+   at PvPGameServer.MainServer.CreateServer(ServerOption serverOpt) in C:\Users\gnslg\OneDrive\바탕 화면\ServerCampus_APIServer\GameServer\OmokServer\MainServer.cs:line 126
