@@ -36,14 +36,14 @@ public class PKHDataBase : PKHandler, IDisposable
         _mysqlConnection.Close();
     }
 
-    public void RegistPacketHandler(Dictionary<int, Action<MemoryPackBinaryRequestInfo>> dbRequestHandlerMap)
+    public void RegistPacketHandler(Dictionary<int, Func<MemoryPackBinaryRequestInfo, Task>> dbRequestHandlerMap)
     {
         dbRequestHandlerMap.Add((int)PACKETID.REQ_LOGIN, HandleLoginRequest);
         dbRequestHandlerMap.Add((int)PACKETID.REQ_DB_SAVE_GAMERESULT, HandleSaveGameResultRequest);
 
     }
 
-    public async void HandleLoginRequest(MemoryPackBinaryRequestInfo requestData)
+    public async Task HandleLoginRequest(MemoryPackBinaryRequestInfo requestData)
     {
         try
         {
@@ -66,17 +66,17 @@ public class PKHDataBase : PKHandler, IDisposable
         ErrorCode result = ErrorCode.NONE;
         try
         {
-            //RedisString<string> redis = new(_redisConnection, userID, null);
-            //RedisResult<string> user = await redis.GetAsync();
+            RedisString<string> redis = new(_redisConnection, userID, null);
+            RedisResult<string> user = await redis.GetAsync();
 
-            //if (!user.HasValue)
-            //{
-            //    return ErrorCode.DB_LOGIN_EMPTY_USER;
-            //}
-            //else if (user.Value != authToken)
-            //{
-            //    return ErrorCode.LOGIN_INVALID_AUTHTOKEN;
-            //}
+            if (!user.HasValue)
+            {
+                return ErrorCode.DB_LOGIN_EMPTY_USER;
+            }
+            else if (user.Value != authToken)
+            {
+                return ErrorCode.LOGIN_INVALID_AUTHTOKEN;
+            }
 
         }
         catch (Exception ex)
@@ -96,7 +96,7 @@ public class PKHDataBase : PKHandler, IDisposable
         DistributeInnerPacket(packet);
     }
 
-    public async void HandleSaveGameResultRequest(MemoryPackBinaryRequestInfo requestData)
+    public async Task HandleSaveGameResultRequest(MemoryPackBinaryRequestInfo requestData)
     {
         try
         {

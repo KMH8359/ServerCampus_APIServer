@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SuperSocket.SocketBase.Logging;
 using System.Threading.Tasks.Dataflow;
+using System.Threading.Tasks;
 
 
 namespace PvPGameServer;
@@ -24,7 +25,7 @@ class PacketProcessor
     List<Room> _roomList = new List<Room>();
 
     Dictionary<int, Action<MemoryPackBinaryRequestInfo>> _packetHandlerMap = new Dictionary<int, Action<MemoryPackBinaryRequestInfo>>();
-    Dictionary<int, Action<MemoryPackBinaryRequestInfo>> _dbRequestHandlerMap = new Dictionary<int, Action<MemoryPackBinaryRequestInfo>>();
+    Dictionary<int, Func<MemoryPackBinaryRequestInfo, Task>> _dbRequestHandlerMap = new Dictionary<int, Func<MemoryPackBinaryRequestInfo, Task>>();
 
     PKHCommon _commonPacketHandler = new PKHCommon();
     PKHRoom _roomPacketHandler = new PKHRoom();
