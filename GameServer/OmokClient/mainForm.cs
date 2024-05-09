@@ -311,7 +311,7 @@ namespace csharp_test_client
             }
 
             var firstName = (string)listBoxRoomUserList.Items[0];
-            if (firstName == myName)
+            if (firstName != myName)
             {
                 return firstName;
             }

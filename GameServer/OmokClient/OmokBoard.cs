@@ -60,6 +60,7 @@ namespace csharp_test_client
 
             var curDir = System.Windows.Forms.Application.StartupPath;
             시작효과음 = new SoundPlayer($"{curDir}\\sound\\대국시작.wav");
+            종료효과음 = new SoundPlayer($"{curDir}\\sound\\대국종료.wav");
             승리효과음 = new SoundPlayer($"{curDir}\\sound\\대국승리.wav");
             바둑돌소리 = new SoundPlayer($"{curDir}\\sound\\바둑돌소리.wav");
             무르기요청 = new SoundPlayer($"{curDir}\\sound\\무르기.wav");
@@ -103,6 +104,7 @@ namespace csharp_test_client
             백돌플레이어Name = "";
             흑돌플레이어Name = "";
 
+            종료효과음.Play();
             panel1.Invalidate();
         }
 
@@ -284,7 +286,7 @@ namespace csharp_test_client
                 g.FillEllipse(검은색, 시작위치 + 100, 599, 돌크기, 돌크기);
                 g.DrawString(str, 글꼴, 검은색, 시작위치, 600);
 
-                g.DrawString($"PlayerName: {흑돌플레이어Name }", 글꼴, 검은색, (시작위치 + 120 + 돌크기), 600);
+                g.DrawString($"현재 턴 플레이어 : {흑돌플레이어Name }", 글꼴, 검은색, (시작위치 + 120 + 돌크기), 600);
             }
 
             else                 // 다음 돌 표시(흰 돌)
@@ -293,7 +295,7 @@ namespace csharp_test_client
                 g.FillEllipse(흰색, 시작위치 + 100, 599, 돌크기, 돌크기);
                 g.DrawString(str, 글꼴, 검은색, 시작위치, 600);
 
-                g.DrawString($"PlayerName: {백돌플레이어Name }", 글꼴, 검은색, (시작위치 + 120 + 돌크기), 600);
+                g.DrawString($"현재 턴 플레이어 : {백돌플레이어Name }", 글꼴, 검은색, (시작위치 + 120 + 돌크기), 600);
             }            
         }
 

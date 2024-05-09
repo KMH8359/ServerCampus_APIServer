@@ -213,7 +213,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
 
     void OnPacketReceived(NetworkSession session, MemoryPackBinaryRequestInfo reqInfo)
     {
-        MainLogger.Debug($"세션 번호 {session.SessionID} 받은 데이터 크기: {reqInfo.Body.Length}, ThreadId: {Thread.CurrentThread.ManagedThreadId}");
+        // MainLogger.Debug($"세션 번호 {session.SessionID} 받은 데이터 크기: {reqInfo.Body.Length}, ThreadId: {Thread.CurrentThread.ManagedThreadId}");
 
         reqInfo.SessionID = session.SessionID;
         session._lastResponseTime = DateTime.UtcNow;

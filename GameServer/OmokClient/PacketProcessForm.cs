@@ -2,6 +2,7 @@
 using MemoryPack;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -208,7 +209,8 @@ namespace csharp_test_client
 
             IsMyTurn = !IsMyTurn;
             OmokLogic.시간초과();
-          
+            Rectangle r = new Rectangle(시작위치, 590, 시작위치 + 돌크기 + 350, 돌크기 + 10);
+            panel1.Invalidate(r);
 
             DevLog.Write($"타임 오버");
         }
