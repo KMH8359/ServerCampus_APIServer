@@ -6,6 +6,8 @@ using System.Text;
 using System.Collections.Concurrent;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 #pragma warning disable CA1416
 
@@ -99,6 +101,58 @@ namespace csharp_test_client
         {
             HandleDisconnect();
             Network.Close();
+        }
+
+        private async void btnCreateAccount_Click(object sender, EventArgs e)
+        {
+            await SendHttpRequestCreateAccount(sender, e);
+        }
+
+        private async Task SendHttpRequestCreateAccount(object sender, EventArgs e)
+        {
+            try
+            {
+                // HTTP 요청을 보낼 주소와 포트 설정
+                string address = textBoxHiveIP.Text;
+                int port = Convert.ToInt32(textBoxPort.Text);
+
+                // HTTP 클라이언트 생성
+                HttpClient client = new HttpClient();
+
+                // 요청할 URL 조합
+                string url = $"http://{address}/Signup/createAccount";
+
+                // 요청할 데이터 준비 (예시로 닉네임과 이메일을 JSON 형태로 보냄)
+                string jsonData = "{\"nickname\":\"user123\", \"email\":\"user123@example.com\"}";
+
+                // HTTP POST 요청 보내기
+                HttpResponseMessage response = await client.PostAsync(url, new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json"));
+
+                // 응답 확인
+                if (response.IsSuccessStatusCode)
+                {
+                    // 응답 받은 데이터 처리
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    DevLog.Write($"계정 생성 성공:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
+                }
+                else
+                {
+                    // 요청이 실패한 경우
+                    DevLog.Write($"계정 생성 실패: {response.ReasonPhrase} ");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("오류 발생: " + ex.Message);
+            }
+        }
+
+        private void btnLoginApiServer_Click(object sender, EventArgs e)
+        {
+            string address = textBoxGameApiIP.Text;
+
+            int port = Convert.ToInt32(textBoxPort.Text);
+
         }
 
         private void RespondToHeartbeat()
