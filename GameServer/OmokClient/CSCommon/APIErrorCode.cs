@@ -66,8 +66,9 @@ namespace CSCommon
         //GameDb 4000~ 
         GetGameDbConnectionFail = 4002
     }
-    public class CreateAccountResponse
+    public class LoginResponse
     {
         public APIErrorCode Result { get; set; }
+        public string AuthToken { get; set; }
     }
 }

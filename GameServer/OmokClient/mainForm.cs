@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 #pragma warning disable CA1416
 
@@ -109,9 +110,12 @@ namespace csharp_test_client
             await SendHttpRequestCreateAccount(sender, e);
         }
 
+        private async void btnLoginApiServer_Click(object sender, EventArgs e)
+        {
+            await SendHttpRequestLoginHiveServer(sender, e);
+        }
         private async Task SendHttpRequestCreateAccount(object sender, EventArgs e)
         {
-            ErrorCode result = ErrorCode.None;
             try
             {
                 string ApiServerURL = textBoxHiveIP.Text;
@@ -130,7 +134,7 @@ namespace csharp_test_client
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var createAccountResponse = JsonSerializer.Deserialize<APIErrorCode>(responseString);
+                    var createAccountResponse = JsonConvert.DeserializeObject<APIErrorCode>(responseString);
                     if (createAccountResponse == APIErrorCode.None) 
                     {
                         DevLog.Write($"계정 생성 성공:  {textBoxHiveUserID.Text}, {textBoxHiveUserPW.Text}");
@@ -143,7 +147,6 @@ namespace csharp_test_client
                 }
                 else
                 {
-                    // 요청이 실패한 경우
                     DevLog.Write($"계정 생성 실패: {response.ReasonPhrase} ");
                 }
             }
@@ -153,12 +156,46 @@ namespace csharp_test_client
             }
         }
 
-        private void btnLoginApiServer_Click(object sender, EventArgs e)
+        private async Task SendHttpRequestLoginHiveServer(object sender, EventArgs e)
         {
-            string address = textBoxGameApiIP.Text;
+            try
+            {
+                string ApiServerURL = textBoxHiveIP.Text;
+                string id = textBoxHiveUserID.Text;
+                string pw = textBoxHiveUserPW.Text;
 
-            int port = Convert.ToInt32(textBoxPort.Text);
+                HttpClient client = new HttpClient();
 
+                string url = $"http://{ApiServerURL}:5256/Login";
+
+                string jsonContent = $"{{ \"Id\": \"{id}\", \"Password\": \"{pw}\" }}";
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var loginHiveServerResponse = JsonConvert.DeserializeObject<LoginResponse>(responseString);
+                    if (loginHiveServerResponse.Result == APIErrorCode.None)
+                    {
+                        DevLog.Write($"Hive 서버 로그인 성공:  {textBoxHiveUserID.Text}, {textBoxHiveUserPW.Text}, 인증 토큰 - {loginHiveServerResponse.AuthToken}");
+                    }
+                    else
+                    {
+                        DevLog.Write($"계정 생성 실패:  {loginHiveServerResponse.Result}");
+                    }
+
+                }
+                else
+                {
+                    DevLog.Write($"계정 생성 실패: {response.ReasonPhrase} ");
+                }
+            }
+            catch (Exception ex)
+            {
+                DevLog.Write($"오류 발생: {ex.Message}");
+            }
         }
 
         private void RespondToHeartbeat()

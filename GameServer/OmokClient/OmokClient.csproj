@@ -25,6 +25,7 @@
       <Version>2.5.140</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Z.ExtensionMethods">
       <Version>2.1.1</Version>
     </PackageReference>
@@ -38,5 +39,8 @@
     <Compile Remove="PacketDatas.cs" />
     <Compile Remove="PacketHeader.cs" />
     <Compile Remove="PacketID.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>
