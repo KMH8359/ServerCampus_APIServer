@@ -20,19 +20,19 @@ public class CreateAccount : ControllerBase // Controller 클래스는 Controlle
     }
     
     [HttpPost]
-    public async Task<CreateAccountResponse> SignupAsync(CreateAccountRequest request)   // 비동기 함수는 async 키워드를 사용하고 Task<>나 Task값을 리턴함
+    public async Task<ErrorCode> SignupAsync(CreateAccountRequest request)   // 비동기 함수는 async 키워드를 사용하고 Task<>나 Task값을 리턴함
     {
-        var response = new CreateAccountResponse(); 
+        var response = ErrorCode.None;
         
-        var errorCode = await _accountDb.CreateAccountAsync(request.Email, request.Password);
+        var errorCode = await _accountDb.CreateAccountAsync(request.Id, request.Password);
         if (errorCode != ErrorCode.None)
         {
-            response.Result = errorCode;
-            _logger.ZLogError($"[CreateAccount] ErrorCode: {errorCode},Email: {request.Email}, Password: {request.Password}");
+            response = errorCode;
+            _logger.ZLogError($"[CreateAccount] ErrorCode: {errorCode},Email: {request.Id}, Password: {request.Password}");
             return response;
         }
 
-        _logger.ZLogInformation($"[CreateAccount] Email: {request.Email}, Password: {request.Password}");
+        _logger.ZLogInformation($"[CreateAccount] Email: {request.Id}, Password: {request.Password}");
 
         return response;
     }
@@ -45,8 +45,8 @@ public class CreateAccountRequest
     [Required] // CANNOT BE NULL
     [MinLength(1, ErrorMessage = "EMAIL CANNOT BE EMPTY")]  // MINLENGTH
     [StringLength(50, ErrorMessage = "EMAIL IS TOO LONG")]  // MAXLENGTH
-    [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]   // ID@Domain.TOPDomain ex) KMH8359@naver.com
-    public string Email { get; set; }  
+    //[RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]   // ID@Domain.TOPDomain ex) KMH8359@naver.com
+    public string Id { get; set; }  
 
     [Required]
     [MinLength(1, ErrorMessage = "PASSWORD CANNOT BE EMPTY")]

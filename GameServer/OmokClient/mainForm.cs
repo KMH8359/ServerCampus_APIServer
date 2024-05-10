@@ -8,6 +8,7 @@ using System.Runtime.Versioning;
 using System.Windows.Forms;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 #pragma warning disable CA1416
 
@@ -110,30 +111,35 @@ namespace csharp_test_client
 
         private async Task SendHttpRequestCreateAccount(object sender, EventArgs e)
         {
+            ErrorCode result = ErrorCode.None;
             try
             {
-                // HTTP 요청을 보낼 주소와 포트 설정
-                string address = textBoxHiveIP.Text;
-                int port = Convert.ToInt32(textBoxPort.Text);
+                string ApiServerURL = textBoxHiveIP.Text;
+                string id = textBoxHiveUserID.Text;
+                string pw = textBoxHiveUserPW.Text;
 
-                // HTTP 클라이언트 생성
                 HttpClient client = new HttpClient();
 
-                // 요청할 URL 조합
-                string url = $"http://{address}/Signup/createAccount";
+                string url = $"http://{ApiServerURL}:5256/CreateAccount";
 
-                // 요청할 데이터 준비 (예시로 닉네임과 이메일을 JSON 형태로 보냄)
-                string jsonData = "{\"nickname\":\"user123\", \"email\":\"user123@example.com\"}";
+                string jsonContent = $"{{ \"Id\": \"{id}\", \"Password\": \"{pw}\" }}";
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                // HTTP POST 요청 보내기
-                HttpResponseMessage response = await client.PostAsync(url, new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json"));
+                var response = await client.PostAsync(url, content);
 
-                // 응답 확인
                 if (response.IsSuccessStatusCode)
                 {
-                    // 응답 받은 데이터 처리
-                    string responseData = await response.Content.ReadAsStringAsync();
-                    DevLog.Write($"계정 생성 성공:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var createAccountResponse = JsonSerializer.Deserialize<APIErrorCode>(responseString);
+                    if (createAccountResponse == APIErrorCode.None) 
+                    {
+                        DevLog.Write($"계정 생성 성공:  {textBoxHiveUserID.Text}, {textBoxHiveUserPW.Text}");
+                    }
+                    else
+                    {
+                        DevLog.Write($"계정 생성 실패:  {createAccountResponse}");
+                    }
+                    
                 }
                 else
                 {
@@ -143,7 +149,7 @@ namespace csharp_test_client
             }
             catch (Exception ex)
             {
-                MessageBox.Show("오류 발생: " + ex.Message);
+                DevLog.Write($"오류 발생: {ex.Message}");
             }
         }
 

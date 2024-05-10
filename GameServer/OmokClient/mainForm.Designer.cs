@@ -32,6 +32,7 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnCreateAccount = new System.Windows.Forms.Button();
             this.btnLoginAPIServer = new System.Windows.Forms.Button();
+            this.btnLoginGameAPIServer = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBoxAPI = new System.Windows.Forms.GroupBox();
             this.textBoxPort = new System.Windows.Forms.TextBox();
@@ -98,9 +99,9 @@
             // btnCreateAccount
             // 
             this.btnCreateAccount.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnCreateAccount.Location = new System.Drawing.Point(250, 45);
+            this.btnCreateAccount.Location = new System.Drawing.Point(220, 45);
             this.btnCreateAccount.Name = "btnCreateAccount";
-            this.btnCreateAccount.Size = new System.Drawing.Size(88, 26);
+            this.btnCreateAccount.Size = new System.Drawing.Size(70, 26);
             this.btnCreateAccount.TabIndex = 28;
             this.btnCreateAccount.Text = "계정생성";
             this.btnCreateAccount.UseVisualStyleBackColor = true;
@@ -109,13 +110,24 @@
             // btnLoginAPIServer
             // 
             this.btnLoginAPIServer.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnLoginAPIServer.Location = new System.Drawing.Point(350, 45);
+            this.btnLoginAPIServer.Location = new System.Drawing.Point(300, 45);
             this.btnLoginAPIServer.Name = "btnLoginAPIServer";
-            this.btnLoginAPIServer.Size = new System.Drawing.Size(88, 26);
+            this.btnLoginAPIServer.Size = new System.Drawing.Size(80, 26);
             this.btnLoginAPIServer.TabIndex = 28;
             this.btnLoginAPIServer.Text = "API로그인";
             this.btnLoginAPIServer.UseVisualStyleBackColor = true;
             this.btnLoginAPIServer.Click += new System.EventHandler(this.btnLoginApiServer_Click);
+            // 
+            // btnLoginGameAPIServer
+            // 
+            this.btnLoginGameAPIServer.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnLoginGameAPIServer.Location = new System.Drawing.Point(390, 45);
+            this.btnLoginGameAPIServer.Name = "btnLoginGameAPIServer";
+            this.btnLoginGameAPIServer.Size = new System.Drawing.Size(110, 26);
+            this.btnLoginGameAPIServer.TabIndex = 28;
+            this.btnLoginGameAPIServer.Text = "게임API로그인";
+            this.btnLoginGameAPIServer.UseVisualStyleBackColor = true;
+            this.btnLoginGameAPIServer.Click += new System.EventHandler(this.btnLoginApiServer_Click);
             // 
             // groupBox5
             // 
@@ -150,6 +162,7 @@
             this.groupBoxAPI.Controls.Add(this.label5);
             this.groupBoxAPI.Controls.Add(this.btnCreateAccount);
             this.groupBoxAPI.Controls.Add(this.btnLoginAPIServer);
+            this.groupBoxAPI.Controls.Add(this.btnLoginGameAPIServer);
             this.groupBoxAPI.Location = new System.Drawing.Point(12, 5);
             this.groupBoxAPI.Name = "groupBoxAPI";
             this.groupBoxAPI.Size = new System.Drawing.Size(503, 80);
@@ -205,7 +218,7 @@
             this.textBoxHiveIP.Name = "textBoxHiveIP";
             this.textBoxHiveIP.Size = new System.Drawing.Size(87, 21);
             this.textBoxHiveIP.TabIndex = 11;
-            this.textBoxHiveIP.Text = "0.0.0.0";
+            this.textBoxHiveIP.Text = "127.0.0.1";
             this.textBoxHiveIP.WordWrap = false;
             // 
             // textBoxGameApiIP
@@ -215,7 +228,7 @@
             this.textBoxGameApiIP.Name = "textBoxGameApiIP";
             this.textBoxGameApiIP.Size = new System.Drawing.Size(87, 21);
             this.textBoxGameApiIP.TabIndex = 11;
-            this.textBoxGameApiIP.Text = "0.0.0.0";
+            this.textBoxGameApiIP.Text = "127.0.0.1";
             this.textBoxGameApiIP.WordWrap = false;
             // 
             // label9
@@ -551,6 +564,7 @@
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnLoginAPIServer;
+        private System.Windows.Forms.Button btnLoginGameAPIServer;
         private System.Windows.Forms.Button btnCreateAccount;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBoxAPI;
