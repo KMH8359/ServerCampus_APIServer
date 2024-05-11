@@ -25,7 +25,7 @@ class PacketProcessor
     List<Room> _roomList = new List<Room>();
 
     Dictionary<int, Action<MemoryPackBinaryRequestInfo>> _packetHandlerMap = new Dictionary<int, Action<MemoryPackBinaryRequestInfo>>();
-    Dictionary<int, Func<MemoryPackBinaryRequestInfo, Task>> _dbRequestHandlerMap = new Dictionary<int, Func<MemoryPackBinaryRequestInfo, Task>>();
+    Dictionary<int, Action<MemoryPackBinaryRequestInfo>> _dbRequestHandlerMap = new Dictionary<int, Action<MemoryPackBinaryRequestInfo>>();
 
     PKHCommon _commonPacketHandler = new PKHCommon();
     PKHRoom _roomPacketHandler = new PKHRoom();

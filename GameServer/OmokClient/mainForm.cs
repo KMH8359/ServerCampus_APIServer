@@ -110,9 +110,14 @@ namespace csharp_test_client
             await SendHttpRequestCreateAccount(sender, e);
         }
 
-        private async void btnLoginApiServer_Click(object sender, EventArgs e)
+        private async void btnLoginHiveServer_Click(object sender, EventArgs e)
         {
             await SendHttpRequestLoginHiveServer(sender, e);
+        }
+
+        private async void btnLoginApiServer_Click(object sender, EventArgs e)
+        {
+            await SendHttpRequestLoginApiServer(sender, e);
         }
         private async Task SendHttpRequestCreateAccount(object sender, EventArgs e)
         {
@@ -179,11 +184,54 @@ namespace csharp_test_client
                     var loginHiveServerResponse = JsonConvert.DeserializeObject<LoginResponse>(responseString);
                     if (loginHiveServerResponse.Result == APIErrorCode.None)
                     {
+                        textBoxApiUserAuthToken.Text = loginHiveServerResponse.AuthToken;
                         DevLog.Write($"Hive 서버 로그인 성공:  {textBoxHiveUserID.Text}, {textBoxHiveUserPW.Text}, 인증 토큰 - {loginHiveServerResponse.AuthToken}");
                     }
                     else
                     {
                         DevLog.Write($"계정 생성 실패:  {loginHiveServerResponse.Result}");
+                    }
+
+                }
+                else
+                {
+                    DevLog.Write($"계정 생성 실패: {response.ReasonPhrase} ");
+                }
+            }
+            catch (Exception ex)
+            {
+                DevLog.Write($"오류 발생: {ex.Message}");
+            }
+        }
+
+        private async Task SendHttpRequestLoginApiServer(object sender, EventArgs e)
+        {
+            try
+            {
+                string ApiServerURL = textBoxApiIP.Text;
+                string id = textBoxApiUserID.Text;
+                string pw = textBoxApiUserAuthToken.Text;
+
+                HttpClient client = new HttpClient();
+
+                string url = $"http://{ApiServerURL}:6525/Login";
+
+                string jsonContent = $"{{ \"Id\": \"{id}\", \"AuthToken\": \"{pw}\" }}";
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var loginApiServerResponse = JsonConvert.DeserializeObject<LoginResponse>(responseString);
+                    if (loginApiServerResponse.Result == APIErrorCode.None)
+                    {
+                        DevLog.Write($"Api 서버 로그인 성공:  {textBoxApiUserID.Text}, {textBoxApiUserAuthToken.Text}");
+                    }
+                    else
+                    {
+                        DevLog.Write($"계정 생성 실패:  {loginApiServerResponse.Result}");
                     }
 
                 }

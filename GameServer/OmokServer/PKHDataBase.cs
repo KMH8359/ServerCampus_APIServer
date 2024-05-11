@@ -36,14 +36,14 @@ public class PKHDataBase : PKHandler, IDisposable
         _mysqlConnection.Close();
     }
 
-    public void RegistPacketHandler(Dictionary<int, Func<MemoryPackBinaryRequestInfo, Task>> dbRequestHandlerMap)
+    public void RegistPacketHandler(Dictionary<int, Action<MemoryPackBinaryRequestInfo>> dbRequestHandlerMap)
     {
         dbRequestHandlerMap.Add((int)PACKETID.REQ_LOGIN, HandleLoginRequest);
         dbRequestHandlerMap.Add((int)PACKETID.REQ_DB_SAVE_GAMERESULT, HandleSaveGameResultRequest);
 
     }
 
-    public async Task HandleLoginRequest(MemoryPackBinaryRequestInfo requestData)
+    public void HandleLoginRequest(MemoryPackBinaryRequestInfo requestData)
     {
         try
         {
@@ -51,9 +51,11 @@ public class PKHDataBase : PKHandler, IDisposable
             var userID = reqData.UserID;
             var authToken = reqData.AuthToken;
 
-            var errorCode = await VerifyLogin(userID, authToken);
+            var errorCode = VerifyLogin(userID, authToken);
+            errorCode.Wait();
 
-            ResponseVerify(errorCode, userID, requestData.SessionID);
+            
+            ResponseVerify(errorCode.Result, userID, requestData.SessionID);
         }
         catch (Exception ex)
         {
@@ -66,18 +68,17 @@ public class PKHDataBase : PKHandler, IDisposable
         ErrorCode result = ErrorCode.NONE;
         try
         {
-            //RedisString<string> redis = new(_redisConnection, userID, null);
-            //RedisResult<string> user = await redis.GetAsync();
+            RedisString<string> redis = new(_redisConnection, userID, null);
+            RedisResult<string> user = await redis.GetAsync();
 
-            //if (!user.HasValue)
-            //{
-            //    return ErrorCode.DB_LOGIN_EMPTY_USER;
-            //}
-            //else if (user.Value != authToken)
-            //{
-            //    return ErrorCode.LOGIN_INVALID_AUTHTOKEN;
-            //}
-
+            if (!user.HasValue)
+            {
+                return ErrorCode.DB_LOGIN_EMPTY_USER;
+            }
+            else if (user.Value != authToken)
+            {
+                return ErrorCode.LOGIN_INVALID_AUTHTOKEN;
+            }
         }
         catch (Exception ex)
         {
@@ -96,7 +97,7 @@ public class PKHDataBase : PKHandler, IDisposable
         DistributeInnerPacket(packet);
     }
 
-    public async Task HandleSaveGameResultRequest(MemoryPackBinaryRequestInfo requestData)
+    public void HandleSaveGameResultRequest(MemoryPackBinaryRequestInfo requestData)
     {
         try
         {
@@ -104,13 +105,9 @@ public class PKHDataBase : PKHandler, IDisposable
             var WinuserID = reqData.WinUserID;
             var LoseUserID = reqData.LoseUserID;
 
-            var winUpdate = await _queryFactory.Query("usergamedata")
-                                          .Where("UserId", WinuserID)
-                                          .IncrementAsync("Win", 1);
+            _queryFactory.Query("usergamedata").Where("UserId", WinuserID).Increment("Win", 1);
 
-            var loseUpdate = await _queryFactory.Query("usergamedata")
-                                               .Where("UserId", LoseUserID)
-                                               .IncrementAsync("Lose", 1);
+            _queryFactory.Query("usergamedata").Where("UserId", LoseUserID).Increment("Lose", 1);
 
         }
         catch (Exception ex)

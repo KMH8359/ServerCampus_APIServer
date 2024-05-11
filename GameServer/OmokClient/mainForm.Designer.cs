@@ -31,8 +31,8 @@
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnCreateAccount = new System.Windows.Forms.Button();
-            this.btnLoginAPIServer = new System.Windows.Forms.Button();
-            this.btnLoginGameAPIServer = new System.Windows.Forms.Button();
+            this.btnLoginHiveServer = new System.Windows.Forms.Button();
+            this.btnLoginApiServer = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBoxAPI = new System.Windows.Forms.GroupBox();
             this.textBoxPort = new System.Windows.Forms.TextBox();
@@ -40,7 +40,7 @@
             this.checkBoxLocalHostIP = new System.Windows.Forms.CheckBox();
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.textBoxHiveIP = new System.Windows.Forms.TextBox();
-            this.textBoxGameApiIP = new System.Windows.Forms.TextBox();
+            this.textBoxApiIP = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -49,6 +49,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxHiveUserID = new System.Windows.Forms.TextBox();
             this.textBoxHiveUserPW = new System.Windows.Forms.TextBox();
+            this.textBoxApiUserID = new System.Windows.Forms.TextBox();
+            this.textBoxApiUserAuthToken = new System.Windows.Forms.TextBox();
             this.textBoxUserID = new System.Windows.Forms.TextBox();
             this.textBoxUserPW = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,6 +69,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             //this.button1 = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
@@ -99,35 +103,35 @@
             // btnCreateAccount
             // 
             this.btnCreateAccount.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnCreateAccount.Location = new System.Drawing.Point(220, 45);
+            this.btnCreateAccount.Location = new System.Drawing.Point(410, 5);
             this.btnCreateAccount.Name = "btnCreateAccount";
-            this.btnCreateAccount.Size = new System.Drawing.Size(70, 26);
+            this.btnCreateAccount.Size = new System.Drawing.Size(90, 20);
             this.btnCreateAccount.TabIndex = 28;
             this.btnCreateAccount.Text = "계정생성";
             this.btnCreateAccount.UseVisualStyleBackColor = true;
             this.btnCreateAccount.Click += new System.EventHandler(this.btnCreateAccount_Click);
             // 
-            // btnLoginAPIServer
+            // btnLoginHiveServer
             // 
-            this.btnLoginAPIServer.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnLoginAPIServer.Location = new System.Drawing.Point(300, 45);
-            this.btnLoginAPIServer.Name = "btnLoginAPIServer";
-            this.btnLoginAPIServer.Size = new System.Drawing.Size(80, 26);
-            this.btnLoginAPIServer.TabIndex = 28;
-            this.btnLoginAPIServer.Text = "API로그인";
-            this.btnLoginAPIServer.UseVisualStyleBackColor = true;
-            this.btnLoginAPIServer.Click += new System.EventHandler(this.btnLoginApiServer_Click);
+            this.btnLoginHiveServer.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnLoginHiveServer.Location = new System.Drawing.Point(410, 30);
+            this.btnLoginHiveServer.Name = "btnLoginAPIServer";
+            this.btnLoginHiveServer.Size = new System.Drawing.Size(90, 20);
+            this.btnLoginHiveServer.TabIndex = 28;
+            this.btnLoginHiveServer.Text = "HIVE로그인";
+            this.btnLoginHiveServer.UseVisualStyleBackColor = true;
+            this.btnLoginHiveServer.Click += new System.EventHandler(this.btnLoginHiveServer_Click);
             // 
-            // btnLoginGameAPIServer
+            // btnLoginApiServer
             // 
-            this.btnLoginGameAPIServer.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnLoginGameAPIServer.Location = new System.Drawing.Point(390, 45);
-            this.btnLoginGameAPIServer.Name = "btnLoginGameAPIServer";
-            this.btnLoginGameAPIServer.Size = new System.Drawing.Size(110, 26);
-            this.btnLoginGameAPIServer.TabIndex = 28;
-            this.btnLoginGameAPIServer.Text = "게임API로그인";
-            this.btnLoginGameAPIServer.UseVisualStyleBackColor = true;
-            this.btnLoginGameAPIServer.Click += new System.EventHandler(this.btnLoginApiServer_Click);
+            this.btnLoginApiServer.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnLoginApiServer.Location = new System.Drawing.Point(410, 55);
+            this.btnLoginApiServer.Name = "btnLoginGameAPIServer";
+            this.btnLoginApiServer.Size = new System.Drawing.Size(90, 20);
+            this.btnLoginApiServer.TabIndex = 28;
+            this.btnLoginApiServer.Text = "API로그인";
+            this.btnLoginApiServer.UseVisualStyleBackColor = true;
+            this.btnLoginApiServer.Click += new System.EventHandler(this.btnLoginApiServer_Click);
             // 
             // groupBox5
             // 
@@ -154,15 +158,19 @@
             // 
             this.groupBoxAPI.Controls.Add(this.label11);
             this.groupBoxAPI.Controls.Add(this.label12);
-            this.groupBoxAPI.Controls.Add(this.textBoxGameApiIP);
+            this.groupBoxAPI.Controls.Add(this.textBoxApiIP);
             this.groupBoxAPI.Controls.Add(this.textBoxHiveIP);
             this.groupBoxAPI.Controls.Add(this.textBoxHiveUserID);
             this.groupBoxAPI.Controls.Add(this.textBoxHiveUserPW);
+            this.groupBoxAPI.Controls.Add(this.textBoxApiUserID);
+            this.groupBoxAPI.Controls.Add(this.textBoxApiUserAuthToken);
             this.groupBoxAPI.Controls.Add(this.label4);
             this.groupBoxAPI.Controls.Add(this.label5);
+            this.groupBoxAPI.Controls.Add(this.label6);
+            this.groupBoxAPI.Controls.Add(this.label7);
             this.groupBoxAPI.Controls.Add(this.btnCreateAccount);
-            this.groupBoxAPI.Controls.Add(this.btnLoginAPIServer);
-            this.groupBoxAPI.Controls.Add(this.btnLoginGameAPIServer);
+            this.groupBoxAPI.Controls.Add(this.btnLoginHiveServer);
+            this.groupBoxAPI.Controls.Add(this.btnLoginApiServer);
             this.groupBoxAPI.Location = new System.Drawing.Point(12, 5);
             this.groupBoxAPI.Name = "groupBoxAPI";
             this.groupBoxAPI.Size = new System.Drawing.Size(503, 80);
@@ -213,7 +221,7 @@
             // 
             // textBoxHiveIP
             // 
-            this.textBoxHiveIP.Location = new System.Drawing.Point(100, 20);
+            this.textBoxHiveIP.Location = new System.Drawing.Point(70, 20);
             this.textBoxHiveIP.MaxLength = 20;
             this.textBoxHiveIP.Name = "textBoxHiveIP";
             this.textBoxHiveIP.Size = new System.Drawing.Size(87, 21);
@@ -221,15 +229,15 @@
             this.textBoxHiveIP.Text = "127.0.0.1";
             this.textBoxHiveIP.WordWrap = false;
             // 
-            // textBoxGameApiIP
+            // textBoxApiIP
             // 
-            this.textBoxGameApiIP.Location = new System.Drawing.Point(120, 47);
-            this.textBoxGameApiIP.MaxLength = 20;
-            this.textBoxGameApiIP.Name = "textBoxGameApiIP";
-            this.textBoxGameApiIP.Size = new System.Drawing.Size(87, 21);
-            this.textBoxGameApiIP.TabIndex = 11;
-            this.textBoxGameApiIP.Text = "127.0.0.1";
-            this.textBoxGameApiIP.WordWrap = false;
+            this.textBoxApiIP.Location = new System.Drawing.Point(70, 47);
+            this.textBoxApiIP.MaxLength = 20;
+            this.textBoxApiIP.Name = "textBoxApiIP";
+            this.textBoxApiIP.Size = new System.Drawing.Size(87, 21);
+            this.textBoxApiIP.TabIndex = 11;
+            this.textBoxApiIP.Text = "127.0.0.1";
+            this.textBoxApiIP.WordWrap = false;
             // 
             // label9
             // 
@@ -245,18 +253,18 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 23);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 12);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Hive 서버 주소:";
+            this.label11.Size = new System.Drawing.Size(40, 12);
+            this.label11.TabIndex = 210;
+            this.label11.Text = "Hive 주소:";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(6, 50);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(61, 12);
+            this.label12.Size = new System.Drawing.Size(40, 12);
             this.label12.TabIndex = 10;
-            this.label12.Text = "API 게임 서버 주소:";
+            this.label12.Text = "API 주소:";
             // 
             // labelStatus
             // 
@@ -308,23 +316,43 @@
             // 
             // textBoxHiveUserID
             // 
-            this.textBoxHiveUserID.Location = new System.Drawing.Point(220, 20);
+            this.textBoxHiveUserID.Location = new System.Drawing.Point(180, 20);
             this.textBoxHiveUserID.MaxLength = 15;
             this.textBoxHiveUserID.Name = "textBoxHiveUserID";
-            this.textBoxHiveUserID.Size = new System.Drawing.Size(87, 21);
+            this.textBoxHiveUserID.Size = new System.Drawing.Size(70, 21);
             this.textBoxHiveUserID.TabIndex = 43;
             this.textBoxHiveUserID.Text = "test1";
             this.textBoxHiveUserID.WordWrap = false;
             // 
             // textBoxHiveUserPW
             // 
-            this.textBoxHiveUserPW.Location = new System.Drawing.Point(370, 20);
+            this.textBoxHiveUserPW.Location = new System.Drawing.Point(310, 20);
             this.textBoxHiveUserPW.MaxLength = 20;
             this.textBoxHiveUserPW.Name = "textBoxHiveUserPW";
-            this.textBoxHiveUserPW.Size = new System.Drawing.Size(87, 21);
+            this.textBoxHiveUserPW.Size = new System.Drawing.Size(70, 21);
             this.textBoxHiveUserPW.TabIndex = 45;
             this.textBoxHiveUserPW.Text = "123qwe";
             this.textBoxHiveUserPW.WordWrap = false;
+            // 
+            // textBoxApiUserID
+            // 
+            this.textBoxApiUserID.Location = new System.Drawing.Point(180, 47);
+            this.textBoxApiUserID.MaxLength = 15;
+            this.textBoxApiUserID.Name = "textBoxApiUserID";
+            this.textBoxApiUserID.Size = new System.Drawing.Size(70, 21);
+            this.textBoxApiUserID.TabIndex = 43;
+            this.textBoxApiUserID.Text = "test1";
+            this.textBoxApiUserID.WordWrap = false;
+            // 
+            // textBoxApiUserAuthToken
+            // 
+            this.textBoxApiUserAuthToken.Location = new System.Drawing.Point(320, 47);
+            this.textBoxApiUserAuthToken.MaxLength = 50;
+            this.textBoxApiUserAuthToken.Name = "textBoxApiUserAuthToken";
+            this.textBoxApiUserAuthToken.Size = new System.Drawing.Size(70, 21);
+            this.textBoxApiUserAuthToken.TabIndex = 45;
+            this.textBoxApiUserAuthToken.Text = "123qwe";
+            this.textBoxApiUserAuthToken.WordWrap = false;
             // 
             // label2
             // 
@@ -338,7 +366,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(200, 23);
+            this.label4.Location = new System.Drawing.Point(160, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 12);
             this.label4.TabIndex = 44;
@@ -347,11 +375,29 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(310, 23);
+            this.label5.Location = new System.Drawing.Point(250, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 12);
             this.label5.TabIndex = 44;
             this.label5.Text = "PassWord:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(160, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 12);
+            this.label6.TabIndex = 44;
+            this.label6.Text = "ID:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(250, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 12);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "AuthToken:";
             // 
             // button2
             // 
@@ -563,8 +609,8 @@
 
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.Button btnLoginAPIServer;
-        private System.Windows.Forms.Button btnLoginGameAPIServer;
+        private System.Windows.Forms.Button btnLoginHiveServer;
+        private System.Windows.Forms.Button btnLoginApiServer;
         private System.Windows.Forms.Button btnCreateAccount;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBoxAPI;
@@ -573,7 +619,7 @@
         private System.Windows.Forms.CheckBox checkBoxLocalHostIP;
         private System.Windows.Forms.TextBox textBoxIP;
         private System.Windows.Forms.TextBox textBoxHiveIP;
-        private System.Windows.Forms.TextBox textBoxGameApiIP;
+        private System.Windows.Forms.TextBox textBoxApiIP;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
@@ -582,6 +628,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxHiveUserID;
         private System.Windows.Forms.TextBox textBoxHiveUserPW;
+        private System.Windows.Forms.TextBox textBoxApiUserID;
+        private System.Windows.Forms.TextBox textBoxApiUserAuthToken;
         private System.Windows.Forms.TextBox textBoxUserID;
         private System.Windows.Forms.TextBox textBoxUserPW;
         private System.Windows.Forms.Label label2;
@@ -597,6 +645,8 @@
         private System.Windows.Forms.ListBox listBoxRoomUserList;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
         // private System.Windows.Forms.Button btnMatching;
         // private System.Windows.Forms.Button GameStartBtn;
         private System.Windows.Forms.Panel panel1;
