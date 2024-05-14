@@ -91,6 +91,8 @@ public class DbConfig
 {
     public string? MySqlGame { get; set; }
     public string? Redis { get; set; }
+    public string? MatchingDataRedis { get; set; }
+
 }
 
 

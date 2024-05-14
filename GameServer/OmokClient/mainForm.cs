@@ -119,6 +119,10 @@ namespace csharp_test_client
         {
             await SendHttpRequestLoginApiServer(sender, e);
         }
+        private async void btn_Matching_Click(object sender, EventArgs e)
+        {
+            await SendHttpRequestMatchingApiServer(sender, e);
+        }
         private async Task SendHttpRequestCreateAccount(object sender, EventArgs e)
         {
             try
@@ -189,13 +193,13 @@ namespace csharp_test_client
                     }
                     else
                     {
-                        DevLog.Write($"계정 생성 실패:  {loginHiveServerResponse.Result}");
+                        DevLog.Write($"Hive 서버 로그인 실패:  {loginHiveServerResponse.Result}");
                     }
 
                 }
                 else
                 {
-                    DevLog.Write($"계정 생성 실패: {response.ReasonPhrase} ");
+                    DevLog.Write($"Hive 서버 로그인 실패: {response.ReasonPhrase} ");
                 }
             }
             catch (Exception ex)
@@ -231,18 +235,58 @@ namespace csharp_test_client
                     }
                     else
                     {
-                        DevLog.Write($"계정 생성 실패:  {loginApiServerResponse.Result}");
+                        DevLog.Write($"Api 서버 로그인 실패:  {loginApiServerResponse.Result}");
                     }
 
                 }
                 else
                 {
-                    DevLog.Write($"계정 생성 실패: {response.ReasonPhrase} ");
+                    DevLog.Write($"Api 서버 로그인 실패: {response.ReasonPhrase} ");
                 }
             }
             catch (Exception ex)
             {
                 DevLog.Write($"오류 발생: {ex.Message}");
+            }
+        }
+
+        private async Task SendHttpRequestMatchingApiServer(object sender, EventArgs e)
+        {
+            try
+            {
+                string ApiServerURL = textBoxApiIP.Text;
+                string id = textBoxApiUserID.Text;
+                string pw = textBoxApiUserAuthToken.Text;
+                HttpClient client = new HttpClient();
+
+                string url = $"http://{ApiServerURL}:6525/Matching";
+                string jsonContent = $"{{ \"UserID\": \"{id}\", \"AuthToken\": \"{pw}\" }}";
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var loginApiServerResponse = JsonConvert.DeserializeObject<MatchingResponse>(responseString);
+                    if (loginApiServerResponse.Result == APIErrorCode.None)
+                    {
+                        DevLog.Write($"매칭 요청");
+                    }
+                    else
+                    {
+                        DevLog.Write($"매칭 요청 실패:  {loginApiServerResponse.Result}");
+                    }
+
+                }
+                else
+                {
+                    DevLog.Write($"매칭 요청 실패: {response.ReasonPhrase} ");
+                }
+            }
+            catch (Exception ex)
+            {
+                DevLog.Write($"매칭 요청 오류 발생: {ex.Message}");
             }
         }
 
@@ -520,10 +564,6 @@ namespace csharp_test_client
             DevLog.Write($"방 채팅 요청");
         }
 
-        private void btn_Matching_Click(object sender, EventArgs e)
-        {
-            DevLog.Write($"매칭 요청 - 미구현");
-        }
 
         
         private void listBoxRoomChatMsg_SelectedIndexChanged(object sender, EventArgs e)

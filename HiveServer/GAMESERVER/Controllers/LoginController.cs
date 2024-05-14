@@ -15,14 +15,15 @@ public class Login : ControllerBase
     private readonly IAccountDb _accountDb;
     private readonly IMemoryDb _memoryDb;
     private readonly HttpClient _httpClient;   // API 서버와 통신하기 위한 HTTP 클라이언트 객체
-    static readonly string ApiServerURL = "http://localhost:5256/Login"; // 프로그램 수명 동안 계속 유지하기 위한 static 키워드 사용
+    private readonly string HiveServerURL;
 
-    public Login(ILogger<Login> logger, IAccountDb accountDb, IMemoryDb memoryDb, HttpClient httpClient)
+    public Login(ILogger<Login> logger, IAccountDb accountDb, IMemoryDb memoryDb, HttpClient httpClient, IConfiguration configuration)
     {
         _logger = logger;
         _accountDb = accountDb;
         _memoryDb = memoryDb;
         _httpClient = httpClient;
+        HiveServerURL = configuration["HiveServerAddress"] + "/Login";
     }
 
     [HttpPost]
@@ -79,7 +80,7 @@ public class Login : ControllerBase
         ErrorCode result = ErrorCode.None;
         try
         {
-            string queryString = ApiServerURL + $"?Id={request.Id}&AuthToken={request.AuthToken}"; 
+            string queryString = HiveServerURL + $"?Id={request.Id}&AuthToken={request.AuthToken}"; 
             var httpResponse = await _httpClient.GetAsync(queryString); 
 
             var responseString = await httpResponse.Content.ReadAsStringAsync();

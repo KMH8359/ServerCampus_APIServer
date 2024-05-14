@@ -22,7 +22,8 @@ public class CheckUserAuthAndLoadUserData
     public async Task Invoke(HttpContext context)
     {
         string formString = context.Request.Path.Value;
-        if (string.Compare(formString, "/Login", StringComparison.OrdinalIgnoreCase) == 0)  
+        if (string.Compare(formString, "/Login", StringComparison.OrdinalIgnoreCase) == 0 ||
+            string.Compare(formString, "/Matching", StringComparison.OrdinalIgnoreCase) == 0)
         {
             await _next(context);
             return;

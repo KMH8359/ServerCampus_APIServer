@@ -5,10 +5,10 @@ public enum ErrorCode : UInt16
 {
     None = 0,
 
-    AythCheckFail = 21,
-    ReceiptCheckFail = 22,
-    MatchingInProgress = 23,
-    MatchingReqFail = 24,
+    AythCheckFail = 5021,
+    ReceiptCheckFail = 5022,
+    MatchingInProgress = 5023,
+    MatchingReqFail = 5024,
 
 
 }

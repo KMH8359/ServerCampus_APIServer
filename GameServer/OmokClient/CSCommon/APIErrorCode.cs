@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSCommon
 {
@@ -64,11 +65,22 @@ namespace CSCommon
         GetCharacterListFail = 3014,
 
         //GameDb 4000~ 
-        GetGameDbConnectionFail = 4002
+        GetGameDbConnectionFail = 4002,
+
+        //Matching 5000~
+        AythCheckFail = 5021,
+        ReceiptCheckFail = 5022,
+        MatchingInProgress = 5023,
+        MatchingReqFail = 5024,
     }
     public class LoginResponse
     {
         public APIErrorCode Result { get; set; }
         public string AuthToken { get; set; }
+    }
+
+    public class MatchingResponse
+    {
+        [Required] public APIErrorCode Result { get; set; } = APIErrorCode.None;
     }
 }

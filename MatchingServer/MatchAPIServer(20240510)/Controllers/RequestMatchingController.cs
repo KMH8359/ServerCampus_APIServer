@@ -17,19 +17,19 @@ namespace APIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RequestMatching : ControllerBase
+public class Matching : ControllerBase
 {
     IMatchWoker _matchWorker;
 
-    public RequestMatching(IMatchWoker matchWorker)
+    public Matching(IMatchWoker matchWorker)
     {
         _matchWorker = matchWorker;
     }
 
     [HttpPost]
-    public MatchResponse Post(MatchingRequest request)
+    public MatchingResponse Post(MatchingRequest request)
     {
-        MatchResponse response = new();
+        MatchingResponse response = new();
 
         var result = _matchWorker.AddUser(request.UserID);
         response.Result = result;
@@ -44,7 +44,7 @@ public class MatchingRequest
     public string UserID { get; set; }
 }
 
-public class MatchResponse
+public class MatchingResponse   
 {
     [Required] public ErrorCode Result { get; set; } = ErrorCode.None;
 }

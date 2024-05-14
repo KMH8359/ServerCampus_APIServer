@@ -80,25 +80,25 @@
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnDisconnect.Location = new System.Drawing.Point(410, 44);
-            this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(88, 26);
-            this.btnDisconnect.TabIndex = 29;
-            this.btnDisconnect.Text = "접속 끊기";
-            this.btnDisconnect.UseVisualStyleBackColor = true;
-            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
+            //this.btnDisconnect.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.btnDisconnect.Location = new System.Drawing.Point(410, 44);
+            //this.btnDisconnect.Name = "btnDisconnect";
+            //this.btnDisconnect.Size = new System.Drawing.Size(88, 26);
+            //this.btnDisconnect.TabIndex = 29;
+            //this.btnDisconnect.Text = "접속 끊기";
+            //this.btnDisconnect.UseVisualStyleBackColor = true;
+            //this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
             // 
             // btnConnect
             // 
-            this.btnConnect.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnConnect.Location = new System.Drawing.Point(410, 16);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(88, 26);
-            this.btnConnect.TabIndex = 28;
-            this.btnConnect.Text = "접속하기";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            //this.btnConnect.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.btnConnect.Location = new System.Drawing.Point(410, 16);
+            //this.btnConnect.Name = "btnConnect";
+            //this.btnConnect.Size = new System.Drawing.Size(88, 26);
+            //this.btnConnect.TabIndex = 28;
+            //this.btnConnect.Text = "접속하기";
+            //this.btnConnect.UseVisualStyleBackColor = true;
+            //this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // btnCreateAccount
             // 
@@ -140,8 +140,8 @@
             this.groupBox5.Controls.Add(this.checkBoxLocalHostIP);
             this.groupBox5.Controls.Add(this.textBoxIP);
             this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.btnConnect);
-            this.groupBox5.Controls.Add(this.btnDisconnect);
+            //this.groupBox5.Controls.Add(this.btnConnect);
+            //this.groupBox5.Controls.Add(this.btnDisconnect);
             this.groupBox5.Controls.Add(this.button2);
             this.groupBox5.Controls.Add(this.textBoxUserPW);
             this.groupBox5.Controls.Add(this.label2);
@@ -404,11 +404,11 @@
             this.button2.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button2.Location = new System.Drawing.Point(337, 67);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(69, 26);
+            this.button2.Size = new System.Drawing.Size(80, 26);
             this.button2.TabIndex = 46;
-            this.button2.Text = "Login";
+            this.button2.Text = "Matching";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.btn_Login_Click);
+            this.button2.Click += new System.EventHandler(this.btn_Matching_Click);
             // 
             // Room
             // 

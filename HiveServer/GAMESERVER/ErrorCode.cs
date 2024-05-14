@@ -62,5 +62,11 @@ public enum ErrorCode : UInt16
     GetCharacterListFail = 3014,
 
     //GameDb 4000~ 
-    GetGameDbConnectionFail = 4002
+    GetGameDbConnectionFail = 4002,
+
+    //Matching 5000~
+    AythCheckFail = 5021,
+    ReceiptCheckFail = 5022,
+    MatchingInProgress = 5023,
+    MatchingReqFail = 5024,
 }

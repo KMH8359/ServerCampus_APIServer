@@ -11,6 +11,7 @@ builder.Services.Configure<DbConfig>(configuration.GetSection(nameof(DbConfig)))
 builder.Services.AddTransient<IAccountDb, AccountDb>();
 builder.Services.AddSingleton<IMemoryDb, MemoryDb>();
 builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<IConfiguration>(configuration);
 builder.Services.AddControllers();
 
 SettingLogger();
