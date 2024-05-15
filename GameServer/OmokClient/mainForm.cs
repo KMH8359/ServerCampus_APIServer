@@ -188,6 +188,7 @@ namespace csharp_test_client
                     var loginHiveServerResponse = JsonConvert.DeserializeObject<LoginResponse>(responseString);
                     if (loginHiveServerResponse.Result == APIErrorCode.None)
                     {
+                        textBoxApiUserID.Text = textBoxHiveUserID.Text;
                         textBoxApiUserAuthToken.Text = loginHiveServerResponse.AuthToken;
                         DevLog.Write($"Hive 서버 로그인 성공:  {textBoxHiveUserID.Text}, {textBoxHiveUserPW.Text}, 인증 토큰 - {loginHiveServerResponse.AuthToken}");
                     }
@@ -268,14 +269,14 @@ namespace csharp_test_client
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var loginApiServerResponse = JsonConvert.DeserializeObject<MatchingResponse>(responseString);
-                    if (loginApiServerResponse.Result == APIErrorCode.None)
+                    var ApiServerResponse = JsonConvert.DeserializeObject<MatchingResponse>(responseString);
+                    if (ApiServerResponse.Result == APIErrorCode.None)
                     {
                         DevLog.Write($"매칭 요청");
                     }
                     else
                     {
-                        DevLog.Write($"매칭 요청 실패:  {loginApiServerResponse.Result}");
+                        DevLog.Write($"매칭 요청 실패:  {ApiServerResponse.Result}");
                     }
 
                 }

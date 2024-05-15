@@ -15,6 +15,7 @@ public class Room
 
     public int Index { get; private set; }
     public int Number { get; private set; }
+    public bool IsReserved = false;
 
     public int _maxUserCount { get; private set; } = 0;
 

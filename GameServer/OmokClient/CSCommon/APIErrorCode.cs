@@ -81,6 +81,6 @@ namespace CSCommon
 
     public class MatchingResponse
     {
-        [Required] public APIErrorCode Result { get; set; } = APIErrorCode.None;
+        public APIErrorCode Result { get; set; }
     }
 }

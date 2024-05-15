@@ -59,7 +59,7 @@ public class MatchWoker : IMatchWoker
         {
             if (_reqQueue.Contains<string> (userID) || _completeDic.ContainsKey(userID))
             {
-                return ErrorCode.MatchingReqFail;
+                return ErrorCode.MatchingInProgress;
             }
             _reqQueue.Enqueue(userID);
             return ErrorCode.None;
@@ -98,6 +98,7 @@ public class MatchWoker : IMatchWoker
 
                 if (_reqQueue.TryDequeue(out var user1) && _reqQueue.TryDequeue(out var user2))
                 {
+                    Console.WriteLine("_redisList_clientInfo에 매칭된 플레이어 정보 저장");
                     var task = _redisList_clientInfo.RightPushAsync(user1);
                     task.Wait();
                     task = _redisList_clientInfo.RightPushAsync(user2);
@@ -178,7 +179,6 @@ public class CompleteMatchingData
 public class MatchingConfig
 {
     public string UserRedisAddress { get; set; }
-    public string MatchingDataRedisAddress { get; set; }
     public string PubKey { get; set; }
     public string SubKey { get; set; }
 }

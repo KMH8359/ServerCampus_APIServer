@@ -159,7 +159,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         _packetProcessor.NetSendFunc = this.SendData;
         _packetProcessor.GetSessionGroupFunc = this.GetSessionsByGroupIndex;
 
-        _packetProcessor.CreateAndStart(_roomMgr.GetRoomsList(), serverOpt, MainLogger);
+        _packetProcessor.CreateAndStart(_roomMgr, serverOpt, MainLogger);
 
         _roomMgr.SetPacketProcessor(_packetProcessor);
 

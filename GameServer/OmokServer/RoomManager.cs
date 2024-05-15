@@ -50,6 +50,18 @@ class RoomManager
         _gameTimer.StartTurnTimer();
     }
 
+    public Room GetValidRoom()
+    {
+        foreach (var room in _roomsList)
+        {
+            if (room.CurrentUserCount() == 0 && room.IsReserved == false)
+            {
+                return room;
+            }
+        }
+        return null;
+    }
+
     void OnTurnTimeOut(object sender, EventArgs e)
     {
         GroupIndexEventArgs groupArgs = e as GroupIndexEventArgs;
@@ -60,6 +72,11 @@ class RoomManager
 
         foreach (var room in group)
         {
+            if (room.IsReserved && room.CurrentUserCount() == 0)
+            {
+                room.IsReserved = false;
+            }
+
             if (room.RecentPutMokTime == DateTime.MinValue) continue;
 
             var nowTime = DateTime.UtcNow;

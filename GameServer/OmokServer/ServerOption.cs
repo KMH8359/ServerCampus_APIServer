@@ -31,4 +31,5 @@ public class ServerOption
     public int HeartbeatGroupSize { get; set; } = 0;
     public int HeartbeatTimeOut { get; set; } = 0;
 
+    public string UserRedisAddress { get; set; }
 }    
