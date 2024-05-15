@@ -83,4 +83,11 @@ namespace CSCommon
     {
         public APIErrorCode Result { get; set; }
     }
+
+    public class CheckMatchingResponse
+    {
+        public APIErrorCode Result { get; set; } = APIErrorCode.MatchingInProgress;
+        public string ServerAddress { get; set; } = "";
+        public int RoomNumber { get; set; } = 0;
+    }
 }

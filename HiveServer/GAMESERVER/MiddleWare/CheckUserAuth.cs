@@ -23,7 +23,8 @@ public class CheckUserAuthAndLoadUserData
     {
         string formString = context.Request.Path.Value;
         if (string.Compare(formString, "/Login", StringComparison.OrdinalIgnoreCase) == 0 ||
-            string.Compare(formString, "/Matching", StringComparison.OrdinalIgnoreCase) == 0)
+            string.Compare(formString, "/Matching", StringComparison.OrdinalIgnoreCase) == 0 ||
+            string.Compare(formString, "/CheckMatching", StringComparison.OrdinalIgnoreCase) == 0)
         {
             await _next(context);
             return;

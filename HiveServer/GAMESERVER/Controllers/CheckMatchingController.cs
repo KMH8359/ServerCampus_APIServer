@@ -12,38 +12,28 @@ namespace APISERVER.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class Matching : ControllerBase
+public class CheckMatching : ControllerBase
 {
     private readonly ILogger _logger;
-    private readonly IMemoryDb _memoryDb;
     private readonly HttpClient _httpClient;   // API 서버와 통신하기 위한 HTTP 클라이언트 객체
     private readonly string MatchingServerURL;
 
 
-    public Matching(ILogger<Matching> logger,  IMemoryDb memoryDb, HttpClient httpClient, IConfiguration configuration)
+    public CheckMatching(ILogger<Matching> logger,  HttpClient httpClient, IConfiguration configuration)
     {
         _logger = logger;
-        _memoryDb = memoryDb;
         _httpClient = httpClient;
         MatchingServerURL = configuration["MatchingServerAddress"];
     }
 
     [HttpPost]
-    public async Task<MatchingResponse> ReqMatchingAsync(MatchingRequest request)
+    public async Task<CheckMatchingResponse> CheckMatchingAsync(CheckMatchingRequest request)
     {
-        var response = new MatchingResponse();
+        var response = new CheckMatchingResponse();
 
         try
         {
-            (bool succeed, UserAuthData userAuthData) = await _memoryDb.GetUserAsync(request.UserID);   // redis에 로그인 정보가 존재하는지 확인
-            if (!succeed ||  userAuthData.AuthToken != request.AuthToken)
-            {
-                response.Result = ErrorCode.CheckAuthFailNotMatch;
-                return response;
-            }
-
-
-            string url = MatchingServerURL + "/Matching";
+            string url = MatchingServerURL + "/CheckMatching";
             string jsonContent = $"{{ \"UserID\": \"{request.UserID}\" }}";
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
@@ -52,7 +42,7 @@ public class Matching : ControllerBase
             if (httpResponse.IsSuccessStatusCode)
             {
                 var responseString = await httpResponse.Content.ReadAsStringAsync();
-                response = JsonConvert.DeserializeObject<MatchingResponse>(responseString);
+                response = JsonConvert.DeserializeObject<CheckMatchingResponse>(responseString);
             }
             else
             {
@@ -72,13 +62,14 @@ public class Matching : ControllerBase
 }
 
 
-public class MatchingRequest
+public class CheckMatchingRequest
 {
     public string UserID { get; set; }
-    public string? AuthToken { get; set; }
 }
 
-public class MatchingResponse
+public class CheckMatchingResponse
 {
-    [Required] public ErrorCode Result { get; set; } = ErrorCode.None;
+    public ErrorCode Result { get; set; } = ErrorCode.MatchingInProgress;
+    public string ServerAddress { get; set; } = "";
+    public int RoomNumber { get; set; } = 0;
 }

@@ -207,6 +207,8 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     {
         MainLogger.Info($"세션 번호 {session.SessionID} 접속해제: {reason.ToString()}");
 
+        var user = _packetProcessor._userMgr.GetUser(session.SessionID);
+        _packetProcessor.registClientInfoToRemove(user.ID());
         var packet = InnerPakcetMaker.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID);
         Distribute(packet);
     }

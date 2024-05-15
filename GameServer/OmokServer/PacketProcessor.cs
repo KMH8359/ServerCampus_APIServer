@@ -8,6 +8,7 @@ using CloudStructures;
 using CloudStructures.Structures;
 using System.Runtime.Intrinsics.X86;
 using System.Net;
+using System.Net.Sockets;
 
 
 namespace PvPGameServer;
@@ -26,7 +27,7 @@ class PacketProcessor
     BufferBlock<MemoryPackBinaryRequestInfo> _msgBuffer = new BufferBlock<MemoryPackBinaryRequestInfo>();
     BufferBlock<MemoryPackBinaryRequestInfo> _dbmsgBuffer = new BufferBlock<MemoryPackBinaryRequestInfo>();
 
-    UserManager _userMgr = new UserManager();
+    public UserManager _userMgr = new UserManager();
     List<Room> _roomList = new List<Room>();
 
     Dictionary<int, Action<MemoryPackBinaryRequestInfo>> _packetHandlerMap = new Dictionary<int, Action<MemoryPackBinaryRequestInfo>>();
@@ -43,6 +44,9 @@ class PacketProcessor
     RedisConnection _redisConnection;
     RedisList<string> _redisList_clientInfo;  // 매칭 서버에서 대전 서버로 보낼 정보들을 저장하는 RedisList
     RedisList<CompleteMatchingData> _redisList_gameRoom;  // 대전 서버로부터 플레이어들이 진입할 방에 대한 정보들을 받아와 저장하는 RedisList
+    RedisList<string> _redisList_clientInfoToRemove;  // 매칭서버에서 제거할(게임을 다 플레이하고 원상태로 돌아온) 플레이어들의 정보를 저장하는 Redis
+
+    string myAddress;
 
     public void CreateAndStart(RoomManager roomManager, ServerOption serverOpt, ILog logger)
     {
@@ -60,6 +64,7 @@ class PacketProcessor
         _redisConnection = new RedisConnection(config);
         _redisList_clientInfo = new RedisList<string>(_redisConnection, "ClientInfo", TimeSpan.FromMinutes(30));
         _redisList_gameRoom = new RedisList<CompleteMatchingData>(_redisConnection, "MatchingData", TimeSpan.FromMinutes(60));
+        _redisList_clientInfoToRemove = new RedisList<string>(_redisConnection, "ClientInfo_Remove", TimeSpan.FromMinutes(30));
 
         RegistPacketHandler();
         _commonPacketHandler.sessionTimeoutLimit = serverOpt.HeartbeatTimeOut;
@@ -72,6 +77,8 @@ class PacketProcessor
         _matchingThread = new System.Threading.Thread(this.Matching_Process);
         _matchingThread.Start();
 
+
+        myAddress = GetLocalIP();
     }
     
     public void Destroy()
@@ -113,6 +120,19 @@ class PacketProcessor
 
         _databasePacketHandler.Init(_userMgr);
         _databasePacketHandler.RegistPacketHandler(_dbRequestHandlerMap);
+    }
+
+    public static string GetLocalIP()
+    {
+        IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
+        foreach (IPAddress ip in addresses)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork) 
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("IPv4 address not found.");
     }
 
     void Process()
@@ -193,8 +213,7 @@ class PacketProcessor
                 var room = _roomMgr.GetValidRoom();
                 room.IsReserved = true;
 
-                var address = Dns.GetHostAddresses(Dns.GetHostName())[0].ToString();
-                CompleteMatchingData data = new CompleteMatchingData(address, room.Number, player1_id, player2_id);
+                CompleteMatchingData data = new CompleteMatchingData(myAddress, room.Number, player1_id, player2_id);
                 var task = _redisList_gameRoom.RightPushAsync(data);
                 task.Wait();
 
@@ -214,6 +233,11 @@ class PacketProcessor
                 }
             }
         }
+    }
+
+    public void registClientInfoToRemove(string UserID)
+    {
+        _redisList_clientInfoToRemove.RightPushAsync(UserID);
     }
 
 }

@@ -21,9 +21,9 @@ public class CheckMatching : Controller
     }
 
     [HttpPost]
-    public CheckMatchingRes Post(CheckMatchingReq request)
+    public CheckMatchingResponse Post(CheckMatchingRequest request)
     {
-        CheckMatchingRes response = new();
+        CheckMatchingResponse response = new();
 
         (var result, var completeMatchingData) = _matchWorker.GetCompleteMatching(request.UserID);
 
@@ -40,13 +40,13 @@ public class CheckMatching : Controller
 
 }
 
-public class CheckMatchingReq
+public class CheckMatchingRequest
 {
     public string UserID { get; set; }
 }
 
 
-public class CheckMatchingRes
+public class CheckMatchingResponse
 {
     public ErrorCode Result { get; set; } = ErrorCode.MatchingInProgress;
     public string ServerAddress { get; set; } = "";

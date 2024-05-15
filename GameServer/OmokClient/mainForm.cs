@@ -30,8 +30,10 @@ namespace csharp_test_client
         ConcurrentQueue<byte[]> RecvPacketQueue = new ConcurrentQueue<byte[]>();
         ConcurrentQueue<byte[]> SendPacketQueue = new ConcurrentQueue<byte[]>();
 
-        System.Windows.Forms.Timer dispatcherUITimer;
 
+        HttpClient client = new HttpClient();
+        System.Windows.Forms.Timer dispatcherUITimer;
+        System.Windows.Forms.Timer matchingRequestTimer;
 
 
         public mainForm()
@@ -40,7 +42,7 @@ namespace csharp_test_client
         }
 
         private void mainForm_Load(object sender, EventArgs e)
-        {
+        { 
             PacketBuffer.Init((8096 * 10), MemoryPackPacketHeaderInfo.HeadSize, 2048);
 
             IsNetworkThreadRunning = true;
@@ -54,6 +56,10 @@ namespace csharp_test_client
             dispatcherUITimer.Tick += new EventHandler(BackGroundProcess);
             dispatcherUITimer.Interval = 100;
             dispatcherUITimer.Start();
+
+            matchingRequestTimer = new System.Windows.Forms.Timer();
+            matchingRequestTimer.Tick += new EventHandler(ReqMatching);
+            matchingRequestTimer.Interval = 5000;
 
             btnDisconnect.Enabled = false;
 
@@ -123,6 +129,11 @@ namespace csharp_test_client
         {
             await SendHttpRequestMatchingApiServer(sender, e);
         }
+
+        private async void CheckMatching(object sender, EventArgs e)
+        {
+            await SendHttpCheckMatchingApiServer(sender, e);
+        }
         private async Task SendHttpRequestCreateAccount(object sender, EventArgs e)
         {
             try
@@ -130,8 +141,6 @@ namespace csharp_test_client
                 string ApiServerURL = textBoxHiveIP.Text;
                 string id = textBoxHiveUserID.Text;
                 string pw = textBoxHiveUserPW.Text;
-
-                HttpClient client = new HttpClient();
 
                 string url = $"http://{ApiServerURL}:5256/CreateAccount";
 
@@ -172,8 +181,6 @@ namespace csharp_test_client
                 string ApiServerURL = textBoxHiveIP.Text;
                 string id = textBoxHiveUserID.Text;
                 string pw = textBoxHiveUserPW.Text;
-
-                HttpClient client = new HttpClient();
 
                 string url = $"http://{ApiServerURL}:5256/Login";
 
@@ -217,8 +224,6 @@ namespace csharp_test_client
                 string id = textBoxApiUserID.Text;
                 string pw = textBoxApiUserAuthToken.Text;
 
-                HttpClient client = new HttpClient();
-
                 string url = $"http://{ApiServerURL}:6525/Login";
 
                 string jsonContent = $"{{ \"Id\": \"{id}\", \"AuthToken\": \"{pw}\" }}";
@@ -258,7 +263,6 @@ namespace csharp_test_client
                 string ApiServerURL = textBoxApiIP.Text;
                 string id = textBoxApiUserID.Text;
                 string pw = textBoxApiUserAuthToken.Text;
-                HttpClient client = new HttpClient();
 
                 string url = $"http://{ApiServerURL}:6525/Matching";
                 string jsonContent = $"{{ \"UserID\": \"{id}\", \"AuthToken\": \"{pw}\" }}";
@@ -273,16 +277,57 @@ namespace csharp_test_client
                     if (ApiServerResponse.Result == APIErrorCode.None)
                     {
                         DevLog.Write($"매칭 요청");
+                        matchingRequestTimer.Start();
                     }
                     else
                     {
-                        DevLog.Write($"매칭 요청 실패:  {ApiServerResponse.Result}");
+                        DevLog.Write($"매칭 요청 실패 -  {ApiServerResponse.Result}");
                     }
 
                 }
                 else
                 {
                     DevLog.Write($"매칭 요청 실패: {response.ReasonPhrase} ");
+                }
+            }
+            catch (Exception ex)
+            {
+                DevLog.Write($"매칭 요청 오류 발생: {ex.Message}");
+            }
+        }
+
+        private async Task SendHttpCheckMatchingApiServer(object sender, EventArgs e)
+        {
+            try
+            {
+                string ApiServerURL = textBoxApiIP.Text;
+                string id = textBoxApiUserID.Text;
+
+                string url = $"http://{ApiServerURL}:6525/CheckMatching";
+                string jsonContent = $"{{ \"UserID\": \"{id}\" }}";
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var ApiServerResponse = JsonConvert.DeserializeObject<MatchingResponse>(responseString);
+                    if (ApiServerResponse.Result == APIErrorCode.None)
+                    {
+                        DevLog.Write($"매칭 성공");
+                        matchingRequestTimer.Stop();
+                        // 서버 접속해야됨
+                    }
+                    else
+                    {
+                        DevLog.Write($"매칭 체크:  {ApiServerResponse.Result}");
+                    }
+
+                }
+                else
+                {
+                    DevLog.Write($"매칭 실패: {response.ReasonPhrase} ");
                 }
             }
             catch (Exception ex)
@@ -374,6 +419,11 @@ namespace csharp_test_client
             {
                 MessageBox.Show(string.Format("BackGroundProcess. error:{0}", ex.Message));
             }
+        }
+
+        void ReqMatching(object sender, EventArgs e)
+        {
+            CheckMatching(sender, e);
         }
 
         private void ProcessLog()

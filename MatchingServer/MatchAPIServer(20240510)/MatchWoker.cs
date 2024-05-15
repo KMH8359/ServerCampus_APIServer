@@ -30,11 +30,13 @@ public class MatchWoker : IMatchWoker
     System.Threading.Thread _completeWorker = null;
     ConcurrentDictionary<string, CompleteMatchingData> _completeDic = new();
 
+    System.Threading.Thread _eraseWorker = null;
+
     RedisConnection _redisConnection;
 
     RedisList<string> _redisList_clientInfo;  // 매칭 서버에서 대전 서버로 보낼 정보들을 저장하는 RedisList
     RedisList<CompleteMatchingData> _redisList_gameRoom;  // 대전 서버로부터 플레이어들이 진입할 방에 대한 정보들을 받아와 저장하는 RedisList
-
+    RedisList<string> _redisList_clientInfoToRemove;  // 매칭서버에서 제거할(게임을 다 플레이하고 원상태로 돌아온) 플레이어들의 정보를 저장하는 Redis
 
     public MatchWoker(IOptions<MatchingConfig> matchingConfig)
     {
@@ -45,12 +47,16 @@ public class MatchWoker : IMatchWoker
 
         _redisList_clientInfo = new RedisList<string>(_redisConnection, "ClientInfo", TimeSpan.FromMinutes(30));
         _redisList_gameRoom = new RedisList<CompleteMatchingData>(_redisConnection, "MatchingData", TimeSpan.FromMinutes(60));
+        _redisList_clientInfoToRemove = new RedisList<string>(_redisConnection, "ClientInfo_Remove", TimeSpan.FromMinutes(30));
 
         _reqWorker = new Thread(this.RunMatching);
         _reqWorker.Start();
 
         _completeWorker = new Thread(this.RunMatchingComplete);
         _completeWorker.Start();
+
+        _eraseWorker = new Thread(this.RunErase);
+        _eraseWorker.Start();
     }
     
     public ErrorCode AddUser(string userID)
@@ -96,14 +102,14 @@ public class MatchWoker : IMatchWoker
                     continue;
                 }
 
-                if (_reqQueue.TryDequeue(out var user1) && _reqQueue.TryDequeue(out var user2))
-                {
-                    Console.WriteLine("_redisList_clientInfo에 매칭된 플레이어 정보 저장");
-                    var task = _redisList_clientInfo.RightPushAsync(user1);
-                    task.Wait();
-                    task = _redisList_clientInfo.RightPushAsync(user2);
-                    task.Wait();
-                }
+                _reqQueue.TryDequeue(out var user1);
+                _reqQueue.TryDequeue(out var user2);
+                
+                Console.WriteLine("_redisList_clientInfo에 매칭된 플레이어 정보 저장");
+                var task = _redisList_clientInfo.RightPushAsync(user1);
+                task.Wait();
+                task = _redisList_clientInfo.RightPushAsync(user2);
+                task.Wait();
 
             }
             catch (Exception ex)
@@ -138,6 +144,8 @@ public class MatchWoker : IMatchWoker
 
                 _completeDic.TryAdd(user1.myId, user1);
                 _completeDic.TryAdd(user2.myId, user2);
+
+                Console.WriteLine($"정보 저장 - address : {user1.ServerAddress}, roomNumber : {user1.RoomNumber}");
             }
             catch (Exception ex)
             {
@@ -146,15 +154,30 @@ public class MatchWoker : IMatchWoker
         }        
     }
 
-
-    string GetGameServerAddress()
+    void RunErase()
     {
-        return "127.0.0.1";
-    }
+        while (true)
+        {
+            try
+            {
+                if (_redisList_clientInfoToRemove.LengthAsync().Result == 0)
+                {
+                    Thread.Sleep(1);
+                    continue;
+                }
 
-    int GetGameRoomNumber()
-    {
-        return 0;
+                var task = _redisList_clientInfoToRemove.LeftPopAsync();
+                task.Wait();
+                var UserID = task.Result.Value;
+
+                EraseUserID(UserID);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 
 
