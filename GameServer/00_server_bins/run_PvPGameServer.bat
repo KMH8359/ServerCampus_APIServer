@@ -1,1 +1,0 @@
-dotnet net8.0\PvPGameServer.dll
