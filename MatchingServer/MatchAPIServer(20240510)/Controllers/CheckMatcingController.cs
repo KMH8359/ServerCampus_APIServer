@@ -33,6 +33,7 @@ public class CheckMatching : Controller
             response.Result = ErrorCode.None;
             response.ServerAddress = completeMatchingData.ServerAddress;
             response.RoomNumber = completeMatchingData.RoomNumber;
+            response.PortNumber = completeMatchingData.PortNumber;
         }
         return response;
     }
@@ -50,5 +51,6 @@ public class CheckMatchingResponse
 {
     public ErrorCode Result { get; set; } = ErrorCode.MatchingInProgress;
     public string ServerAddress { get; set; } = "";
+    public int PortNumber { get; set; } = 0;
     public int RoomNumber { get; set; } = 0;    
 }

@@ -8,6 +8,8 @@ using CloudStructures.Structures;
 using MySqlConnector;
 using SqlKata.Execution;
 using System.Threading.Tasks;
+using OmokServer;
+using Newtonsoft.Json;
 
 namespace PvPGameServer;
 
@@ -65,17 +67,19 @@ public class PKHDataBase : PKHandler, IDisposable
 
     private async Task<ErrorCode> VerifyLogin(string userID, string authToken)
     {
+        string uid = MemoryDbKeyMaker.MakeUIDKey(userID);
         ErrorCode result = ErrorCode.NONE;
         try
         {
-            RedisString<string> redis = new(_redisConnection, userID, null);
+            RedisString<string> redis = new(_redisConnection, uid, null);
             RedisResult<string> user = await redis.GetAsync();
 
+            var userArray = JsonConvert.DeserializeObject<UserAuthData>(user.Value);
             if (!user.HasValue)
             {
                 return ErrorCode.DB_LOGIN_EMPTY_USER;
             }
-            else if (user.Value != authToken)
+            else if (userArray.AuthToken != authToken)
             {
                 return ErrorCode.LOGIN_INVALID_AUTHTOKEN;
             }

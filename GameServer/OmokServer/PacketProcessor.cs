@@ -47,6 +47,7 @@ class PacketProcessor
     RedisList<string> _redisList_clientInfoToRemove;  // 매칭서버에서 제거할(게임을 다 플레이하고 원상태로 돌아온) 플레이어들의 정보를 저장하는 Redis
 
     string myAddress;
+    int myPort;
 
     public void CreateAndStart(RoomManager roomManager, ServerOption serverOpt, ILog logger)
     {
@@ -78,7 +79,8 @@ class PacketProcessor
         _matchingThread.Start();
 
 
-        myAddress = GetLocalIP();
+        myAddress = "127.0.0.1";// GetLocalIP();
+        myPort = 32452;
     }
     
     public void Destroy()
@@ -213,12 +215,11 @@ class PacketProcessor
                 var room = _roomMgr.GetValidRoom();
                 room.IsReserved = true;
 
-                CompleteMatchingData data = new CompleteMatchingData(myAddress, room.Number, player1_id, player2_id);
+                CompleteMatchingData data = new CompleteMatchingData(myAddress, room.Number, myPort, player1_id);
                 var task = _redisList_gameRoom.RightPushAsync(data);
                 task.Wait();
 
                 data.myId = player2_id;
-                data.enemyId = player1_id;
                 task = _redisList_gameRoom.RightPushAsync(data);
                 task.Wait();
 
@@ -246,14 +247,14 @@ public class CompleteMatchingData
 {
     public string ServerAddress { get; set; }
     public int RoomNumber { get; set; }
+    public int PortNumber { get; set; }
     public string myId { get; set; }
-    public string enemyId { get; set; }
 
-    public CompleteMatchingData( string address, int roomnum, string myid, string enemyid) 
+    public CompleteMatchingData( string address, int roomnum, int portnum, string myid) 
     {
         ServerAddress = address;
-        RoomNumber = roomnum;   
+        RoomNumber = roomnum;
+        PortNumber = portnum;
         myId = myid;
-        enemyId = enemyid;
     }
 }

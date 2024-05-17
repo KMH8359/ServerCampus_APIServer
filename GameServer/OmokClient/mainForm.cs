@@ -104,12 +104,56 @@ namespace csharp_test_client
 
             PacketBuffer.Clear();
         }
-
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
             HandleDisconnect();
             Network.Close();
         }
+
+        private void ConnectGameServer(CheckMatchingResponse response)
+        {
+            string serverAddress = response.ServerAddress;
+            int port = response.PortNumber;
+
+            if (Network.Connect(serverAddress, port))
+            {
+                labelStatus.Text = string.Format("{0}. 서버에 접속 중", DateTime.Now);
+                DevLog.Write($"서버에 접속 중", LOG_LEVEL.INFO);
+            }
+            else
+            {
+                labelStatus.Text = string.Format("{0}. 서버에 접속 실패", DateTime.Now);
+            }
+
+            PacketBuffer.Clear();
+        }
+
+        private void LoginGameServer()
+        {
+            var loginReq = new PKTReqLogin();
+            loginReq.UserID = textBoxApiUserID.Text;
+            loginReq.AuthToken = textBoxApiUserAuthToken.Text;
+
+            var packet = MemoryPackSerializer.Serialize(loginReq);
+
+            PostSendPacket(PacketID.REQ_LOGIN, packet);
+            DevLog.Write($"로그인 요청:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
+            DevLog.Write($"로그인 요청: {ToReadableByteArray(packet)}");
+        }
+
+        private void EnterGameRoom()
+        {
+            int roomNumber = textBoxRoomNumber.Text.ToInt32();
+            var requestPkt = new PKTReqRoomEnter();
+            requestPkt.RoomNumber = roomNumber;
+
+            var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
+
+            PostSendPacket(PacketID.REQ_ROOM_ENTER, sendPacketData);
+            DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
+        }
+
+
 
         private async void btnCreateAccount_Click(object sender, EventArgs e)
         {
@@ -312,12 +356,15 @@ namespace csharp_test_client
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var ApiServerResponse = JsonConvert.DeserializeObject<MatchingResponse>(responseString);
+                    var ApiServerResponse = JsonConvert.DeserializeObject<CheckMatchingResponse>(responseString);
+                    textBoxRoomNumber.Text = ApiServerResponse.RoomNumber.ToString();
                     if (ApiServerResponse.Result == APIErrorCode.None)
                     {
                         DevLog.Write($"매칭 성공");
                         matchingRequestTimer.Stop();
-                        // 서버 접속해야됨
+                        ConnectGameServer(ApiServerResponse);
+                        LoginGameServer();
+                        //EnterGameRoom(ApiServerResponse.RoomNumber);
                     }
                     else
                     {
@@ -568,35 +615,35 @@ namespace csharp_test_client
         }
 
         // 로그인 요청
-        private void btn_Login_Click(object sender, EventArgs e)
-        {
-            var loginReq = new PKTReqLogin();
-            loginReq.UserID = textBoxUserID.Text;
-            loginReq.AuthToken = textBoxUserPW.Text;
+        //private void btn_Login_Click(object sender, EventArgs e)
+        //{
+        //    var loginReq = new PKTReqLogin();
+        //    loginReq.UserID = textBoxUserID.Text;
+        //    loginReq.AuthToken = textBoxUserPW.Text;
 
-            var packet = MemoryPackSerializer.Serialize(loginReq);
+        //    var packet = MemoryPackSerializer.Serialize(loginReq);
                         
-            PostSendPacket(PacketID.REQ_LOGIN, packet);            
-            DevLog.Write($"로그인 요청:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
-            DevLog.Write($"로그인 요청: {ToReadableByteArray(packet)}");
-        }
+        //    PostSendPacket(PacketID.REQ_LOGIN, packet);            
+        //    DevLog.Write($"로그인 요청:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
+        //    DevLog.Write($"로그인 요청: {ToReadableByteArray(packet)}");
+        //}
 
-        private void btn_RoomEnter_Click(object sender, EventArgs e)
-        {
-            var requestPkt = new PKTReqRoomEnter();
-            requestPkt.RoomNumber = textBoxRoomNumber.Text.ToInt32();
+        //private void btn_RoomEnter_Click(object sender, EventArgs e)
+        //{
+        //    var requestPkt = new PKTReqRoomEnter();
+        //    requestPkt.RoomNumber = textBoxRoomNumber.Text.ToInt32();
 
-            var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
+        //    var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
-            PostSendPacket(PacketID.REQ_ROOM_ENTER, sendPacketData);
-            DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
-        }
+        //    PostSendPacket(PacketID.REQ_ROOM_ENTER, sendPacketData);
+        //    DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
+        //}
 
-        private void btn_RoomLeave_Click(object sender, EventArgs e)
-        {
-            PostSendPacket(PacketID.REQ_ROOM_LEAVE, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
-            DevLog.Write($"방 퇴장 요청:  {textBoxRoomNumber.Text} 번");
-        }
+        //private void btn_RoomLeave_Click(object sender, EventArgs e)
+        //{
+        //    PostSendPacket(PacketID.REQ_ROOM_LEAVE, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
+        //    DevLog.Write($"방 퇴장 요청:  {textBoxRoomNumber.Text} 번");
+        //}
 
         private void btn_RoomChat_Click(object sender, EventArgs e)
         {

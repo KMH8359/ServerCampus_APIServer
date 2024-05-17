@@ -59,6 +59,7 @@ namespace csharp_test_client
         {
             var responsePkt = MemoryPackSerializer.Deserialize<PKTResLogin>(packetData);
             DevLog.Write($"로그인 결과: {(ErrorCode)responsePkt.Result}");
+            EnterGameRoom();
         }
 
         void PacketProcess_HeartBeat(byte[] packetData)
@@ -220,6 +221,7 @@ namespace csharp_test_client
         {
             var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfEndOmok>(packetData);
 
+            종료효과음.Play();
             EndGame(notifyPkt.WinUserID);
             if (notifyPkt.WinUserID == null)
             {

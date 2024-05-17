@@ -63,8 +63,8 @@
             this.textBoxRoomSendMsg = new System.Windows.Forms.TextBox();
             this.listBoxRoomChatMsg = new System.Windows.Forms.ListBox();
             this.listBoxRoomUserList = new System.Windows.Forms.ListBox();
-            this.btn_RoomLeave = new System.Windows.Forms.Button();
-            this.btn_RoomEnter = new System.Windows.Forms.Button();
+            //this.btn_RoomLeave = new System.Windows.Forms.Button();
+            //this.btn_RoomEnter = new System.Windows.Forms.Button();
             this.textBoxRoomNumber = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -420,8 +420,8 @@
             this.Room.Controls.Add(this.textBoxRoomSendMsg);
             this.Room.Controls.Add(this.listBoxRoomChatMsg);
             this.Room.Controls.Add(this.listBoxRoomUserList);
-            this.Room.Controls.Add(this.btn_RoomLeave);
-            this.Room.Controls.Add(this.btn_RoomEnter);
+            //this.Room.Controls.Add(this.btn_RoomLeave);
+            //this.Room.Controls.Add(this.btn_RoomEnter);
             this.Room.Controls.Add(this.textBoxRoomNumber);
             this.Room.Controls.Add(this.label3);
             this.Room.Location = new System.Drawing.Point(14, 220);
@@ -510,25 +510,25 @@
             // 
             // btn_RoomLeave
             // 
-            this.btn_RoomLeave.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_RoomLeave.Location = new System.Drawing.Point(216, 18);
-            this.btn_RoomLeave.Name = "btn_RoomLeave";
-            this.btn_RoomLeave.Size = new System.Drawing.Size(66, 26);
-            this.btn_RoomLeave.TabIndex = 48;
-            this.btn_RoomLeave.Text = "Leave";
-            this.btn_RoomLeave.UseVisualStyleBackColor = true;
-            this.btn_RoomLeave.Click += new System.EventHandler(this.btn_RoomLeave_Click);
-            // 
-            // btn_RoomEnter
-            // 
-            this.btn_RoomEnter.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_RoomEnter.Location = new System.Drawing.Point(144, 18);
-            this.btn_RoomEnter.Name = "btn_RoomEnter";
-            this.btn_RoomEnter.Size = new System.Drawing.Size(66, 26);
-            this.btn_RoomEnter.TabIndex = 47;
-            this.btn_RoomEnter.Text = "Enter";
-            this.btn_RoomEnter.UseVisualStyleBackColor = true;
-            this.btn_RoomEnter.Click += new System.EventHandler(this.btn_RoomEnter_Click);
+            //this.btn_RoomLeave.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.btn_RoomLeave.Location = new System.Drawing.Point(216, 18);
+            //this.btn_RoomLeave.Name = "btn_RoomLeave";
+            //this.btn_RoomLeave.Size = new System.Drawing.Size(66, 26);
+            //this.btn_RoomLeave.TabIndex = 48;
+            //this.btn_RoomLeave.Text = "Leave";
+            //this.btn_RoomLeave.UseVisualStyleBackColor = true;
+            //this.btn_RoomLeave.Click += new System.EventHandler(this.btn_RoomLeave_Click);
+            //// 
+            //// btn_RoomEnter
+            //// 
+            //this.btn_RoomEnter.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            //this.btn_RoomEnter.Location = new System.Drawing.Point(144, 18);
+            //this.btn_RoomEnter.Name = "btn_RoomEnter";
+            //this.btn_RoomEnter.Size = new System.Drawing.Size(66, 26);
+            //this.btn_RoomEnter.TabIndex = 47;
+            //this.btn_RoomEnter.Text = "Enter";
+            //this.btn_RoomEnter.UseVisualStyleBackColor = true;
+            //this.btn_RoomEnter.Click += new System.EventHandler(this.btn_RoomEnter_Click);
             // 
             // textBoxRoomNumber
             // 
@@ -635,8 +635,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox Room;
-        private System.Windows.Forms.Button btn_RoomLeave;
-        private System.Windows.Forms.Button btn_RoomEnter;
+        //private System.Windows.Forms.Button btn_RoomLeave;
+        //private System.Windows.Forms.Button btn_RoomEnter;
         private System.Windows.Forms.TextBox textBoxRoomNumber;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnRoomChat;

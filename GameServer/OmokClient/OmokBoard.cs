@@ -104,7 +104,6 @@ namespace csharp_test_client
             백돌플레이어Name = "";
             흑돌플레이어Name = "";
 
-            종료효과음.Play();
             panel1.Invalidate();
         }
 

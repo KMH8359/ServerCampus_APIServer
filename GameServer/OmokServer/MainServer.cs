@@ -14,6 +14,8 @@ using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
 using MemoryPack;
+using MySqlX.XDevAPI;
+using Org.BouncyCastle.Ocsp;
 
 
 namespace PvPGameServer;
@@ -198,9 +200,7 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
     void OnConnected(NetworkSession session)
     {
         MainLogger.Info($"세션 번호 {session.SessionID} 접속");
-
         session._lastResponseTime = DateTime.UtcNow;
-        
     }
 
     void OnClosed(NetworkSession session, CloseReason reason)
@@ -229,22 +229,6 @@ public class MainServer : AppServer<NetworkSession, MemoryPackBinaryRequestInfo>
         HeartbeatTimer.Elapsed += (sender, e) => SendHeartBeatMessage(sender, e, heartbeatGroupIndex);
         HeartbeatTimer.AutoReset = true;
         HeartbeatTimer.Start();
-    }
-
-    void TurnOffTimer(int groupIndex)
-    {
-        if (HeartbeatTimer.Enabled)
-        {
-            HeartbeatTimer.Stop();
-        }
-    }
-
-    void TurnOnTimer(int groupIndex)
-    {
-        if (HeartbeatTimer.Enabled == false)
-        {
-            HeartbeatTimer.Start();
-        }
     }
 
     void SendHeartBeatMessage(object sender, ElapsedEventArgs e, int groupIndex)

@@ -71,5 +71,6 @@ public class CheckMatchingResponse
 {
     public ErrorCode Result { get; set; } = ErrorCode.MatchingInProgress;
     public string ServerAddress { get; set; } = "";
+    public int PortNumber { get; set; } = 0;
     public int RoomNumber { get; set; } = 0;
 }

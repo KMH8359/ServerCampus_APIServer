@@ -194,8 +194,9 @@ public class CompleteMatchingData
 {    
     public string ServerAddress { get; set; }
     public int RoomNumber { get; set; }
+    public int PortNumber { get; set; }
     public string myId { get; set; }
-    public string enemyId { get; set; }
+    
 }
 
 
