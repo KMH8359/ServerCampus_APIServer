@@ -80,14 +80,9 @@ namespace csharp_test_client
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            string address = textBoxIP.Text;
+            string address = gameServerIP.Text;
 
-            if (checkBoxLocalHostIP.Checked)
-            {
-                address = "127.0.0.1";
-            }
-
-            int port = Convert.ToInt32(textBoxPort.Text);
+            int port = Convert.ToInt32(gameServerPortNumber.Text);
 
             if (Network.Connect(address, port))
             {
@@ -112,7 +107,9 @@ namespace csharp_test_client
 
         private void ConnectGameServer(CheckMatchingResponse response)
         {
-            string serverAddress = response.ServerAddress;
+            gameServerIP.Text = response.ServerAddress;
+            gameServerPortNumber.Text = response.PortNumber.ToString();
+            string serverAddress = gameServerIP.Text;
             int port = response.PortNumber;
 
             if (Network.Connect(serverAddress, port))
@@ -137,20 +134,20 @@ namespace csharp_test_client
             var packet = MemoryPackSerializer.Serialize(loginReq);
 
             PostSendPacket(PacketID.REQ_LOGIN, packet);
-            DevLog.Write($"로그인 요청:  {textBoxUserID.Text}, {textBoxUserPW.Text}");
+            DevLog.Write($"로그인 요청:  {gameUserID.Text}, {gameUserAuthToken.Text}");
             DevLog.Write($"로그인 요청: {ToReadableByteArray(packet)}");
         }
 
         private void EnterGameRoom()
         {
-            int roomNumber = textBoxRoomNumber.Text.ToInt32();
+            int roomNumber = RoomNumber.Text.ToInt32();
             var requestPkt = new PKTReqRoomEnter();
             requestPkt.RoomNumber = roomNumber;
 
             var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
             PostSendPacket(PacketID.REQ_ROOM_ENTER, sendPacketData);
-            DevLog.Write($"방 입장 요청:  {textBoxRoomNumber.Text} 번");
+            DevLog.Write($"방 입장 요청:  {RoomNumber.Text} 번");
         }
 
 
@@ -282,6 +279,8 @@ namespace csharp_test_client
                     if (loginApiServerResponse.Result == APIErrorCode.None)
                     {
                         DevLog.Write($"Api 서버 로그인 성공:  {textBoxApiUserID.Text}, {textBoxApiUserAuthToken.Text}");
+                        gameUserAuthToken.Text = textBoxApiUserAuthToken.Text;
+                        gameUserID.Text = textBoxApiUserID.Text;
                     }
                     else
                     {
@@ -357,7 +356,7 @@ namespace csharp_test_client
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     var ApiServerResponse = JsonConvert.DeserializeObject<CheckMatchingResponse>(responseString);
-                    textBoxRoomNumber.Text = ApiServerResponse.RoomNumber.ToString();
+                    RoomNumber.Text = ApiServerResponse.RoomNumber.ToString();
                     if (ApiServerResponse.Result == APIErrorCode.None)
                     {
                         DevLog.Write($"매칭 성공");

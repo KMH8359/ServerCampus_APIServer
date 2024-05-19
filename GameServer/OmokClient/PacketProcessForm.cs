@@ -175,12 +175,12 @@ namespace csharp_test_client
 
             var notifyPkt = MemoryPackSerializer.Deserialize<PKTNtfStartOmok>(packetData);
             
-            if(notifyPkt.FirstUserID == textBoxUserID.Text)
+            if(notifyPkt.FirstUserID == gameUserID.Text)
             {
                 isMyTurn = true;
             }
 
-            StartGame(isMyTurn, textBoxUserID.Text, GetOtherPlayers(textBoxUserID.Text));
+            StartGame(isMyTurn, gameUserID.Text, GetOtherPlayers(gameUserID.Text));
 
             DevLog.Write($"게임 시작. 흑돌 플레이어: {notifyPkt.FirstUserID}");
         }

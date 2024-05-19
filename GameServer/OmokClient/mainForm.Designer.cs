@@ -35,10 +35,9 @@
             this.btnLoginApiServer = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBoxAPI = new System.Windows.Forms.GroupBox();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.gameServerPortNumber = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.checkBoxLocalHostIP = new System.Windows.Forms.CheckBox();
-            this.textBoxIP = new System.Windows.Forms.TextBox();
+            this.gameServerIP = new System.Windows.Forms.Label();
             this.textBoxHiveIP = new System.Windows.Forms.TextBox();
             this.textBoxApiIP = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -51,8 +50,8 @@
             this.textBoxHiveUserPW = new System.Windows.Forms.TextBox();
             this.textBoxApiUserID = new System.Windows.Forms.TextBox();
             this.textBoxApiUserAuthToken = new System.Windows.Forms.TextBox();
-            this.textBoxUserID = new System.Windows.Forms.TextBox();
-            this.textBoxUserPW = new System.Windows.Forms.TextBox();
+            this.gameUserID = new System.Windows.Forms.Label();
+            this.gameUserAuthToken = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.Room = new System.Windows.Forms.GroupBox();
@@ -65,7 +64,7 @@
             this.listBoxRoomUserList = new System.Windows.Forms.ListBox();
             //this.btn_RoomLeave = new System.Windows.Forms.Button();
             //this.btn_RoomEnter = new System.Windows.Forms.Button();
-            this.textBoxRoomNumber = new System.Windows.Forms.TextBox();
+            this.RoomNumber = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -135,17 +134,16 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBoxPort);
+            this.groupBox5.Controls.Add(this.gameServerPortNumber);
             this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Controls.Add(this.checkBoxLocalHostIP);
-            this.groupBox5.Controls.Add(this.textBoxIP);
+            this.groupBox5.Controls.Add(this.gameServerIP);
             this.groupBox5.Controls.Add(this.label9);
             //this.groupBox5.Controls.Add(this.btnConnect);
             //this.groupBox5.Controls.Add(this.btnDisconnect);
             this.groupBox5.Controls.Add(this.button2);
-            this.groupBox5.Controls.Add(this.textBoxUserPW);
+            this.groupBox5.Controls.Add(this.gameUserAuthToken);
             this.groupBox5.Controls.Add(this.label2);
-            this.groupBox5.Controls.Add(this.textBoxUserID);
+            this.groupBox5.Controls.Add(this.gameUserID);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Location = new System.Drawing.Point(12, 100);
             this.groupBox5.Name = "groupBox5";
@@ -178,15 +176,15 @@
             this.groupBoxAPI.TabStop = false;
             this.groupBoxAPI.Text = "API 서버 로그인";
             // 
-            // textBoxPort
+            // gameServerPortNumber
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(225, 20);
-            this.textBoxPort.MaxLength = 6;
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(51, 21);
-            this.textBoxPort.TabIndex = 18;
-            this.textBoxPort.Text = "32452";
-            this.textBoxPort.WordWrap = false;
+            this.gameServerPortNumber.Location = new System.Drawing.Point(225, 22);
+            //this.gameServerPortNumber.MaxLength = 6;
+            this.gameServerPortNumber.Name = "gameServerPortNumber";
+            this.gameServerPortNumber.Size = new System.Drawing.Size(51, 21);
+            this.gameServerPortNumber.TabIndex = 18;
+            this.gameServerPortNumber.Text = "";
+            //this.gameServerPortNumber.WordWrap = false;
             // 
             // label10
             // 
@@ -197,27 +195,15 @@
             this.label10.TabIndex = 17;
             this.label10.Text = "포트 번호:";
             // 
-            // checkBoxLocalHostIP
+            // gameServerIP
             // 
-            this.checkBoxLocalHostIP.AutoSize = true;
-            this.checkBoxLocalHostIP.Checked = true;
-            this.checkBoxLocalHostIP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLocalHostIP.Location = new System.Drawing.Point(282, 18);
-            this.checkBoxLocalHostIP.Name = "checkBoxLocalHostIP";
-            this.checkBoxLocalHostIP.Size = new System.Drawing.Size(103, 16);
-            this.checkBoxLocalHostIP.TabIndex = 15;
-            this.checkBoxLocalHostIP.Text = "localhost 사용";
-            this.checkBoxLocalHostIP.UseVisualStyleBackColor = true;
-            // 
-            // textBoxIP
-            // 
-            this.textBoxIP.Location = new System.Drawing.Point(68, 18);
-            this.textBoxIP.MaxLength = 20;
-            this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(87, 21);
-            this.textBoxIP.TabIndex = 11;
-            this.textBoxIP.Text = "127.0.0.1";
-            this.textBoxIP.WordWrap = false;
+            this.gameServerIP.Location = new System.Drawing.Point(68, 22);
+            //this.gameServerIP.MaxLength = 20;
+            this.gameServerIP.Name = "gameServerIP";
+            this.gameServerIP.Size = new System.Drawing.Size(87, 21);
+            this.gameServerIP.TabIndex = 11;
+            this.gameServerIP.Text = "";
+            //this.gameServerIP.WordWrap = false;
             // 
             // textBoxHiveIP
             // 
@@ -294,25 +280,25 @@
             this.label1.TabIndex = 42;
             this.label1.Text = "UserID:";
             // 
-            // textBoxUserID
+            // gameUserID
             // 
-            this.textBoxUserID.Location = new System.Drawing.Point(62, 67);
-            this.textBoxUserID.MaxLength = 15;
-            this.textBoxUserID.Name = "textBoxUserID";
-            this.textBoxUserID.Size = new System.Drawing.Size(87, 21);
-            this.textBoxUserID.TabIndex = 43;
-            this.textBoxUserID.Text = "test1";
-            this.textBoxUserID.WordWrap = false;
+            this.gameUserID.Location = new System.Drawing.Point(62, 70);
+            //this.gameUserID.MaxLength = 15;
+            this.gameUserID.Name = "gameUserID";
+            this.gameUserID.Size = new System.Drawing.Size(87, 21);
+            this.gameUserID.TabIndex = 43;
+            this.gameUserID.Text = "";
+            //this.gameUserID.WordWrap = false;
             // 
-            // textBoxUserPW
+            // gameUserAuthToken
             // 
-            this.textBoxUserPW.Location = new System.Drawing.Point(230, 68);
-            this.textBoxUserPW.MaxLength = 20;
-            this.textBoxUserPW.Name = "textBoxUserPW";
-            this.textBoxUserPW.Size = new System.Drawing.Size(87, 21);
-            this.textBoxUserPW.TabIndex = 45;
-            this.textBoxUserPW.Text = "123qwe";
-            this.textBoxUserPW.WordWrap = false;
+            this.gameUserAuthToken.Location = new System.Drawing.Point(230, 70);
+            //this.gameUserAuthToken.MaxLength = 20;
+            this.gameUserAuthToken.Name = "gameUserAuthToken";
+            this.gameUserAuthToken.Size = new System.Drawing.Size(87, 21);
+            this.gameUserAuthToken.TabIndex = 45;
+            this.gameUserAuthToken.Text = "";
+            //this.gameUserAuthToken.WordWrap = false;
             // 
             // textBoxHiveUserID
             // 
@@ -402,7 +388,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2.Location = new System.Drawing.Point(337, 67);
+            this.button2.Location = new System.Drawing.Point(380, 40);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(80, 26);
             this.button2.TabIndex = 46;
@@ -422,7 +408,7 @@
             this.Room.Controls.Add(this.listBoxRoomUserList);
             //this.Room.Controls.Add(this.btn_RoomLeave);
             //this.Room.Controls.Add(this.btn_RoomEnter);
-            this.Room.Controls.Add(this.textBoxRoomNumber);
+            this.Room.Controls.Add(this.RoomNumber);
             this.Room.Controls.Add(this.label3);
             this.Room.Location = new System.Drawing.Point(14, 220);
             this.Room.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -530,15 +516,15 @@
             //this.btn_RoomEnter.UseVisualStyleBackColor = true;
             //this.btn_RoomEnter.Click += new System.EventHandler(this.btn_RoomEnter_Click);
             // 
-            // textBoxRoomNumber
+            // RoomNumber
             // 
-            this.textBoxRoomNumber.Location = new System.Drawing.Point(98, 20);
-            this.textBoxRoomNumber.MaxLength = 6;
-            this.textBoxRoomNumber.Name = "textBoxRoomNumber";
-            this.textBoxRoomNumber.Size = new System.Drawing.Size(38, 21);
-            this.textBoxRoomNumber.TabIndex = 44;
-            this.textBoxRoomNumber.Text = "0";
-            this.textBoxRoomNumber.WordWrap = false;
+            this.RoomNumber.Location = new System.Drawing.Point(98, 20);
+            //this.RoomNumber.MaxLength = 6;
+            this.RoomNumber.Name = "RoomNumber";
+            this.RoomNumber.Size = new System.Drawing.Size(38, 21);
+            this.RoomNumber.TabIndex = 44;
+            this.RoomNumber.Text = "";
+            //this.RoomNumber.WordWrap = false;
             // 
             // label3
             // 
@@ -614,10 +600,9 @@
         private System.Windows.Forms.Button btnCreateAccount;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBoxAPI;
-        private System.Windows.Forms.TextBox textBoxPort;
+        private System.Windows.Forms.Label gameServerPortNumber;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkBoxLocalHostIP;
-        private System.Windows.Forms.TextBox textBoxIP;
+        private System.Windows.Forms.Label gameServerIP;
         private System.Windows.Forms.TextBox textBoxHiveIP;
         private System.Windows.Forms.TextBox textBoxApiIP;
         private System.Windows.Forms.Label label9;
@@ -630,14 +615,14 @@
         private System.Windows.Forms.TextBox textBoxHiveUserPW;
         private System.Windows.Forms.TextBox textBoxApiUserID;
         private System.Windows.Forms.TextBox textBoxApiUserAuthToken;
-        private System.Windows.Forms.TextBox textBoxUserID;
-        private System.Windows.Forms.TextBox textBoxUserPW;
+        private System.Windows.Forms.Label gameUserID;
+        private System.Windows.Forms.Label gameUserAuthToken;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox Room;
         //private System.Windows.Forms.Button btn_RoomLeave;
         //private System.Windows.Forms.Button btn_RoomEnter;
-        private System.Windows.Forms.TextBox textBoxRoomNumber;
+        private System.Windows.Forms.Label RoomNumber;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnRoomChat;
         private System.Windows.Forms.TextBox textBoxRoomSendMsg;
