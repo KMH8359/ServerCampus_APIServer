@@ -1,0 +1,15 @@
+.mono/
+.vscode/
+obj/
+bin/
+.idea/
+log/
+.vs/
+*.log
+*.dll
+*.pdb
+*.json
+*.exe
+*.config
+*.dylib
+*.so
