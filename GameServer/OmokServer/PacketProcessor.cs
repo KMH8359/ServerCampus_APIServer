@@ -9,7 +9,7 @@ using CloudStructures.Structures;
 using System.Runtime.Intrinsics.X86;
 using System.Net;
 using System.Net.Sockets;
-
+using CSCommon;
 
 namespace PvPGameServer;
 
@@ -145,7 +145,7 @@ class PacketProcessor
             {
                 var packet = _msgBuffer.Receive();
 
-                var header = new MemoryPackPacketHeadInfo();
+                var header = new MemoryPackPacketHeaderInfo();
                 header.Read(packet.Data);
 
                 if (_packetHandlerMap.ContainsKey(header.Id))
@@ -171,7 +171,7 @@ class PacketProcessor
             {
                 var packet = _dbmsgBuffer.Receive();
 
-                var header = new MemoryPackPacketHeadInfo();
+                var header = new MemoryPackPacketHeaderInfo();
                 header.Read(packet.Data);
 
                 if (_dbRequestHandlerMap.ContainsKey(header.Id))

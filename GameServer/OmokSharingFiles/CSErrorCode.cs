@@ -6,7 +6,7 @@ namespace CSCommon
 {
     public enum ErrorCode
     {
-        None = 0, // 에러가 아니다
+        NONE = 0, // 에러가 아니다
 
         REDIS_INIT_FAIL = 1,    // Redis 초기화 에러
 

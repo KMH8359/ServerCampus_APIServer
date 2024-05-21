@@ -6,37 +6,75 @@ namespace CSCommon
 {
     public class OmokRule
     {
-        enum 돌종류 { 없음, 흑돌, 백돌 };
+        public enum 돌종류 { 없음, 흑돌, 백돌 };
 
         const int 바둑판크기 = 19;
+        
+        
         int[,] 바둑판 = new int[바둑판크기, 바둑판크기];
-        bool 흑돌차례 = true;
-        bool 게임종료 = false;
-        //bool 삼삼 = false;
+        public bool 흑돌차례 { get; private set; } = true;
+
+        public bool 게임종료 { get; private set; } = true;
         
         //bool AI모드 = true;
         //돌종류 컴퓨터돌;
 
-        //private int 전x좌표 = -1, 전y좌표 = -1;
-        private int 전돌x좌표 = -1, 전돌y좌표 = -1;
-        private int 현재돌x좌표 = -1, 현재돌y좌표 = -1;
+        public int CurTurnCount { get; private set; } = 0;
+
+
+        public int 전돌x좌표 { get; private set; } = -1;
+        public int 전돌y좌표 { get; private set; } = -1;
+
+        public int 현재돌x좌표 { get; private set; } = -1;
+        public int 현재돌y좌표 { get; private set; } = -1;
+
         private Stack<Point> st = new Stack<Point>();
 
         public void StartGame()
         {
             Array.Clear(바둑판, 0, 바둑판크기 * 바둑판크기);
-            //전x좌표 = 전y좌표 = -1;
             전돌x좌표 = 전돌y좌표 = -1;
             현재돌x좌표 = 현재돌y좌표 = -1;
             흑돌차례 = true;
-            //삼삼 = false;
+            CurTurnCount = 1;
             게임종료 = false;
             
             st.Clear();            
         }
-
-        public void 돌두기(int x, int y)
+        
+        public void EndGame()
         {
+            게임종료 = true;
+        }
+
+        public void ClearBoard()
+        { 
+            전돌x좌표 = 전돌y좌표 = -1;
+            현재돌x좌표 = 현재돌y좌표 = -1;
+            Array.Clear(바둑판, 0, 바둑판크기 * 바둑판크기);          
+        }
+
+        public int 바둑판알(int x, int y)
+        {
+            return 바둑판[x,y];
+        }
+
+        public bool Is흑돌차례()
+        {
+            return ((CurTurnCount % 2) == 1);
+        }
+
+        public void 시간초과()
+        {
+            흑돌차례 = !흑돌차례;
+            ++CurTurnCount;
+            st.Push(new Point(-1, -1));
+        }
+
+        public 돌두기_결과 돌두기(int x, int y)
+        {
+            //TODO 서버로 부터 받은 결과가 실패인 경우 현재 둔 돌의 정보를 지워야 한다
+
             if (흑돌차례)
             {   // 검은 돌
                 바둑판[x, y] = (int)돌종류.흑돌;
@@ -47,27 +85,19 @@ namespace CSCommon
                 바둑판[x, y] = (int)돌종류.백돌;
             }
 
-            if (삼삼확인(x, y) && 흑돌차례)
-            {
-                //오류효과음.Play();
-                //MessageBox.Show("금수자리입니다. \r다른곳에 놓아주세요.", "금수 - 쌍삼");
-                바둑판[x, y] = (int)돌종류.없음;
-                //삼삼 = true;
-                return;
-            }
-            else
-            {
-                전돌x좌표 = 현재돌x좌표;
-                전돌y좌표 = 현재돌y좌표;
+            전돌x좌표 = 현재돌x좌표;
+            전돌y좌표 = 현재돌y좌표;
 
-                현재돌x좌표 = x;
-                현재돌y좌표 = y;
+            현재돌x좌표 = x;
+            현재돌y좌표 = y;
 
-                //삼삼 = false;
-                흑돌차례 = !흑돌차례;                   // 차례 변경
+            흑돌차례 = !흑돌차례;                   // 차례 변경
 
-                //바둑돌소리.Play();
-            }
+
+            ++CurTurnCount;
+            st.Push(new Point(x, y));
+
+            return 돌두기_결과.Success;
         }
 
 
@@ -304,7 +334,7 @@ namespace CSCommon
             return 0;
         }
 
-        private int 세로삼삼확인(int x, int y)    // 세로 (|) 확인
+        int 세로삼삼확인(int x, int y)    // 세로 (|) 확인
         {
             int 돌3개확인 = 1;
             int i, j;
@@ -438,5 +468,11 @@ namespace CSCommon
 
             return 0;
         }
+    }
+
+    public enum 돌두기_결과
+    {
+        Success = 0,
+        SamSam = 1,
     }
 }

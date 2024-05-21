@@ -1,6 +1,6 @@
 ﻿using MemoryPack;
 using System;
-
+using CSCommon;
 
 namespace PvPGameServer;
 
@@ -15,7 +15,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         };
 
         var sendData = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_IN_ROOM_LEAVE);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.NTF_IN_ROOM_LEAVE);
         
         var roomLeavePacket = new MemoryPackBinaryRequestInfo(null);
         roomLeavePacket.Data = sendData;
@@ -26,15 +26,15 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
     public static MemoryPackBinaryRequestInfo MakeNTFInConnectOrDisConnectClientPacket(bool isConnect, string sessionID)
     {
         var packet = new MemoryPackBinaryRequestInfo(null);
-        packet.Data = new byte[MemoryPackPacketHeadInfo.HeadSize];
+        packet.Data = new byte[MemoryPackPacketHeaderInfo.HeadSize];
         
         if (isConnect)
         {
-            MemoryPackPacketHeadInfo.WritePacketId(packet.Data, (UInt16)PACKETID.NTF_IN_CONNECT_CLIENT);
+            MemoryPackPacketHeaderInfo.WritePacketId(packet.Data, (UInt16)PACKETID.NTF_IN_CONNECT_CLIENT);
         }
         else
         {
-            MemoryPackPacketHeadInfo.WritePacketId(packet.Data, (UInt16)PACKETID.NTF_IN_DISCONNECT_CLIENT);
+            MemoryPackPacketHeaderInfo.WritePacketId(packet.Data, (UInt16)PACKETID.NTF_IN_DISCONNECT_CLIENT);
         }
 
         packet.SessionID = sessionID;
@@ -50,7 +50,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         };
 
         var sendData = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.RES_DB_LOGIN);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.RES_DB_LOGIN);
 
         var verifyPacket = new MemoryPackBinaryRequestInfo(null);
         verifyPacket.Data = sendData;
@@ -67,7 +67,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         };
 
         var sendData = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.REQ_DB_SAVE_GAMERESULT);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.REQ_DB_SAVE_GAMERESULT);
 
         var verifyPacket = new MemoryPackBinaryRequestInfo(null);
         verifyPacket.Data = sendData;
@@ -83,7 +83,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         };
 
         var sendData = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_IN_TIME_OVER);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.NTF_IN_TIME_OVER);
 
         var notifyPacket = new MemoryPackBinaryRequestInfo(null);
         notifyPacket.Data = sendData;
@@ -98,7 +98,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         };
 
         var sendData = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_IN_TOO_LONG_GAME);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.NTF_IN_TOO_LONG_GAME);
 
         var notifyPacket = new MemoryPackBinaryRequestInfo(null);
         notifyPacket.Data = sendData;
@@ -113,7 +113,7 @@ public class InnerPakcetMaker   // 서버 혼자 쓰는 패킷 메이커
         };
 
         var sendData = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_HEART_BEAT);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.NTF_HEART_BEAT);
 
         var notifyPacket = new MemoryPackBinaryRequestInfo(null);
         notifyPacket.Data = sendData;

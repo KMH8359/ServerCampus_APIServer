@@ -17,24 +17,20 @@ namespace csharp_test_client
 
         void SetPacketHandler()
         {
-            //PacketFuncDic.Add(PACKET_ID.PACKET_ID_ERROR_NTF, PacketProcess_ErrorNotify);
-            PacketFuncDic.Add(PacketID.RES_LOGIN, PacketProcess_LoginResponse);
-            PacketFuncDic.Add(PacketID.HEART_BEAT, PacketProcess_HeartBeat);
-
-            PacketFuncDic.Add(PacketID.RES_ROOM_ENTER, PacketProcess_RoomEnterResponse);
-            PacketFuncDic.Add(PacketID.NTF_ROOM_USER_LIST, PacketProcess_RoomUserListNotify);
-            PacketFuncDic.Add(PacketID.NTF_ROOM_NEW_USER, PacketProcess_RoomNewUserNotify);
-            PacketFuncDic.Add(PacketID.RES_ROOM_LEAVE, PacketProcess_RoomLeaveResponse);
-            PacketFuncDic.Add(PacketID.NTF_ROOM_LEAVE_USER, PacketProcess_RoomLeaveUserNotify);
-            //PacketFuncDic.Add(PacketID.RES_ROOM_CHAT, PacketProcess_RoomChatResponse);
-            PacketFuncDic.Add(PacketID.NTF_ROOM_CHAT, PacketProcess_RoomChatNotify);
-            //PacketFuncDic.Add(PacketID.RES_READY_OMOK, PacketProcess_ReadyOmokResponse);
-            PacketFuncDic.Add(PacketID.NTF_READY_OMOK, PacketProcess_ReadyOmokNotify);
-            PacketFuncDic.Add(PacketID.NTF_START_OMOK, PacketProcess_StartOmokNotify);
-            PacketFuncDic.Add(PacketID.RES_PUT_MOK, PacketProcess_PutMokResponse);
-            PacketFuncDic.Add(PacketID.NTF_PUT_MOK, PacketProcess_PutMokNotify);
-            PacketFuncDic.Add(PacketID.NTF_TIME_OVER, PacketProcess_TimeOverNotify);
-            PacketFuncDic.Add(PacketID.NTF_END_MOK, PacketProcess_EndOmokNotify);
+            PacketFuncDic.Add((int)PACKETID.RES_LOGIN, PacketProcess_LoginResponse);
+            PacketFuncDic.Add((int)PACKETID.HEART_BEAT, PacketProcess_HeartBeat);
+            PacketFuncDic.Add((int)PACKETID.RES_ROOM_ENTER, PacketProcess_RoomEnterResponse);
+            PacketFuncDic.Add((int)PACKETID.NTF_ROOM_USER_LIST, PacketProcess_RoomUserListNotify);
+            PacketFuncDic.Add((int)PACKETID.NTF_ROOM_NEW_USER, PacketProcess_RoomNewUserNotify);
+            PacketFuncDic.Add((int)PACKETID.RES_ROOM_LEAVE, PacketProcess_RoomLeaveResponse);
+            PacketFuncDic.Add((int)PACKETID.NTF_ROOM_LEAVE_USER, PacketProcess_RoomLeaveUserNotify);
+            PacketFuncDic.Add((int)PACKETID.NTF_ROOM_CHAT, PacketProcess_RoomChatNotify);
+            PacketFuncDic.Add((int)PACKETID.NTF_READY_OMOK, PacketProcess_ReadyOmokNotify);
+            PacketFuncDic.Add((int)PACKETID.NTF_START_OMOK, PacketProcess_StartOmokNotify);
+            PacketFuncDic.Add((int)PACKETID.RES_PUT_MOK, PacketProcess_PutMokResponse);
+            PacketFuncDic.Add((int)PACKETID.NTF_PUT_MOK, PacketProcess_PutMokNotify);
+            PacketFuncDic.Add((int)PACKETID.NTF_TIME_OVER, PacketProcess_TimeOverNotify);
+            PacketFuncDic.Add((int)PACKETID.NTF_END_MOK, PacketProcess_EndOmokNotify);
         }
 
         void PacketProcess(byte[] packet)

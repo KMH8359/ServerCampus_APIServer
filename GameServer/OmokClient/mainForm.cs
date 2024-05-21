@@ -133,7 +133,7 @@ namespace csharp_test_client
 
             var packet = MemoryPackSerializer.Serialize(loginReq);
 
-            PostSendPacket(PacketID.REQ_LOGIN, packet);
+            PostSendPacket(PACKETID.REQ_LOGIN, packet);
             DevLog.Write($"로그인 요청:  {gameUserID.Text}, {gameUserAuthToken.Text}");
             DevLog.Write($"로그인 요청: {ToReadableByteArray(packet)}");
         }
@@ -146,7 +146,7 @@ namespace csharp_test_client
 
             var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
-            PostSendPacket(PacketID.REQ_ROOM_ENTER, sendPacketData);
+            PostSendPacket(PACKETID.REQ_ROOM_ENTER, sendPacketData);
             DevLog.Write($"방 입장 요청:  {RoomNumber.Text} 번");
         }
 
@@ -239,6 +239,7 @@ namespace csharp_test_client
                         textBoxApiUserID.Text = textBoxHiveUserID.Text;
                         textBoxApiUserAuthToken.Text = loginHiveServerResponse.AuthToken;
                         DevLog.Write($"Hive 서버 로그인 성공:  {textBoxHiveUserID.Text}, {textBoxHiveUserPW.Text}, 인증 토큰 - {loginHiveServerResponse.AuthToken}");
+                        btnLoginHiveServer.Enabled = false;
                     }
                     else
                     {
@@ -281,6 +282,7 @@ namespace csharp_test_client
                         DevLog.Write($"Api 서버 로그인 성공:  {textBoxApiUserID.Text}, {textBoxApiUserAuthToken.Text}");
                         gameUserAuthToken.Text = textBoxApiUserAuthToken.Text;
                         gameUserID.Text = textBoxApiUserID.Text;
+                        btnLoginApiServer.Enabled = false;
                     }
                     else
                     {
@@ -388,7 +390,7 @@ namespace csharp_test_client
 
             var sendPacketData = MemoryPackSerializer.Serialize(responsePkt);
 
-            PostSendPacket(PacketID.HEART_BEAT, sendPacketData);
+            PostSendPacket(PACKETID.HEART_BEAT, sendPacketData);
         }
         
 
@@ -533,7 +535,7 @@ namespace csharp_test_client
             labelStatus.Text = "서버 접속이 끊어짐";
         }
 
-        void PostSendPacket(UInt16 packetID, byte[] packetData)
+        void PostSendPacket(PACKETID packetID, byte[] packetData)
         {
             if (Network.IsConnected() == false)
             {
@@ -542,7 +544,7 @@ namespace csharp_test_client
             }
 
             var header = new MemoryPackPacketHeaderInfo();
-            header.Id = packetID;
+            header.Id = (ushort)packetID;
             header.Type = 0;
 
             if (packetData != null)
@@ -657,7 +659,7 @@ namespace csharp_test_client
 
             var sendPacketData = MemoryPackSerializer.Serialize(requestPkt);
 
-            PostSendPacket(PacketID.REQ_ROOM_CHAT, sendPacketData);
+            PostSendPacket(PACKETID.REQ_ROOM_CHAT, sendPacketData);
             DevLog.Write($"방 채팅 요청");
         }
 
@@ -671,7 +673,7 @@ namespace csharp_test_client
         // 게임 시작 요청
         private void btn_Ready_Click(object sender, EventArgs e)
         {
-            PostSendPacket(PacketID.REQ_READY_OMOK, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
+            PostSendPacket(PACKETID.REQ_READY_OMOK, new byte[MemoryPackPacketHeaderInfo.HeadSize]);
 
             DevLog.Write($"게임 준비 완료 요청");
         }
@@ -685,7 +687,7 @@ namespace csharp_test_client
             };
 
             var packet = MemoryPackSerializer.Serialize(requestPkt);
-            PostSendPacket(PacketID.REQ_PUT_MOK, packet);
+            PostSendPacket(PACKETID.REQ_PUT_MOK, packet);
 
             DevLog.Write($"put stone 요청 : x  [ {x} ], y: [ {y} ] ");
         }

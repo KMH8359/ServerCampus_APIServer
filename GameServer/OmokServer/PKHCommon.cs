@@ -1,7 +1,7 @@
 ﻿using MemoryPack;
 using System;
 using System.Collections.Generic;
-
+using CSCommon;
 
 
 namespace PvPGameServer;
@@ -51,7 +51,7 @@ public class PKHCommon : PKHandler
         var notifyPacket = new PKTHeartBeat();
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.HEART_BEAT);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.HEART_BEAT);
         foreach (var session in GetSessionGroupFunc(groupIndex))
         {
             if ((DateTime.UtcNow - session._lastResponseTime).TotalMilliseconds > sessionTimeoutLimit)
@@ -137,7 +137,7 @@ public class PKHCommon : PKHandler
         };
 
         var sendData = MemoryPackSerializer.Serialize(resLogin);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.RES_LOGIN);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.RES_LOGIN);
 
         NetSendFunc(sessionID, sendData);
     }
@@ -150,7 +150,7 @@ public class PKHCommon : PKHandler
         };
 
         var sendData = MemoryPackSerializer.Serialize(resLogin);
-        MemoryPackPacketHeadInfo.Write(sendData, PACKETID.NTF_MUST_CLOSE);
+        MemoryPackPacketHeaderInfo.Write(sendData, PACKETID.NTF_MUST_CLOSE);
 
         NetSendFunc(sessionID, sendData);
     }

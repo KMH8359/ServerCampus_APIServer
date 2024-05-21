@@ -4,7 +4,7 @@ using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.Marshalling;
-
+using CSCommon;
 
 namespace PvPGameServer;
 
@@ -123,11 +123,11 @@ public class Room
         TimeOutCount = 0;
         var notifyPacket = new PKTNtfStartOmok()
         {
-            BlackMokUserID = _BlackMokUserID
+            FirstUserID = _BlackMokUserID
         };
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_START_OMOK);
 
         Broadcast("", sendPacket);
 
@@ -144,7 +144,7 @@ public class Room
         };
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_READY_OMOK);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_READY_OMOK);
 
         Broadcast("", sendPacket);
     }
@@ -177,7 +177,7 @@ public class Room
         };
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_END_MOK);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_END_MOK);
 
         
         Broadcast("", sendPacket);
@@ -200,7 +200,7 @@ public class Room
         }
 
         var sendPacket = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_ROOM_USER_LIST);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_ROOM_USER_LIST);
         
         NetSendFunc(userNetSessionID, sendPacket);
     }
@@ -211,7 +211,7 @@ public class Room
         packet.UserID = newUserID;
         
         var sendPacket = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_ROOM_NEW_USER);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_ROOM_NEW_USER);
         
         Broadcast(newUserNetSessionID, sendPacket);
     }
@@ -227,7 +227,7 @@ public class Room
         packet.UserID = userID;
         
         var sendPacket = MemoryPackSerializer.Serialize(packet);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_ROOM_LEAVE_USER);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_ROOM_LEAVE_USER);
       
         Broadcast("", sendPacket);
     }

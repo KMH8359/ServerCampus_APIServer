@@ -35,10 +35,16 @@
     <Compile Remove="CSErrorCode.cs" />
     <Compile Remove="FastBinaryRead.cs" />
     <Compile Remove="FastBinaryWrite.cs" />
-    <Compile Remove="OmokRule.cs" />
     <Compile Remove="PacketDatas.cs" />
     <Compile Remove="PacketHeader.cs" />
     <Compile Remove="PacketID.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\OmokSharingFiles\CSErrorCode.cs" Link="CSCommon\CSErrorCode.cs" />
+    <Compile Include="..\OmokSharingFiles\FastBinaryRead.cs" Link="CSCommon\FastBinaryRead.cs" />
+    <Compile Include="..\OmokSharingFiles\FastBinaryWrite.cs" Link="CSCommon\FastBinaryWrite.cs" />
+    <Compile Include="..\OmokSharingFiles\PacketData.cs" Link="CSCommon\PacketData.cs" />
+    <Compile Include="..\OmokSharingFiles\PacketHeader.cs" Link="CSCommon\PacketHeader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

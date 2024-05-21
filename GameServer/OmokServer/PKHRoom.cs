@@ -1,9 +1,9 @@
-﻿ using MemoryPack;
+﻿using MemoryPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.Marshalling;
-
+using CSCommon;
 
 namespace PvPGameServer;
 
@@ -132,7 +132,7 @@ public class PKHRoom : PKHandler
         };
 
         var sendPacket = MemoryPackSerializer.Serialize(resRoomEnter);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.RES_ROOM_ENTER);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.RES_ROOM_ENTER);
 
         NetSendFunc(sessionID, sendPacket);
     }
@@ -207,7 +207,7 @@ public class PKHRoom : PKHandler
         };
 
         var sendPacket = MemoryPackSerializer.Serialize(resRoomLeave);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.RES_ROOM_LEAVE);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.RES_ROOM_LEAVE);
 
         NetSendFunc(sessionID, sendPacket);
     }
@@ -245,7 +245,7 @@ public class PKHRoom : PKHandler
             };
 
             var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-            MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_ROOM_CHAT);
+            MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_ROOM_CHAT);
 
             room.Broadcast("", sendPacket);
 
@@ -317,7 +317,7 @@ public class PKHRoom : PKHandler
             };
 
             var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-            MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_PUT_MOK);
+            MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_PUT_MOK);
 
             room.Broadcast("", sendPacket);
 
@@ -351,7 +351,7 @@ public class PKHRoom : PKHandler
         var notifyPacket = new PKTNtfTimeOver();
 
         var sendPacket = MemoryPackSerializer.Serialize(notifyPacket);
-        MemoryPackPacketHeadInfo.Write(sendPacket, PACKETID.NTF_TIME_OVER);
+        MemoryPackPacketHeaderInfo.Write(sendPacket, PACKETID.NTF_TIME_OVER);
 
         room.Broadcast("", sendPacket);
 

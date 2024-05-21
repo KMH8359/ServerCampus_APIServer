@@ -518,7 +518,7 @@
             // 
             // RoomNumber
             // 
-            this.RoomNumber.Location = new System.Drawing.Point(98, 20);
+            this.RoomNumber.Location = new System.Drawing.Point(98, 25);
             //this.RoomNumber.MaxLength = 6;
             this.RoomNumber.Name = "RoomNumber";
             this.RoomNumber.Size = new System.Drawing.Size(38, 21);

@@ -19,9 +19,8 @@ namespace CSCommon
             return FastBinaryRead.UInt16(data, startPos + PacketHeaderMemoryPackStartPos);
         }
                 
-        public static void Write(byte[] data, UInt16 totalSize, UInt16 packetID)
+        public static void WritePacketId(byte[] data, UInt16 packetID)
         {
-            // FastBinaryWrite.UInt16(data, PacketHeaderMemoryPackStartPos, totalSize);
             FastBinaryWrite.UInt16(data, PacketHeaderMemoryPackStartPos + 2, packetID);
         }
 
@@ -69,6 +68,20 @@ namespace CSCommon
             pos += 1;
 
             return packetData;
+        }
+
+        public static void Write(byte[] packetData, PACKETID packetId, byte type = 0)
+        {
+            var pos = PacketHeaderMemoryPackStartPos;
+
+            FastBinaryWrite.UInt16(packetData, pos, (UInt16)packetData.Length);
+            pos += 2;
+
+            FastBinaryWrite.UInt16(packetData, pos, (UInt16)packetId);
+            pos += 2;
+
+            packetData[pos] = type;
+            pos += 1;
         }
     }
 
