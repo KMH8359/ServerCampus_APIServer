@@ -50,10 +50,6 @@ namespace csharp_test_client
         string 백돌플레이어Name = "";
         public string 승리플레이어Name = "";
 
-
-        AI OmokAI = new AI();
-
-
         void Omok_Init()
         {
             DoubleBuffered = true;

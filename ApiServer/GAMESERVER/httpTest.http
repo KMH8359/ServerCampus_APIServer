@@ -1,9 +1,0 @@
-POST http://localhost:6525/Login
-Content-Type: application/json
-
-{
-  "Email":"KMH1203@naver.com",
-  "AuthToken":"123qwe"
-}
-
-

@@ -1,8 +1,0 @@
-.mono/
-.vscode/
-obj/
-bin/
-.idea/
-log/
-.vs/
-*.log

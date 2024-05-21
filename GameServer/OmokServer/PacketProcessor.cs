@@ -79,8 +79,8 @@ class PacketProcessor
         _matchingThread.Start();
 
 
-        myAddress = "127.0.0.1";// GetLocalIP();
-        myPort = 32452;
+        myAddress = GetLocalIP(); // 127.0.0.1
+        myPort = serverOpt.Port;
     }
     
     public void Destroy()

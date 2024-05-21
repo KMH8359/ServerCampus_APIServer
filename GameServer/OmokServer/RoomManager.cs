@@ -14,8 +14,8 @@ class RoomManager
 
 
     public RoomTimer _gameTimer { get; private set; } = null;
-    public int maxRoomCount;    // 500
-    public int checkingGroupCount;  // 4
+    public int maxRoomCount;    
+    public int checkingGroupCount;  
     public int groupSize;
     public int roomCheckInterval;
     public int maxGameTimeMinute;
