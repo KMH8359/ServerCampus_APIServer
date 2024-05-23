@@ -8,7 +8,6 @@ log/
 *.log
 *.dll
 *.pdb
-*.json
 *.exe
 *.config
 *.dylib
